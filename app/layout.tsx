@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { AuthProvider } from '@/context/AuthContext';
 import { FounderSyncProvider } from '@/context/FounderSyncContext';
 
 export const metadata: Metadata = {
@@ -37,7 +38,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white">
-        <FounderSyncProvider>{children}</FounderSyncProvider>
+        <AuthProvider>
+          <FounderSyncProvider>{children}</FounderSyncProvider>
+        </AuthProvider>
       </body>
     </html>
   );

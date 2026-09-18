@@ -1,6 +1,9 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 export type FigmaTab = 'dashboard' | 'advisor' | 'reports' | 'insights' | 'settings';
 
@@ -11,6 +14,8 @@ interface TopNavbarProps {
 }
 
 export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavbarProps) {
+  const router = useRouter();
+  const { user, signOut } = useAuth();
   const tabs = [
     {
       id: 'dashboard' as FigmaTab,
@@ -140,21 +145,50 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
               Co-Pilot Preview
             </button>
 
-            {/* User Profile Pill */}
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <div className="relative">
-                <div className="w-8 h-8 rounded-full bg-linear-to-tr from-amber-400 to-indigo-600 p-0.5 shadow-xs">
-                  <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-bold">
-                    AC
+            {/* Auth State Controls: Sign In or Sign Out */}
+            {user ? (
+              <div className="flex items-center gap-3">
+                {/* User Profile Pill */}
+                <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+                  <div className="relative">
+                    <div className="w-8 h-8 rounded-full bg-linear-to-tr from-amber-400 to-indigo-600 p-0.5 shadow-xs">
+                      <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-bold uppercase">
+                        {user.email ? user.email.slice(0, 2) : 'AC'}
+                      </div>
+                    </div>
+                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+                  </div>
+                  <div className="hidden xl:block text-left text-xs leading-tight">
+                    <div className="font-bold text-slate-800 truncate max-w-[120px]" title={user.email || ''}>
+                      {user.email?.split('@')[0] || 'Alex Chen'}
+                    </div>
+                    <div className="text-[10px] text-emerald-600 font-semibold">Online</div>
                   </div>
                 </div>
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+
+                {/* Sign Out Button */}
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await signOut();
+                    router.push('/login');
+                  }}
+                  className="inline-flex items-center text-xs font-semibold text-rose-600 hover:text-rose-800 bg-rose-50 hover:bg-rose-100/80 border border-rose-200 px-3 py-1.5 rounded-xl transition-colors"
+                  title="Sign out of current workspace"
+                >
+                  Sign Out
+                </button>
               </div>
-              <div className="hidden xl:block text-left text-xs leading-tight">
-                <div className="font-bold text-slate-800">Alex Chen</div>
-                <div className="text-[10px] text-slate-400">Founder</div>
+            ) : (
+              <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+                <Link
+                  href="/login"
+                  className="inline-flex items-center text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-xl shadow-xs transition-all"
+                >
+                  Sign In
+                </Link>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
