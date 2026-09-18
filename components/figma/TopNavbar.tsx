@@ -151,7 +151,7 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
                 {/* User Profile Pill */}
                 <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
                   <div className="relative">
-                    <div className="w-8 h-8 rounded-full bg-linear-to-tr from-amber-400 to-indigo-600 p-0.5 shadow-xs">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 to-indigo-600 p-0.5 shadow-xs">
                       <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-white text-xs font-bold uppercase">
                         {user.email ? user.email.slice(0, 2) : 'AC'}
                       </div>

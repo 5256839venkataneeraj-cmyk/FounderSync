@@ -30,7 +30,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
       </div>
 
       {/* Hero Card: Today's Reality Check (Figma Screen 4) */}
-      <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-white via-white to-amber-50/40 border border-slate-200/90 p-6 sm:p-8 shadow-sm">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-amber-50/40 border border-slate-200/90 p-6 sm:p-8 shadow-sm">
         {/* Subtle decorative background gradient blur */}
         <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-1/3 -mb-8 w-64 h-64 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -38,9 +38,9 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 lg:gap-10">
           {/* Luminous 3D Contradiction Sphere */}
           <div className="relative shrink-0 flex flex-col items-center">
-            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full relative flex items-center justify-center p-3 shadow-xl bg-linear-to-tr from-indigo-900 via-purple-700 to-amber-300">
+            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full relative flex items-center justify-center p-3 shadow-xl bg-gradient-to-tr from-indigo-900 via-purple-700 to-amber-300">
               {/* Inner glowing sphere orb with specular highlights */}
-              <div className="w-full h-full rounded-full bg-linear-to-br from-purple-200 via-indigo-600 to-slate-950 flex items-center justify-center relative overflow-hidden shadow-inner">
+              <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-200 via-indigo-600 to-slate-950 flex items-center justify-center relative overflow-hidden shadow-inner">
                 <div className="absolute top-3 right-6 w-10 h-10 rounded-full bg-white/40 blur-xs"></div>
                 <div className="absolute bottom-4 left-6 w-12 h-12 rounded-full bg-amber-400/30 blur-sm"></div>
                 <div className="w-16 h-16 rounded-full bg-indigo-500/20 blur-md"></div>

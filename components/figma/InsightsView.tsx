@@ -228,7 +228,7 @@ export function InsightsView() {
       </div>
 
       {/* Advisor Observation Box (Figma Screen 2) */}
-      <div className="bg-linear-to-r from-indigo-50/70 via-purple-50/40 to-white rounded-2xl border border-indigo-100 p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-indigo-50/70 via-purple-50/40 to-white rounded-2xl border border-indigo-100 p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
           <span className="text-2xl mt-0.5">💡</span>
           <div>
