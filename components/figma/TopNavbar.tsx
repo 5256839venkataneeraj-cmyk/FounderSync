@@ -79,10 +79,6 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
                 FounderSync
               </span>
             </div>
-
-            <span className="hidden xl:inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-amber-50 text-amber-800 border border-amber-200/80">
-              Contradictory Workspace
-            </span>
           </div>
 
           {/* Horizontal Navigation Menu (as requested by user) */}
