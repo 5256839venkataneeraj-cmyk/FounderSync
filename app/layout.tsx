@@ -15,6 +15,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Auto-recover from stale Webpack HMR chunk loading errors on server restart
+              window.addEventListener('error', function(e) {
+                var msg = (e && (e.message || (e.error && e.error.message))) || '';
+                if (msg.indexOf('ChunkLoadError') !== -1 || msg.indexOf('Loading chunk') !== -1) {
+                  var storageKey = '_last_chunk_reload';
+                  var lastReload = parseInt(sessionStorage.getItem(storageKey) || '0', 10);
+                  var now = Date.now();
+                  if (now - lastReload > 3000) {
+                    sessionStorage.setItem(storageKey, String(now));
+                    window.location.reload();
+                  }
+                }
+              });
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white">
         <FounderSyncProvider>{children}</FounderSyncProvider>
       </body>
