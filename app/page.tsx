@@ -54,8 +54,8 @@ export default function HomePage() {
         onOpenOnboarding={() => setIsOnboardingOpen(true)}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content Area (padded for floating top navbar) */}
+      <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {activeTab === 'dashboard' && (
           <DashboardView onNavigateToAdvisor={() => setActiveTab('advisor')} />
         )}
