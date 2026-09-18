@@ -8,6 +8,8 @@ const KEY_PATTERNS = [
   /AIza[0-9A-Za-z-_]{35}/g, // Google API keys
   /xai-[0-9A-Za-z-_]{20,}/g, // xAI / Grok keys
   /gsk_[0-9A-Za-z-_]{20,}/g, // GroqCloud API keys
+  /sb_publishable_[0-9A-Za-z-_]{20,}/g, // Supabase publishable keys
+  /sb_secret_[0-9A-Za-z-_]{20,}/g, // Supabase secret keys
   /sk-[0-9A-Za-z-_]{20,}/g, // Standard secret keys
   /Bearer\s+[A-Za-z0-9-._~+/]+=*/gi, // Bearer tokens
   /AQ\.[0-9A-Za-z-_]{40,}/g, // Cloud / Gemini tokens
