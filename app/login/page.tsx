@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/lib/supabase';
+import { FounderSyncLogo } from '@/components/common/FounderSyncLogo';
 
 /**
  * Maps Supabase raw error responses to friendly, user-facing error messages.
@@ -253,27 +254,9 @@ export default function LoginPage() {
 
       <div className="w-full max-w-[420px] flex flex-col items-center relative z-10">
         {/* Top Logo Badge Container with Amber Status Dot */}
-        <div className="relative mb-3.5 flex items-center justify-center">
-          <div className="w-14 h-14 bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100 flex flex-col items-center justify-center p-2 transition-transform hover:scale-105">
-            {/* Stylized FounderSync Emblem */}
-            <div className="w-7 h-7 relative flex items-center justify-center">
-              <svg viewBox="0 0 32 32" className="w-full h-full" fill="none">
-                <circle cx="16" cy="16" r="13" stroke="url(#fs-grad)" strokeWidth="2.5" strokeDasharray="6 3" />
-                <path d="M12 16C12 13.7909 13.7909 12 16 12C18.2091 12 20 13.7909 20 16C20 18.2091 18.2091 20 16 20" stroke="#4F46E5" strokeWidth="2.5" strokeLinecap="round" />
-                <circle cx="16" cy="16" r="2.5" fill="#E58914" />
-                <defs>
-                  <linearGradient id="fs-grad" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#3B82F6" />
-                    <stop offset="0.5" stopColor="#8B5CF6" />
-                    <stop offset="1" stopColor="#E58914" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            {/* Wordmark under emblem */}
-            <span className="text-[7.5px] font-extrabold tracking-tight text-slate-800 -mt-0.5">
-              FounderSync
-            </span>
+        <div className="relative mb-4 flex items-center justify-center">
+          <div className="w-16 h-16 bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100 flex items-center justify-center p-2.5 transition-transform hover:scale-105">
+            <FounderSyncLogo variant="icon" className="h-10 w-auto" />
           </div>
 
           {/* Golden Amber Status Badge Dot */}

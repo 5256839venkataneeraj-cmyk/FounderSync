@@ -9,7 +9,7 @@ try {
   
   const statusAfterAdd = execSync('git status --porcelain', { encoding: 'utf-8' });
   if (statusAfterAdd.trim()) {
-    execSync('git commit -m "feat: complete email/password auth, rate limit protection, and clean UI"', { stdio: 'inherit' });
+    execSync('git commit -m "feat: integrate official FounderSync logo across navbar, login, modal, and favicon"', { stdio: 'inherit' });
     console.log('Committed new changes.');
   } else {
     console.log('Working tree is clean, proceeding to push.');

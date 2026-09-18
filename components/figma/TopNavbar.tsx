@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { FounderSyncLogo } from '@/components/common/FounderSyncLogo';
 
 export type FigmaTab = 'dashboard' | 'advisor' | 'reports' | 'insights' | 'settings';
 
@@ -73,15 +74,10 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
         {/* Brand */}
         <div className="flex items-center gap-3 shrink-0">
           <div
-            className="flex items-center gap-2 cursor-pointer transition-transform hover:scale-102"
+            className="flex items-center cursor-pointer transition-transform hover:scale-102"
             onClick={() => onTabChange('dashboard')}
           >
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black text-xs sm:text-sm tracking-tighter shadow-xs">
-              FS
-            </div>
-            <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 font-sans">
-              FounderSync
-            </span>
+            <FounderSyncLogo variant="horizontal" size="sm" />
           </div>
         </div>
 

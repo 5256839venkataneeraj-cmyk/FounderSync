@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: 'FounderSync — Contradictory Advisor & Reality-Check Engine',
   description:
     'Human-AI collaborative dashboard breaking startup echo chambers via contradictory stress-testing and balanced human-centric sustainability signals.',
+  icons: {
+    icon: '/logo-mark.png',
+    shortcut: '/logo-mark.png',
+    apple: '/logo-mark.png',
+  },
 };
 
 export default function RootLayout({
