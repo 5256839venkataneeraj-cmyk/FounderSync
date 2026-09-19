@@ -83,7 +83,7 @@ async function getGrokPushback(strategy: string): Promise<string> {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
+          model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
           messages: requestBody.messages,
           temperature: 0.7,
         }),
