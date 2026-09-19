@@ -2,6 +2,8 @@
 
 export const FIXED_WORKSPACE_ID = '00000000-0000-0000-0000-000000000001';
 
+export type FigmaTab = 'dashboard' | 'advisor' | 'reports' | 'insights' | 'settings';
+
 // 1. Strategic Mirror & Analyst (Gemini) Contract
 export interface StrategicAnalysisResult {
   summary: string;

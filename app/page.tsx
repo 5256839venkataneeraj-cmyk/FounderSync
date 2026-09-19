@@ -11,10 +11,12 @@ import { InsightsView } from '@/components/figma/InsightsView';
 import { SettingsView } from '@/components/figma/SettingsView';
 import { OnboardingModal } from '@/components/figma/OnboardingModal';
 
+import { useUserProfile } from '@/context/UserProfileContext';
+
 export default function HomePage() {
   const router = useRouter();
   const { user, loading } = useAuth();
-  const [activeTab, setActiveTab] = useState<FigmaTab>('dashboard');
+  const { activeTab, setActiveTab } = useUserProfile();
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
 
   // Loading state while checking initial session (times out gracefully after 1.5s)

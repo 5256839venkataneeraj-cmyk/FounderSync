@@ -18,7 +18,7 @@ interface TopNavbarProps {
 export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavbarProps) {
   const router = useRouter();
   const { user, signOut } = useAuth();
-  const { userName, setIsNameModalOpen, setIsCalendarModalOpen, isCalendarConnected } = useUserProfile();
+  const { userName, setIsNameModalOpen, setIsCalendarModalOpen, isCalendarConnected, setIsSearchModalOpen } = useUserProfile();
 
   const tabs = [
     {
@@ -112,21 +112,22 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
           <div className="hidden lg:block h-4 w-px bg-slate-200" />
 
           {/* Search Pill: Search... ⌘K */}
-          <div className="hidden xl:flex items-center relative">
-            <span className="absolute left-3 text-slate-400 pointer-events-none">
+          <button
+            type="button"
+            onClick={() => setIsSearchModalOpen(true)}
+            className="flex items-center gap-2 text-xs bg-slate-100/90 hover:bg-slate-200/80 hover:border-indigo-300 text-slate-700 rounded-full pl-3 pr-2 py-1.5 border border-slate-200/80 transition-all cursor-pointer shadow-2xs group"
+            title="Search command palette (⌘K or Ctrl+K)"
+          >
+            <span className="text-slate-400 group-hover:text-indigo-600 transition-colors">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </span>
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-32 2xl:w-40 text-xs bg-slate-100/90 hover:bg-slate-100 focus:bg-white text-slate-800 placeholder:text-slate-400 rounded-full pl-8 pr-8 py-1 border border-slate-200/80 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all font-medium"
-            />
-            <span className="absolute right-2 text-[10px] font-mono text-slate-400 bg-white px-1.5 py-0.5 rounded border border-slate-200/80">
+            <span className="text-slate-500 group-hover:text-slate-900 text-[11px] font-medium pr-1">Search...</span>
+            <kbd className="text-[10px] font-mono text-slate-400 group-hover:text-slate-700 bg-white px-1.5 py-0.5 rounded border border-slate-200/80 shadow-2xs">
               ⌘K
-            </span>
-          </div>
+            </kbd>
+          </button>
 
           {/* Notification Bell with Amber Alert Dot */}
           <button

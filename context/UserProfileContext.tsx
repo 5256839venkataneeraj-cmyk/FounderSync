@@ -3,6 +3,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 
+import { FigmaTab } from '@/lib/types';
+
 export interface CalendarEvent {
   id: string;
   title: string;
@@ -25,6 +27,10 @@ interface UserProfileContextValue {
   disconnectGoogleCalendar: () => void;
   isCalendarModalOpen: boolean;
   setIsCalendarModalOpen: (open: boolean) => void;
+  isSearchModalOpen: boolean;
+  setIsSearchModalOpen: (open: boolean) => void;
+  activeTab: FigmaTab;
+  setActiveTab: (tab: FigmaTab) => void;
   todayEvents: CalendarEvent[];
   addCalendarEvent: (event: Omit<CalendarEvent, 'id'>) => void;
 }
@@ -59,6 +65,22 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
   const [userName, setUserNameState] = useState<string>('Alex');
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
   const [isInitialCheckDone, setIsInitialCheckDone] = useState(false);
+
+  // 2. Navigation & Command Palette Search Modal
+  const [activeTab, setActiveTab] = useState<FigmaTab>('dashboard');
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  // Global Command+K / Ctrl+K keyboard shortcut listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchModalOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // 2. Real-time Date and Greeting
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
@@ -198,6 +220,10 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
         disconnectGoogleCalendar,
         isCalendarModalOpen,
         setIsCalendarModalOpen,
+        isSearchModalOpen,
+        setIsSearchModalOpen,
+        activeTab,
+        setActiveTab,
         todayEvents,
         addCalendarEvent,
       }}

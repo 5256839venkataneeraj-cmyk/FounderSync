@@ -5,6 +5,7 @@ import { FounderSyncProvider } from '@/context/FounderSyncContext';
 import { UserProfileProvider } from '@/context/UserProfileContext';
 import { UserNameModal } from '@/components/common/UserNameModal';
 import { GoogleCalendarModal } from '@/components/common/GoogleCalendarModal';
+import { CommandPaletteModal } from '@/components/common/CommandPaletteModal';
 
 export const metadata: Metadata = {
   title: 'FounderSync — Contradictory Advisor & Reality-Check Engine',
@@ -52,6 +53,7 @@ export default function RootLayout({
               {children}
               <UserNameModal />
               <GoogleCalendarModal />
+              <CommandPaletteModal />
             </FounderSyncProvider>
           </UserProfileProvider>
         </AuthProvider>
