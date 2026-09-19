@@ -51,10 +51,17 @@ export function RealityCheckWorkflow() {
     setCommittedDecision(null);
 
     try {
+      const storedGemini = typeof window !== 'undefined' ? localStorage.getItem('foundersync_gemini_key') : null;
+      const storedGrok = typeof window !== 'undefined' ? localStorage.getItem('foundersync_grok_key') : null;
+
       const response = await fetch('/api/reality-check', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ strategy: trimmed }),
+        body: JSON.stringify({
+          strategy: trimmed,
+          ...(storedGemini ? { geminiKey: storedGemini } : {}),
+          ...(storedGrok ? { grokKey: storedGrok } : {}),
+        }),
       });
 
       const json = await response.json().catch(() => null);

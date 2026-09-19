@@ -9,8 +9,8 @@ const FIXED_WORKSPACE_ID = '00000000-0000-0000-0000-000000000001';
 /**
  * Calls Gemini 1.5 Flash model for strategic synthesis and opportunity evaluation.
  */
-async function getGeminiSynthesis(strategy: string): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
+async function getGeminiSynthesis(strategy: string, customKey?: string): Promise<string> {
+  const apiKey = customKey || process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error('GEMINI_API_KEY is not defined in environment.');
   }
@@ -51,8 +51,8 @@ Keep your synthesis executive-level, clear, and actionable (2-3 structured parag
 /**
  * Calls Grok REST API (https://api.x.ai/v1/chat/completions) or Groq API for adversarial reality-check pushback.
  */
-async function getGrokPushback(strategy: string): Promise<string> {
-  const apiKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY || process.env.XAI_API_KEY;
+async function getGrokPushback(strategy: string, customKey?: string): Promise<string> {
+  const apiKey = customKey || process.env.GROQ_API_KEY || process.env.GROK_API_KEY || process.env.XAI_API_KEY;
   if (!apiKey) {
     throw new Error('GROQ_API_KEY / XAI_API_KEY is not defined in environment.');
   }
@@ -171,6 +171,8 @@ export async function POST(req: NextRequest) {
   try {
     const json = await req.json().catch(() => null);
     strategy = json?.strategy?.trim() || '';
+    const customGeminiKey = json?.geminiKey?.trim() || undefined;
+    const customGrokKey = json?.grokKey?.trim() || undefined;
 
     if (!strategy) {
       return NextResponse.json(
@@ -184,8 +186,8 @@ export async function POST(req: NextRequest) {
 
     // Call Gemini 1.5 Flash and Grok REST API simultaneously using Promise.all
     const [geminiSynthesis, grokPushback] = await Promise.all([
-      getGeminiSynthesis(strategy),
-      getGrokPushback(strategy),
+      getGeminiSynthesis(strategy, customGeminiKey),
+      getGrokPushback(strategy, customGrokKey),
     ]);
 
     // Structured AI data
