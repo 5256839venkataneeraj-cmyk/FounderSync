@@ -60,7 +60,7 @@ export function AdvisorView() {
       {/* Side-by-Side Comparison (Figma Screen 3) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column: Founder Stance */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-6">
+        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between text-xs font-bold text-slate-500 pb-3 border-b border-slate-100">
               <span className="flex items-center gap-1.5 uppercase tracking-wider">
@@ -96,7 +96,7 @@ export function AdvisorView() {
         </div>
 
         {/* Right Column: Adversarial Evaluation (Contradictory Advisor) */}
-        <div className="bg-white rounded-2xl border-2 border-amber-300/80 p-6 sm:p-8 shadow-sm flex flex-col justify-between space-y-6 relative overflow-hidden">
+        <div className="floating-card animate-float-subtle bg-white rounded-3xl border-2 border-amber-300/80 p-6 sm:p-8 shadow-[0_12px_40px_rgba(245,158,11,0.06)] flex flex-col justify-between space-y-6 relative overflow-hidden">
           <div className="space-y-4">
             <div className="flex items-center justify-between text-xs pb-3 border-b border-slate-100">
               <span className="font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">

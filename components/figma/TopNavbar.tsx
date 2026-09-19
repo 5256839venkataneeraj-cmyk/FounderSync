@@ -81,7 +81,7 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
           </div>
         </div>
 
-        {/* Floating Segmented Navigation Bar (No scrollbars, clean capsule) */}
+        {/* Floating Segmented Navigation Bar */}
         <nav className="flex items-center p-1 bg-slate-100/90 rounded-full border border-slate-200/60 shadow-inner shrink-0 overflow-x-auto no-scrollbar scrollbar-none">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -92,40 +92,45 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
                 title={tab.fullLabel || tab.label}
                 className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-150 cursor-pointer ${
                   isActive
-                    ? 'bg-white text-indigo-700 font-bold shadow-xs'
+                    ? 'bg-[#2D31E3] text-white font-bold shadow-xs'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
-                <span className={isActive ? 'text-indigo-600' : 'text-slate-400'}>
+                <span className={isActive ? 'text-white' : 'text-slate-400'}>
                   {tab.icon}
                 </span>
-                <span>{tab.label}</span>
+                <span>{tab.label === 'Insights' ? 'Team & Insights' : tab.label}</span>
               </button>
             );
           })}
         </nav>
 
-        {/* Right Action Utilities & User Controls */}
+        {/* Right Action Utilities & User Profile as per Prototype */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* Search Input */}
+          <div className="hidden lg:block h-4 w-px bg-slate-200" />
+
+          {/* Search Pill: Search... ⌘K */}
           <div className="hidden xl:flex items-center relative">
-            <span className="absolute left-3 text-slate-400">
+            <span className="absolute left-3 text-slate-400 pointer-events-none">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </span>
             <input
               type="text"
-              placeholder="Search assumptions..."
-              className="w-40 2xl:w-48 text-xs bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-slate-800 placeholder:text-slate-400 rounded-full pl-8 pr-3 py-1.5 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all font-medium"
+              placeholder="Search..."
+              className="w-32 2xl:w-40 text-xs bg-slate-100/90 hover:bg-slate-100 focus:bg-white text-slate-800 placeholder:text-slate-400 rounded-full pl-8 pr-8 py-1 border border-slate-200/80 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all font-medium"
             />
+            <span className="absolute right-2 text-[10px] font-mono text-slate-400 bg-white px-1.5 py-0.5 rounded border border-slate-200/80">
+              ⌘K
+            </span>
           </div>
 
-          {/* Notification Bell */}
+          {/* Notification Bell with Amber Alert Dot */}
           <button
             type="button"
             className="relative p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
-            title="Notifications (1 unaddressed blind spot)"
+            title="Notifications (1 active contradiction)"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -137,54 +142,38 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
           <button
             type="button"
             onClick={onOpenOnboarding}
-            className="hidden sm:inline-flex items-center text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200 px-3 py-1.5 rounded-full transition-colors cursor-pointer shadow-2xs"
+            className="hidden sm:inline-flex items-center text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200 px-3 py-1 rounded-full transition-colors cursor-pointer shadow-2xs"
+            title="Open Dialectical Co-Pilot Framework"
           >
-            Co-Pilot Preview
+            Co-Pilot
           </button>
 
-          {/* Auth State Controls */}
-          {user ? (
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <div className="flex items-center gap-1.5">
-                <div className="relative">
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-amber-400 to-indigo-600 p-0.5 shadow-xs">
-                    <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-white text-[10px] sm:text-xs font-bold uppercase">
-                      {user.email ? user.email.slice(0, 2) : 'AC'}
-                    </div>
-                  </div>
-                  <span className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full ring-1.5 ring-white"></span>
-                </div>
-                <div className="hidden 2xl:block text-left text-xs leading-tight">
-                  <div className="font-bold text-slate-800 truncate max-w-[100px]" title={user.email || ''}>
-                    {user.email?.split('@')[0] || 'Alex Chen'}
-                  </div>
-                  <div className="text-[9.5px] text-emerald-600 font-semibold">Online</div>
-                </div>
-              </div>
-
-              {/* Sign Out Button */}
-              <button
-                type="button"
-                onClick={async () => {
-                  await signOut();
+          {/* User Profile Pill: Alex */}
+          <div className="flex items-center gap-1.5 pl-1">
+            <div
+              className="flex items-center gap-2 bg-slate-100/90 hover:bg-slate-200/80 px-2.5 py-1 rounded-full border border-slate-200/70 cursor-pointer transition-all"
+              onClick={async () => {
+                if (user) {
+                  if (window.confirm('Do you want to sign out?')) {
+                    await signOut();
+                    router.push('/login');
+                  }
+                } else {
                   router.push('/login');
-                }}
-                className="inline-flex items-center text-xs font-semibold text-rose-600 hover:text-rose-800 bg-rose-50 hover:bg-rose-100/80 border border-rose-200 px-2.5 sm:px-3 py-1.5 rounded-full transition-colors cursor-pointer"
-                title="Sign out of current workspace"
-              >
-                Sign Out
-              </button>
+                }
+              }}
+              title={user ? `Signed in as ${user.email} (Click to sign out)` : 'Click to sign in'}
+            >
+              <img
+                src="/avatar-alex.png"
+                alt="Alex"
+                className="w-5 h-5 rounded-full object-cover ring-1 ring-slate-300"
+              />
+              <span className="text-xs font-bold text-slate-800">
+                {user?.email?.split('@')[0] || 'Alex'}
+              </span>
             </div>
-          ) : (
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <Link
-                href="/login"
-                className="inline-flex items-center text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-3.5 py-1.5 rounded-full shadow-xs transition-all"
-              >
-                Sign In
-              </Link>
-            </div>
-          )}
+          </div>
         </div>
       </header>
     </div>

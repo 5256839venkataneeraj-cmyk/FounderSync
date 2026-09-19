@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useFounderSync } from '@/context/FounderSyncContext';
 import { StrategicMirror } from '@/components/dashboard/StrategicMirror';
 import { StrategicAnalyst } from '@/components/dashboard/StrategicAnalyst';
@@ -9,63 +9,182 @@ interface DashboardViewProps {
   onNavigateToAdvisor: () => void;
 }
 
+type SectionView = 'overview' | 'assumptions' | 'contradictions' | 'radar';
+
+const ACTIVE_ASSUMPTIONS = [
+  {
+    id: '1',
+    category: 'GTM & PRICING',
+    title: 'Mandatory annual upfront billing reduces churn and quadruples cash runway',
+    description: 'Hypothesis that self-serve customers will accept 12-month lock-in without reducing sign-up velocity.',
+    convictionScore: 84,
+    status: 'Prioritized Today',
+  },
+  {
+    id: '2',
+    category: 'PRODUCT FOCUS',
+    title: 'Building enterprise SSO and audit logs unlocks tier-1 fintech closes',
+    description: 'Current hypothesis that compliance features are the sole blocker for 5 mid-market trials.',
+    convictionScore: 78,
+    status: 'Prioritized Today',
+  },
+  {
+    id: '3',
+    category: 'ACQUISITION',
+    title: 'Founder-led outbound on LinkedIn yields higher LTV than product-led organic inbound',
+    description: 'Testing if executive direct messaging justifies high founder cognitive time expenditure.',
+    convictionScore: 65,
+    status: 'Under Review',
+  },
+  {
+    id: '4',
+    category: 'UNIT ECONOMICS',
+    title: 'Per-seat expansion margin exceeds usage-based compute infra costs by 4.2x',
+    description: 'Assumption that team seat additions have near-zero marginal operational cost.',
+    convictionScore: 72,
+    status: 'Under Review',
+  },
+];
+
 export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
-  const { healthScore } = useFounderSync();
+  const { healthScore, state } = useFounderSync();
+  const [selectedSection, setSelectedSection] = useState<SectionView>('overview');
 
   return (
-    <div className="space-y-8 animate-fadeIn">
-      {/* Executive Reflection Greeting (Figma Screen 4) */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-2">
-        <div>
-          <span className="text-[11px] uppercase tracking-widest text-slate-400 font-bold block mb-1">
-            Executive Reflection
-          </span>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-            Good morning, Alex
-          </h1>
+    <div className="space-y-6 sm:space-y-8 animate-fadeIn pb-12">
+      {/* Top Header: Kicker, Date Badge & Title */}
+      <div className="space-y-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 font-sans">
+              EXECUTIVE REFLECTION &amp; SOUNDING BOARD
+            </span>
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-200/90 bg-white/90 text-xs font-medium text-slate-600 shadow-2xs self-start sm:self-auto">
+            <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Tuesday, October 24</span>
+          </div>
         </div>
-        <div className="text-xs text-slate-500 font-medium">
-          Tuesday, October 24
+
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Good morning, Alex
+        </h1>
+
+        {/* View Section Filters & Sparring Mode */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-bold tracking-wider uppercase text-slate-400 mr-1">
+              VIEW SECTION:
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setSelectedSection('overview')}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                selectedSection === 'overview'
+                  ? 'bg-indigo-50/90 text-indigo-700 border border-indigo-200 font-bold shadow-2xs'
+                  : 'bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50 hover:text-slate-900'
+              }`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+              <span>Overview</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedSection('assumptions')}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                selectedSection === 'assumptions'
+                  ? 'bg-indigo-50/90 text-indigo-700 border border-indigo-200 font-bold shadow-2xs'
+                  : 'bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50 hover:text-slate-900'
+              }`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Assumptions Under Review</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedSection('contradictions')}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                selectedSection === 'contradictions'
+                  ? 'bg-indigo-50/90 text-indigo-700 border border-indigo-200 font-bold shadow-2xs'
+                  : 'bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50 hover:text-slate-900'
+              }`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Contradictions &amp; Blind Spots</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedSection('radar')}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                selectedSection === 'radar'
+                  ? 'bg-indigo-50/90 text-indigo-700 border border-indigo-200 font-bold shadow-2xs'
+                  : 'bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50 hover:text-slate-900'
+              }`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              <span>Conviction Radar</span>
+            </button>
+          </div>
+
+          {/* Sparring Mode Status Pill */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs text-slate-500 font-semibold">Sparring Mode:</span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFFBEB] text-[#92400E] border border-[#FDE68A] font-bold text-xs shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse" />
+              <span>Unfiltered Adversarial</span>
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Hero Card: Today's Reality Check (Figma Screen 4) */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-white to-amber-50/40 border border-slate-200/90 p-6 sm:p-8 shadow-sm">
-        {/* Subtle decorative background gradient blur */}
-        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-1/3 -mb-8 w-64 h-64 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none"></div>
+      {/* Hero Card: Today's Reality Check (Floating Box with Smooth Levitation) */}
+      <div className="floating-card animate-float-subtle relative overflow-hidden rounded-3xl bg-gradient-to-r from-white via-white to-[#FFF9F2] border border-slate-200/90 p-7 sm:p-9 shadow-[0_16px_45px_rgba(0,0,0,0.05)]">
+        {/* Subtle atmospheric ambient blurs */}
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-72 h-72 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 -mb-10 w-72 h-72 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 lg:gap-10">
-          {/* Luminous 3D Contradiction Sphere */}
+        <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+          {/* Luminous 3D Contradiction Sphere & Floating Contradiction Badge */}
           <div className="relative shrink-0 flex flex-col items-center">
-            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full relative flex items-center justify-center p-3 shadow-xl bg-gradient-to-tr from-indigo-900 via-purple-700 to-amber-300">
-              {/* Inner glowing sphere orb with specular highlights */}
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-200 via-indigo-600 to-slate-950 flex items-center justify-center relative overflow-hidden shadow-inner">
-                <div className="absolute top-3 right-6 w-10 h-10 rounded-full bg-white/40 blur-xs"></div>
-                <div className="absolute bottom-4 left-6 w-12 h-12 rounded-full bg-amber-400/30 blur-sm"></div>
-                <div className="w-16 h-16 rounded-full bg-indigo-500/20 blur-md"></div>
-              </div>
-            </div>
-
-            {/* Contradiction Pill Badge */}
-            <div className="-mt-4 relative z-10 px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-extrabold uppercase tracking-widest flex items-center gap-1.5 shadow-md border border-slate-700">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-              <span>Contradiction</span>
+            <div className="relative flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500/20 via-purple-500/25 to-amber-300/20 blur-2xl animate-pulse-glow" />
+              <img
+                src="/reality-check-sphere.png"
+                alt="Contradiction Reality Sphere"
+                className="w-36 h-36 sm:w-44 sm:h-44 object-contain relative z-10 drop-shadow-xl animate-float transition-transform hover:scale-105"
+              />
             </div>
           </div>
 
           {/* Hero Content */}
-          <div className="flex-1 text-center md:text-left space-y-3">
-            <div className="flex items-center justify-center md:justify-start gap-1.5 text-amber-700 text-xs font-bold uppercase tracking-wider">
+          <div className="flex-1 text-center md:text-left space-y-3.5">
+            <div className="inline-flex items-center gap-1.5 text-amber-800 text-xs font-extrabold uppercase tracking-wider">
               <span>💡</span>
-              <span>Today’s Reality Check</span>
+              <span>TODAY&apos;S REALITY CHECK</span>
             </div>
 
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug tracking-tight">
+            <h2 className="text-xl sm:text-2xl lg:text-[25px] font-bold text-slate-900 leading-snug tracking-tight">
               &ldquo;Are you building enterprise features because customers demanded them, or because your largest competitor just announced them?&rdquo;
             </h2>
 
-            <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">
+            <p className="text-sm text-slate-600 leading-relaxed max-w-2xl font-normal">
               Three upcoming Q4 roadmapped deliverables lean heavily on competitive parity rather than validated problem discovery from your core ICP.
             </p>
 
@@ -73,51 +192,60 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
               <button
                 type="button"
                 onClick={onNavigateToAdvisor}
-                className="bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2"
+                className="bg-[#2D31E3] hover:bg-[#2024B8] active:scale-98 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer hover:translate-y-[-1px]"
               >
-                <span>Review Insights</span>
+                <span>Review insights</span>
                 <span>→</span>
               </button>
-              <span className="text-xs text-slate-400">
-                Case #14 · Active Counter-Deliberation
-              </span>
+
+              <button
+                type="button"
+                onClick={onNavigateToAdvisor}
+                className="bg-white hover:bg-slate-50 active:scale-98 text-slate-700 border border-slate-200/90 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer hover:translate-y-[-1px]"
+              >
+                <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                <span>Inspect Audit Trail</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Two Metric Cards (Figma Screen 4) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Two Metric Cards (Floating with Subtle Lift and Hover Interactions) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Card 1: Active Assumptions */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs flex flex-col justify-between space-y-4">
+        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-5 transition-transform">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">
+            <span className="text-xs font-bold text-slate-600 tracking-tight">
               Active Assumptions
             </span>
-            <div className="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-2xs">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
           </div>
 
           <div>
-            <div className="text-3xl font-black text-slate-900 tracking-tight">
+            <div className="text-3xl font-extrabold text-slate-900 tracking-tight">
               4 Under Review
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 font-medium mt-1">
               2 prioritized for today&apos;s sounding board
             </p>
           </div>
         </div>
 
         {/* Card 2: Alignment Score */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs flex flex-col justify-between space-y-4">
+        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-5 transition-transform">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">
+            <span className="text-xs font-bold text-slate-600 tracking-tight">
               Alignment Score
             </span>
-            <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shadow-2xs">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -125,63 +253,78 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
           </div>
 
           <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-slate-900 tracking-tight">
+            <div className="flex items-baseline gap-2.5">
+              <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
                 88%
               </span>
-              <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                 ↑ 3% this week
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 font-medium mt-1">
               Team consensus on critical market wedges
             </p>
           </div>
         </div>
-
-        {/* Card 3: Startup Health Score (Calculated Composite) */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs flex flex-col justify-between space-y-4 sm:col-span-2 lg:col-span-1">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">
-              Health Balance Index
-            </span>
-            <div className="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-              </svg>
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-indigo-600 tracking-tight">
-                {healthScore.compositeScore}/100
-              </span>
-              <span className="text-xs font-medium text-slate-500">
-                (Growth: {healthScore.growthScoreNormalized} · Human: {healthScore.humanScoreNormalized})
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">
-              50/50 synthesis of revenue scale and team sustainability
-            </p>
-          </div>
-        </div>
       </div>
 
-      {/* Integrated Live Telemetry & Gemini Strategic Mirror */}
-      <div className="space-y-6 pt-4 border-t border-slate-200/70">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-slate-900">
-            Telemetry & Telemetry Synthesis
-          </h3>
-          <span className="text-xs text-slate-400">
-            Powered by Gemini Strategic Mirror
-          </span>
+      {/* Interactive Sub-sections Based on Filter Selection */}
+      {selectedSection === 'overview' && (
+        <div className="space-y-8 animate-fadeIn pt-2">
+          <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+            <StrategicMirror />
+          </div>
+          <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+            <StrategicAnalyst />
+          </div>
         </div>
+      )}
 
-        <StrategicMirror />
-        <StrategicAnalyst />
-      </div>
+      {selectedSection === 'assumptions' && (
+        <div className="animate-fadeIn pt-2">
+          <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+            <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-indigo-600" />
+              Active Strategic Assumptions (4 Under Review)
+            </h3>
+            <div className="space-y-3">
+              {ACTIVE_ASSUMPTIONS.map((assump) => (
+                <div
+                  key={assump.id}
+                  className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 flex items-start justify-between gap-4"
+                >
+                  <div>
+                    <span className="text-xs font-mono uppercase tracking-wider text-indigo-600 font-bold block mb-1">
+                      {assump.category} · Conviction: {assump.convictionScore}/100
+                    </span>
+                    <h4 className="text-sm font-bold text-slate-800">{assump.title}</h4>
+                    <p className="text-xs text-slate-600 mt-1">{assump.description}</p>
+                  </div>
+                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 shrink-0">
+                    {assump.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedSection === 'contradictions' && (
+        <div className="animate-fadeIn pt-2">
+          <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+            <StrategicAnalyst />
+          </div>
+        </div>
+      )}
+
+      {selectedSection === 'radar' && (
+        <div className="animate-fadeIn pt-2">
+          <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+            <StrategicMirror />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -52,7 +52,7 @@ export function InsightsView() {
       </div>
 
       {/* Conviction Alignment vs. Market Reality Chart (Figma Screen 2) */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-xs space-y-6">
+      <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-100">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
@@ -179,7 +179,7 @@ export function InsightsView() {
       {/* 3 Real-time Pulse Cards (Figma Screen 2) */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
         {/* Card 1: Buyer Intent */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs flex items-center justify-between">
+        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div className="space-y-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
               Buyer Intent
@@ -195,7 +195,7 @@ export function InsightsView() {
         </div>
 
         {/* Card 2: Leadership Pulse */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs flex items-center justify-between">
+        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div className="space-y-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
               Leadership Pulse
@@ -211,7 +211,7 @@ export function InsightsView() {
         </div>
 
         {/* Card 3: Contradiction Signal */}
-        <div className="bg-amber-50/50 rounded-2xl border border-amber-200/90 p-5 shadow-xs flex items-center justify-between">
+        <div className="floating-card animate-float-subtle bg-amber-50/50 rounded-3xl border border-amber-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div className="space-y-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 block">
               Contradiction Signal
@@ -228,7 +228,7 @@ export function InsightsView() {
       </div>
 
       {/* Advisor Observation Box (Figma Screen 2) */}
-      <div className="bg-gradient-to-r from-indigo-50/70 via-purple-50/40 to-white rounded-2xl border border-indigo-100 p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="floating-card bg-gradient-to-r from-indigo-50/70 via-purple-50/40 to-white rounded-3xl border border-indigo-100 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
           <span className="text-2xl mt-0.5">💡</span>
           <div>

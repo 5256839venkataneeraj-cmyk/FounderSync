@@ -41,7 +41,7 @@ export function SettingsView() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Dual AI Models Configuration */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs space-y-5">
+        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-5">
           <h3 className="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
             <span>🤖</span> Dual-AI Engine Architecture
           </h3>
