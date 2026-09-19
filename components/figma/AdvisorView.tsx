@@ -2,11 +2,13 @@
 
 import React, { useState } from 'react';
 import { useFounderSync } from '@/context/FounderSyncContext';
+import { RealityCheckWorkflow } from '@/components/RealityCheckWorkflow';
 import { RealityCheckEngine } from '@/components/reality-check/RealityCheckEngine';
 import { DecisionHub } from '@/components/hitl/DecisionHub';
 
 export function AdvisorView() {
   const { recordDecision } = useFounderSync();
+  const [activeSubTab, setActiveSubTab] = useState<'live-workflow' | 'case-study'>('live-workflow');
   const [showLiveEngine, setShowLiveEngine] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
   const [justification, setJustification] = useState('');
@@ -44,9 +46,37 @@ export function AdvisorView() {
           </span>
         </div>
 
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Contradictory Advisor
-        </h1>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            Contradictory Advisor
+          </h1>
+
+          {/* Segmented Switch */}
+          <div className="flex items-center p-1 bg-slate-100 rounded-2xl border border-slate-200/80 self-start sm:self-auto">
+            <button
+              type="button"
+              onClick={() => setActiveSubTab('live-workflow')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeSubTab === 'live-workflow'
+                  ? 'bg-white text-indigo-700 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              ⚡ Live Reality-Check Workflow
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveSubTab('case-study')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeSubTab === 'case-study'
+                  ? 'bg-white text-indigo-700 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              📋 Case #14 Stance
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Success Notification */}
@@ -57,8 +87,15 @@ export function AdvisorView() {
         </div>
       )}
 
+      {/* Live Workflow View */}
+      {activeSubTab === 'live-workflow' && (
+        <RealityCheckWorkflow />
+      )}
+
       {/* Side-by-Side Comparison (Figma Screen 3) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {activeSubTab === 'case-study' && (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column: Founder Stance */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-6">
           <div className="space-y-4">
@@ -170,6 +207,8 @@ export function AdvisorView() {
           Press <kbd className="bg-slate-200 px-1.5 py-0.5 rounded text-[10px] font-mono text-slate-700">space</kbd> to initiate simulation scenarios or select an action above.
         </p>
       </div>
+        </>
+      )}
 
       {/* Justification Gate on "Approve Assumption" */}
       {isApproving && (
