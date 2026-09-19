@@ -27,13 +27,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    let isMounted = true;
+    const fallbackTimeout = setTimeout(() => {
+      if (isMounted) {
+        setLoading(false);
+      }
+    }, 1500);
+
     // 1. Initial Session Check on mount
     supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (!isMounted) return;
+      clearTimeout(fallbackTimeout);
       if (error) {
         console.warn('[Auth] Error getting initial session:', error.message);
       }
       setSession(session);
       setUser(session?.user ?? null);
+      setLoading(false);
+    }).catch((err) => {
+      if (!isMounted) return;
+      clearTimeout(fallbackTimeout);
+      console.warn('[Auth] Session check failed:', err);
       setLoading(false);
     });
 
@@ -41,12 +55,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!isMounted) return;
+      clearTimeout(fallbackTimeout);
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
     });
 
     return () => {
+      isMounted = false;
+      clearTimeout(fallbackTimeout);
       subscription.unsubscribe();
     };
   }, []);

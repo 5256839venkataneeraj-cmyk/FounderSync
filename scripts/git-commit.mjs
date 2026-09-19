@@ -9,7 +9,7 @@ try {
   
   const statusAfterAdd = execSync('git status --porcelain', { encoding: 'utf-8' });
   if (statusAfterAdd.trim()) {
-    execSync('git commit -m "feat: integrate Google Stitch prototype with floating cards, levitation animations, and executive dashboard"', { stdio: 'inherit' });
+    execSync('git commit -m "feat: dynamic everyday date with Google Calendar integration and interactive founder username input"', { stdio: 'inherit' });
     console.log('Committed new changes.');
   } else {
     console.log('Working tree is clean, proceeding to push.');

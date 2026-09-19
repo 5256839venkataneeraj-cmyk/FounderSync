@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { FounderSyncProvider } from '@/context/FounderSyncContext';
+import { UserProfileProvider } from '@/context/UserProfileContext';
+import { UserNameModal } from '@/components/common/UserNameModal';
+import { GoogleCalendarModal } from '@/components/common/GoogleCalendarModal';
 
 export const metadata: Metadata = {
   title: 'FounderSync — Contradictory Advisor & Reality-Check Engine',
@@ -44,7 +47,13 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white">
         <AuthProvider>
-          <FounderSyncProvider>{children}</FounderSyncProvider>
+          <UserProfileProvider>
+            <FounderSyncProvider>
+              {children}
+              <UserNameModal />
+              <GoogleCalendarModal />
+            </FounderSyncProvider>
+          </UserProfileProvider>
         </AuthProvider>
       </body>
     </html>

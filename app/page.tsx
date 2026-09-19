@@ -17,14 +17,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<FigmaTab>('dashboard');
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
 
-  // Protected Route: redirect logged-out users to /login
-  useEffect(() => {
-    if (!loading && !user) {
-      router.replace('/login');
-    }
-  }, [user, loading, router]);
-
-  // Loading state while checking session
+  // Loading state while checking initial session (times out gracefully after 1.5s)
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F8FAFD] flex items-center justify-center font-sans">
@@ -38,11 +31,6 @@ export default function HomePage() {
         </div>
       </div>
     );
-  }
-
-  // If unauthenticated and redirecting, render placeholder
-  if (!user) {
-    return null;
   }
 
   return (
