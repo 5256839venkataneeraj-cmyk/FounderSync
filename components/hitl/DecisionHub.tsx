@@ -51,7 +51,7 @@ export function DecisionHub() {
           Executive Review & Justification Gate
         </h2>
         <p className="text-xs text-slate-500 mt-0.5">
-          FounderSync enforces Industry 5.0 Human-Centric autonomy: AI suggestions are never auto-executed. Every decision requires explicit founder review and logged justification.
+          FounderSync enforces Industry 6.0 Human-Centric autonomy: AI suggestions are never auto-executed. Every decision requires explicit founder review and logged justification.
         </p>
       </div>
 

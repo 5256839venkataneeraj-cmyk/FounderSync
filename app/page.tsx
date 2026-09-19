@@ -71,7 +71,7 @@ export default function HomePage() {
           <div className="flex items-center gap-2">
             <span className="font-extrabold text-slate-800">FounderSync</span>
             <span className="text-slate-300">·</span>
-            <span>Industry 5.0 Human-Centric Strategic Mirror</span>
+            <span>Industry 6.0 Human-Centric Strategic Mirror</span>
           </div>
           <p className="text-slate-400">
             Contradictory Advisor & Reality-Check Engine · AI never acts as autopilot

@@ -16,7 +16,7 @@ export function StrategicMirror() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
             <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold">
-              Strategic Mirror · Industry 5.0 Core
+              Strategic Mirror · Industry 6.0 Core
             </span>
             <h2 className="text-2xl font-bold tracking-tight">Startup Health Score</h2>
             <p className="text-sm text-slate-300 max-w-xl">

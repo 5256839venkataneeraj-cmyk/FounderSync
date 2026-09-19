@@ -225,7 +225,7 @@ export function AdvisorView() {
             </span>
           </div>
           <p className="text-xs text-amber-800">
-            Industry 5.0 Human-Centric requirement: You must provide your rationale before approving an assumption flagged with high dissonance.
+            Industry 6.0 Human-Centric requirement: You must provide your rationale before approving an assumption flagged with high dissonance.
           </p>
           <textarea
             rows={3}

@@ -1,5 +1,5 @@
 -- FounderSync: PostgreSQL Schema for Supabase (Single-Tenant with Fixed Workspace Scope)
--- Track: Industry 5.0 (Human-AI Collaboration, Sustainability, Human-Centric Systems)
+-- Track: Industry 6.0 (Human-AI Collaboration, Sustainability, Human-Centric Systems)
 --
 -- NOTE ON MULTI-TENANCY:
 -- Currently, this application runs in single-tenant mode scoped to a fixed workspace_id constant.
