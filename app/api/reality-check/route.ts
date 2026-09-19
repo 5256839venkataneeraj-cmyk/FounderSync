@@ -16,8 +16,6 @@ async function getGeminiSynthesis(strategy: string): Promise<string> {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
   const prompt = `You are FounderSync's Strategic Analyst AI. Analyze the following startup strategy and provide a sharp, structured strategic synthesis:
 1. Core Strategic Thesis & Value Proposition
 2. Growth Opportunities & Upside Scenarios
@@ -28,54 +26,55 @@ Founder Strategy:
 
 Keep your synthesis executive-level, clear, and actionable (2-3 structured paragraphs).`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
-  return text.trim();
+  // Try gemini-1.5-flash, fallback to gemini-3.6-flash if model not found for key
+  const candidateModels = ['gemini-1.5-flash', 'gemini-3.6-flash', 'gemini-flash-latest'];
+  let lastError: Error | null = null;
+
+  for (const modelName of candidateModels) {
+    try {
+      const model = genAI.getGenerativeModel({ model: modelName });
+      const result = await model.generateContent(prompt);
+      const text = result.response.text();
+      if (text && text.trim().length > 0) {
+        return text.trim();
+      }
+    } catch (err: any) {
+      lastError = err;
+      // If 404 / not found, try next candidate
+      continue;
+    }
+  }
+
+  throw lastError || new Error('Failed to generate synthesis from Gemini models.');
 }
 
 /**
- * Calls Grok REST API (https://api.x.ai/v1/chat/completions) for adversarial reality-check pushback.
+ * Calls Grok REST API (https://api.x.ai/v1/chat/completions) or Groq API for adversarial reality-check pushback.
  */
 async function getGrokPushback(strategy: string): Promise<string> {
-  const apiKey = process.env.XAI_API_KEY || process.env.GROK_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY || process.env.XAI_API_KEY;
   if (!apiKey) {
-    throw new Error('XAI_API_KEY is not defined in environment.');
+    throw new Error('GROQ_API_KEY / XAI_API_KEY is not defined in environment.');
   }
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-  const requestBody = {
-    model: 'grok-beta',
-    messages: [
-      {
-        role: 'system',
-        content:
-          'You are FounderSync\'s Adversarial Contradictory Advisor. Your duty is to break founder echo chambers by aggressively stress-testing assumptions, exposing hidden blind spots, pointing out unit economic flaws, and formulating a sharp counter-strategy.',
-      },
-      {
-        role: 'user',
-        content: `Expose all fatal flaws, cognitive biases, and provide adversarial counter-arguments to this strategy:\n"${strategy}"`,
-      },
-    ],
-    temperature: 0.7,
-  };
+  const requestMessages = [
+    {
+      role: 'system',
+      content:
+        'You are FounderSync\'s Adversarial Contradictory Advisor. Your duty is to break founder echo chambers by aggressively stress-testing assumptions, exposing hidden blind spots, pointing out unit economic flaws, and formulating a sharp counter-strategy.',
+    },
+    {
+      role: 'user',
+      content: `Expose all fatal flaws, cognitive biases, and provide adversarial counter-arguments to this strategy:\n"${strategy}"`,
+    },
+  ];
 
   try {
-    let response = await fetch('https://api.x.ai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(requestBody),
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
-
-    // If x.ai returns an error and key is a Groq key (starts with gsk_), fallback to Groq endpoint
-    if (!response.ok && apiKey.startsWith('gsk_')) {
+    // If key is a Groq key (starts with gsk_), directly use Groq's endpoint
+    if (apiKey.startsWith('gsk_')) {
       const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -84,14 +83,38 @@ async function getGrokPushback(strategy: string): Promise<string> {
         },
         body: JSON.stringify({
           model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
-          messages: requestBody.messages,
+          messages: requestMessages,
           temperature: 0.7,
         }),
+        signal: controller.signal,
       });
-      if (groqResponse.ok) {
-        response = groqResponse;
+
+      if (!groqResponse.ok) {
+        throw new Error(`Groq API failed with HTTP ${groqResponse.status}`);
       }
+
+      const groqData = await groqResponse.json();
+      const content = groqData.choices?.[0]?.message?.content;
+      if (!content) {
+        throw new Error('Empty response from Groq API.');
+      }
+      return content.trim();
     }
+
+    // Otherwise use x.ai Grok endpoint
+    const response = await fetch('https://api.x.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'grok-beta',
+        messages: requestMessages,
+        temperature: 0.7,
+      }),
+      signal: controller.signal,
+    });
 
     if (!response.ok) {
       throw new Error(`Grok REST API failed with HTTP ${response.status}`);
