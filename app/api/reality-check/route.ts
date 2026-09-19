@@ -184,19 +184,41 @@ export async function POST(req: NextRequest) {
     // Insert combined data into Supabase reality_checks table using lib/supabaseServer.ts
     let recordId = `rc-${Date.now()}`;
     try {
-      const { data: record, error: insertError } = await (supabaseServer as any)
+      const primaryPayload = {
+        strategy,
+        gemini_model: 'gemini-1.5-flash',
+        grok_model: 'grok-beta',
+        synthesis: geminiSynthesis,
+        blind_spots: aiData.blindSpots,
+        human_impact: 'Monitored team sustainability & executive cognitive load',
+        stress_test_score: 68,
+        is_simulated: false,
+      };
+
+      let { data: record, error: insertError } = await (supabaseServer as any)
         .from('reality_checks')
-        .insert({
-          workspace_id: FIXED_WORKSPACE_ID,
-          input_text: strategy,
-          blind_spots: aiData.blindSpots,
-          opposing_strategy: grokPushback,
-          human_impact: 'Monitored team sustainability & executive cognitive load',
-          stress_test_score: 68,
-          simulated: false,
-        })
+        .insert(primaryPayload)
         .select('id')
         .single();
+
+      if (insertError) {
+        // Fallback to legacy schema if table hasn't migrated yet
+        const fallback = await (supabaseServer as any)
+          .from('reality_checks')
+          .insert({
+            workspace_id: FIXED_WORKSPACE_ID,
+            input_text: strategy,
+            blind_spots: aiData.blindSpots,
+            opposing_strategy: grokPushback,
+            human_impact: 'Monitored team sustainability & executive cognitive load',
+            stress_test_score: 68,
+            simulated: false,
+          })
+          .select('id')
+          .single();
+        record = fallback.data;
+        insertError = fallback.error;
+      }
 
       if (!insertError && record?.id) {
         recordId = record.id;

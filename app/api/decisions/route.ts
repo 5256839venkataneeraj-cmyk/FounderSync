@@ -43,16 +43,39 @@ export async function POST(req: NextRequest) {
     let decisionId = `dec-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
 
     try {
-      const { data, error } = await (supabaseServer as any)
-        .from('decisions')
+      const validRealityCheckId =
+        realityCheckId &&
+        !realityCheckId.startsWith('sim-') &&
+        !realityCheckId.startsWith('rc-')
+          ? realityCheckId
+          : null;
+
+      // Primary: Insert into decision_audit_logs (001_initial_schema.sql)
+      let { data, error } = await (supabaseServer as any)
+        .from('decision_audit_logs')
         .insert({
-          workspace_id: FIXED_WORKSPACE_ID,
-          reality_check_id: realityCheckId && !realityCheckId.startsWith('sim-') && !realityCheckId.startsWith('rc-') ? realityCheckId : null,
-          action: dbAction,
+          reality_check_id: validRealityCheckId,
+          founder_action: action,
           justification: justification.trim(),
         })
         .select('id')
         .single();
+
+      if (error) {
+        // Fallback to decisions table if decision_audit_logs is not yet created
+        const fallback = await (supabaseServer as any)
+          .from('decisions')
+          .insert({
+            workspace_id: FIXED_WORKSPACE_ID,
+            reality_check_id: validRealityCheckId,
+            action: dbAction,
+            justification: justification.trim(),
+          })
+          .select('id')
+          .single();
+        data = fallback.data;
+        error = fallback.error;
+      }
 
       if (!error && data?.id) {
         decisionId = data.id;
