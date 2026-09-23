@@ -22,12 +22,12 @@ export default function HomePage() {
   // Loading state while checking initial session (times out gracefully after 1.5s)
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F8FAFD] flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-[#F8FAFD] dark:bg-[#0F0F14] flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-lg shadow-md animate-pulse">
             FS
           </div>
-          <span className="text-xs font-semibold text-slate-500">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
             Synchronizing session credentials...
           </span>
         </div>
@@ -36,7 +36,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8FAFD] flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#F8FAFD] dark:bg-[#0F0F14] text-slate-900 dark:text-[#F1F1F5] flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300">
       {/* Top Horizontal Navigation Bar (as requested by user) */}
       <TopNavbar
         activeTab={activeTab}
@@ -68,14 +68,14 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-200/80 py-6 text-center text-xs text-slate-500">
+      <footer className="bg-white dark:bg-[#14141C] border-t border-slate-200/80 dark:border-white/10 py-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="font-extrabold text-slate-800">FounderSync</span>
-            <span className="text-slate-300">·</span>
+            <span className="font-extrabold text-slate-800 dark:text-slate-100">FounderSync</span>
+            <span className="text-slate-300 dark:text-slate-600">·</span>
             <span>Industry 6.0 Human-Centric Strategic Mirror</span>
           </div>
-          <p className="text-slate-400">
+          <p className="text-slate-400 dark:text-slate-500">
             Contradictory Advisor & Reality-Check Engine · AI never acts as autopilot
           </p>
         </div>

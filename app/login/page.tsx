@@ -244,16 +244,16 @@ export default function LoginPage() {
   if (user) return null;
 
   return (
-    <main className="min-h-screen w-full bg-[#F8F9FD] flex flex-col items-center justify-center py-6 px-4 font-sans selection:bg-indigo-500 selection:text-white relative overflow-hidden">
+    <main className="min-h-screen w-full bg-[#F8F9FD] dark:bg-[#0F0F14] flex flex-col items-center justify-center py-6 px-4 font-sans selection:bg-indigo-500 selection:text-white relative overflow-hidden transition-colors duration-300">
       {/* Ambient background glows matching Figma Screen 1 */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[450px] pointer-events-none opacity-60"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[450px] pointer-events-none opacity-60 dark:opacity-20"
         style={{
           background: 'radial-gradient(50% 50% at 50% 30%, rgba(224, 231, 255, 0.45) 0%, rgba(248, 249, 253, 0) 100%)',
         }}
       />
       <div
-        className="absolute bottom-0 right-1/4 w-[500px] h-[350px] pointer-events-none opacity-50"
+        className="absolute bottom-0 right-1/4 w-[500px] h-[350px] pointer-events-none opacity-50 dark:opacity-15"
         style={{
           background: 'radial-gradient(50% 50% at 50% 50%, rgba(254, 243, 199, 0.4) 0%, rgba(248, 249, 253, 0) 100%)',
         }}
@@ -262,20 +262,20 @@ export default function LoginPage() {
       <div className="w-full max-w-[420px] flex flex-col items-center relative z-10">
         {/* Top Logo Badge Container with Amber Status Dot */}
         <div className="relative mb-4 flex items-center justify-center">
-          <div className="w-16 h-16 bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100 flex items-center justify-center p-2.5 transition-transform hover:scale-105">
+          <div className="w-16 h-16 bg-white dark:bg-[#14141C] rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100 dark:border-white/10 flex items-center justify-center p-2.5 transition-transform hover:scale-105">
             <FounderSyncLogo variant="icon" className="h-10 w-auto" />
           </div>
 
           {/* Golden Amber Status Badge Dot */}
-          <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#B8860B] border-2 border-white shadow-xs flex items-center justify-center">
+          <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#B8860B] border-2 border-white dark:border-[#0F0F14] shadow-xs flex items-center justify-center">
             <div className="w-1.5 h-1.5 rounded-full bg-[#FFE58F]" />
           </div>
         </div>
 
         {/* Dialectical Co-Pilot Pill Badge */}
         <div className="mb-2.5">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[10px] font-grotesk font-bold uppercase tracking-wider bg-[#EEF2FF] text-[#4F46E5] border border-[#E0E7FF] shadow-2xs">
-            <svg className="w-2.5 h-2.5 text-[#4F46E5]" fill="currentColor" viewBox="0 0 24 24">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[10px] font-grotesk font-bold uppercase tracking-wider bg-[#EEF2FF] dark:bg-indigo-950/60 text-[#4F46E5] dark:text-indigo-300 border border-[#E0E7FF] dark:border-indigo-500/40 shadow-2xs">
+            <svg className="w-2.5 h-2.5 text-[#4F46E5] dark:text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
             </svg>
             <span>Dialectical Co-Pilot</span>
@@ -284,28 +284,28 @@ export default function LoginPage() {
 
         {/* Hero Title & Subtitle */}
         <div className="text-center mb-5">
-          <h1 className="text-[32px] sm:text-[36px] font-display font-bold text-slate-900 tracking-tight leading-[1.15]">
+          <h1 className="text-[32px] sm:text-[36px] font-display font-bold text-slate-900 dark:text-[#F1F1F5] tracking-tight leading-[1.15]">
             Your strategic mirror, <br />
-            <span className="text-[#4F46E5] font-display font-extrabold">not your autopilot.</span>
+            <span className="text-[#4F46E5] dark:text-indigo-400 font-display font-extrabold">not your autopilot.</span>
           </h1>
 
-          <p className="text-xs text-slate-500 max-w-[340px] mx-auto mt-2 leading-relaxed font-sans">
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-[340px] mx-auto mt-2 leading-relaxed font-sans">
             Challenge assumptions, uncover blind spots, and lead with conviction.
           </p>
         </div>
 
         {/* Main Auth Card (Figma Screen 1 Styling) */}
-        <div className="w-full glass-panel rounded-[24px] border border-slate-200/80 p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.05)]">
+        <div className="w-full glass-panel rounded-[24px] border border-slate-200/80 dark:border-white/10 p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
           {/* Feedback Messages */}
           {errorMessage && (
-            <div className="mb-4 p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 font-medium flex items-start gap-2 animate-fadeIn">
+            <div className="mb-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/30 rounded-xl text-xs text-rose-800 dark:text-rose-300 font-medium flex items-start gap-2 animate-fadeIn">
               <span className="text-rose-500 font-bold shrink-0">✕</span>
               <p className="flex-1 leading-relaxed">{errorMessage}</p>
             </div>
           )}
 
           {successMessage && (
-            <div className="mb-4 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-medium flex items-start gap-2 animate-fadeIn">
+            <div className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/30 rounded-xl text-xs text-emerald-800 dark:text-emerald-300 font-medium flex items-start gap-2 animate-fadeIn">
               <span className="text-emerald-600 font-bold shrink-0">✓</span>
               <p className="flex-1 leading-relaxed">{successMessage}</p>
             </div>
@@ -315,7 +315,7 @@ export default function LoginPage() {
           {authMethod === 'password' ? (
             <form onSubmit={handlePasswordSubmit} className="space-y-3.5">
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                   Work Email
                 </label>
                 <input
@@ -325,14 +325,14 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="founder@venture.co"
-                  className="w-full text-xs sm:text-sm bg-[#EEF2F9] border border-transparent focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                  className="w-full text-xs sm:text-sm bg-[#EEF2F9] dark:bg-[#14141C] border border-transparent dark:border-white/10 focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-[#1A1A22] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
                 />
               </div>
 
               {mode !== 'forgot' && (
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-[11px] font-bold text-slate-700">
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300">
                       Password
                     </label>
                     {mode === 'signin' && (
@@ -343,7 +343,7 @@ export default function LoginPage() {
                           setErrorMessage(null);
                           setSuccessMessage(null);
                         }}
-                        className="text-[10.5px] font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                        className="text-[10.5px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer"
                       >
                         Forgot password?
                       </button>
@@ -356,14 +356,14 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full text-xs sm:text-sm bg-[#EEF2F9] border border-transparent focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                    className="w-full text-xs sm:text-sm bg-[#EEF2F9] dark:bg-[#14141C] border border-transparent dark:border-white/10 focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-[#1A1A22] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
                   />
                 </div>
               )}
 
               {mode === 'signup' && (
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                     Confirm Password
                   </label>
                   <input
@@ -373,7 +373,7 @@ export default function LoginPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full text-xs sm:text-sm bg-[#EEF2F9] border border-transparent focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                    className="w-full text-xs sm:text-sm bg-[#EEF2F9] dark:bg-[#14141C] border border-transparent dark:border-white/10 focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-[#1A1A22] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
                   />
                 </div>
               )}
@@ -382,7 +382,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-[#4338CA] hover:bg-[#3730A3] active:scale-[0.99] disabled:bg-indigo-300 text-white text-xs sm:text-sm font-semibold py-2.5 sm:py-3 px-4 rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-1"
+                className="w-full bg-[#4338CA] hover:bg-[#3730A3] active:scale-[0.99] disabled:bg-indigo-300 dark:disabled:bg-indigo-950/50 text-white text-xs sm:text-sm font-semibold py-2.5 sm:py-3 px-4 rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-1"
               >
                 {isSubmitting ? (
                   <span>Processing...</span>
@@ -399,7 +399,7 @@ export default function LoginPage() {
               </button>
 
               {/* Toggle Between Sign in and Create account */}
-              <div className="flex justify-center items-center gap-1 text-[11.5px] font-medium text-slate-500 pt-1">
+              <div className="flex justify-center items-center gap-1 text-[11.5px] font-medium text-slate-500 dark:text-slate-400 pt-1">
                 {mode === 'signin' && (
                   <>
                     <span>Don&apos;t have an account?</span>
@@ -410,7 +410,7 @@ export default function LoginPage() {
                         setErrorMessage(null);
                         setSuccessMessage(null);
                       }}
-                      className="font-bold text-indigo-600 hover:text-indigo-800 cursor-pointer ml-1"
+                      className="font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer ml-1"
                     >
                       Create account
                     </button>
@@ -426,7 +426,7 @@ export default function LoginPage() {
                         setErrorMessage(null);
                         setSuccessMessage(null);
                       }}
-                      className="font-bold text-indigo-600 hover:text-indigo-800 cursor-pointer ml-1"
+                      className="font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer ml-1"
                     >
                       Sign in
                     </button>
@@ -440,7 +440,7 @@ export default function LoginPage() {
                       setErrorMessage(null);
                       setSuccessMessage(null);
                     }}
-                    className="font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                    className="font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 cursor-pointer"
                   >
                     ← Back to sign in
                   </button>
@@ -448,7 +448,7 @@ export default function LoginPage() {
               </div>
 
               {/* Secondary Option: Email me a link instead */}
-              <div className="pt-2 text-center border-t border-slate-100 mt-2">
+              <div className="pt-2 text-center border-t border-slate-100 dark:border-white/10 mt-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -456,7 +456,7 @@ export default function LoginPage() {
                     setErrorMessage(null);
                     setSuccessMessage(null);
                   }}
-                  className="text-[11px] font-medium text-slate-500 hover:text-indigo-600 transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                  className="text-[11px] font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer inline-flex items-center gap-1.5"
                 >
                   <span>✉️</span>
                   <span>Email me a link instead</span>
@@ -467,7 +467,7 @@ export default function LoginPage() {
             /* SECONDARY FLOW: Magic Link (Passwordless) with Rate Limit Handling */
             <form onSubmit={handleMagicLinkSubmit} className="space-y-3.5">
               <div className="flex justify-between items-center pb-0.5">
-                <span className="text-xs font-bold text-slate-800">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   Passwordless Sign In
                 </span>
                 <button
@@ -477,14 +477,14 @@ export default function LoginPage() {
                     setErrorMessage(null);
                     setSuccessMessage(null);
                   }}
-                  className="text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                  className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer"
                 >
                   Sign in with password instead
                 </button>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1.5">
+                <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                   Work Email
                 </label>
                 <input
@@ -494,7 +494,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="founder@venture.co"
-                  className="w-full text-xs sm:text-sm bg-[#EEF2F9] border border-transparent focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                  className="w-full text-xs sm:text-sm bg-[#EEF2F9] dark:bg-[#14141C] border border-transparent dark:border-white/10 focus:border-indigo-400 rounded-xl px-3.5 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-[#1A1A22] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
                 />
               </div>
 
@@ -502,7 +502,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isSubmitting || magicLinkCooldown > 0}
-                className="w-full bg-[#4338CA] hover:bg-[#3730A3] active:scale-[0.99] disabled:bg-indigo-200 disabled:text-indigo-400 disabled:cursor-not-allowed text-white text-xs sm:text-sm font-semibold py-2.5 sm:py-3 px-4 rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full bg-[#4338CA] hover:bg-[#3730A3] active:scale-[0.99] disabled:bg-indigo-200 dark:disabled:bg-indigo-950/40 disabled:text-indigo-400 dark:disabled:text-indigo-600 disabled:cursor-not-allowed text-white text-xs sm:text-sm font-semibold py-2.5 sm:py-3 px-4 rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 {isSubmitting ? (
                   <span>Sending magic link...</span>
@@ -516,7 +516,7 @@ export default function LoginPage() {
                 )}
               </button>
 
-              <div className="pt-2 text-center border-t border-slate-100">
+              <div className="pt-2 text-center border-t border-slate-100 dark:border-white/10">
                 <button
                   type="button"
                   onClick={() => {
@@ -524,7 +524,7 @@ export default function LoginPage() {
                     setErrorMessage(null);
                     setSuccessMessage(null);
                   }}
-                  className="text-[11px] font-medium text-slate-500 hover:text-slate-800 cursor-pointer"
+                  className="text-[11px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer"
                 >
                   ← Return to password sign in
                 </button>
@@ -533,14 +533,14 @@ export default function LoginPage() {
           )}
 
           {/* Guarantees Row (Figma Screen 1) */}
-          <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-500">
+          <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-white/10 flex items-center justify-between text-[11px] font-medium text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#E58914]" />
-              <span className="text-slate-600">Zero vanity metrics</span>
+              <span className="text-slate-600 dark:text-slate-300">Zero vanity metrics</span>
             </span>
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#4338CA]" />
-              <span className="text-slate-600">End-to-end confidential</span>
+              <span className="text-slate-600 dark:text-slate-300">End-to-end confidential</span>
             </span>
           </div>
         </div>
@@ -550,31 +550,31 @@ export default function LoginPage() {
           <a
             href="/templates/FounderSync_Input_Template.pdf"
             download="FounderSync_Input_Template.pdf"
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50/80 hover:bg-indigo-100/90 border border-indigo-200/80 px-3.5 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs group"
+            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 dark:text-indigo-300 hover:text-indigo-800 dark:hover:text-indigo-200 bg-indigo-50/80 dark:bg-indigo-950/60 hover:bg-indigo-100/90 dark:hover:bg-indigo-900/60 border border-indigo-200/80 dark:border-indigo-500/30 px-3.5 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs group"
           >
-            <svg className="w-3.5 h-3.5 text-indigo-600 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             <span>Download Monthly Metrics Intake Template (PDF)</span>
-            <span className="text-[9.5px] px-1.5 py-0.2 rounded-full bg-indigo-200/70 text-indigo-800 font-mono">v1.0</span>
+            <span className="text-[9.5px] px-1.5 py-0.2 rounded-full bg-indigo-200/70 dark:bg-indigo-900/80 text-indigo-800 dark:text-indigo-200 font-mono">v1.0</span>
           </a>
         </div>
 
         {/* Legal Disclaimer */}
-        <p className="text-[11px] text-slate-400 text-center mt-3 leading-relaxed">
+        <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center mt-3 leading-relaxed">
           By signing in, you agree to our{' '}
-          <span className="underline cursor-pointer hover:text-slate-600 transition-colors">Terms of Deliberation</span> and{' '}
-          <span className="underline cursor-pointer hover:text-slate-600 transition-colors">Privacy Framework</span>.
+          <span className="underline cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Terms of Deliberation</span> and{' '}
+          <span className="underline cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Privacy Framework</span>.
         </p>
 
         {/* Testimonial Quote Callout Box (Figma Screen 1) */}
-        <div className="w-full mt-3.5 p-3.5 bg-[#EEF2F9]/80 border border-slate-200/60 rounded-2xl flex items-center gap-3 shadow-2xs">
-          <div className="w-7 h-7 rounded-full bg-[#FDF0D5] border border-[#F6D896] text-amber-800 flex items-center justify-center shrink-0 shadow-2xs">
-            <svg className="w-3.5 h-3.5 text-[#B8860B]" fill="currentColor" viewBox="0 0 24 24">
+        <div className="w-full mt-3.5 p-3.5 bg-[#EEF2F9]/80 dark:bg-[#14141C] border border-slate-200/60 dark:border-white/10 rounded-2xl flex items-center gap-3 shadow-2xs transition-colors duration-300">
+          <div className="w-7 h-7 rounded-full bg-[#FDF0D5] dark:bg-amber-950/60 border border-[#F6D896] dark:border-amber-500/30 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0 shadow-2xs">
+            <svg className="w-3.5 h-3.5 text-[#B8860B] dark:text-amber-400" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
             </svg>
           </div>
-          <p className="text-[11.5px] text-slate-700 font-serif italic leading-relaxed">
+          <p className="text-[11.5px] text-slate-700 dark:text-slate-300 font-serif italic leading-relaxed">
             &ldquo;A critical sounding board ready before today&apos;s term sheet negotiations.&rdquo;
           </p>
         </div>

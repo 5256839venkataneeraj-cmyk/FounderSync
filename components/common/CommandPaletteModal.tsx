@@ -341,18 +341,18 @@ export function CommandPaletteModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 p-4 bg-slate-950/60 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 p-4 bg-slate-950/70 backdrop-blur-md animate-fadeIn"
       onClick={() => setIsSearchModalOpen(false)}
     >
       <div
-        className="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-xl w-full overflow-hidden flex flex-col max-h-[80vh] transition-all transform animate-scaleUp"
+        className="bg-white dark:bg-[#1A1A22] rounded-3xl border border-slate-200 dark:border-white/10 shadow-2xl max-w-xl w-full overflow-hidden flex flex-col max-h-[80vh] transition-all transform animate-scaleUp"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-slate-100 gap-3">
-          <span className="text-slate-400">
-            <svg className="w-5 h-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="flex items-center px-4 py-3.5 border-b border-slate-100 dark:border-white/10 gap-3">
+          <span className="text-slate-400 dark:text-indigo-400">
+            <svg className="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </span>
@@ -362,29 +362,29 @@ export function CommandPaletteModal() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search views, metrics, decisions, or actions..."
-            className="flex-1 text-sm bg-transparent placeholder:text-slate-400 text-slate-900 focus:outline-none font-medium"
+            className="flex-1 text-sm bg-transparent placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-[#F1F1F5] focus:outline-none font-medium"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="text-xs text-slate-400 hover:text-slate-600 px-1.5 py-0.5 rounded bg-slate-100"
+              className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/10 dark:text-slate-300"
             >
               Clear
             </button>
           )}
-          <kbd className="hidden sm:inline-block text-[11px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+          <kbd className="hidden sm:inline-block text-[11px] font-mono text-slate-400 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded border border-slate-200 dark:border-white/10">
             ESC
           </kbd>
         </div>
 
         {/* Results List */}
-        <div ref={listRef} className="overflow-y-auto p-2 space-y-1 divide-y divide-slate-50 flex-1">
+        <div ref={listRef} className="overflow-y-auto p-2 space-y-1 divide-y divide-slate-50 dark:divide-white/5 flex-1">
           {filteredItems.length === 0 ? (
-            <div className="py-12 text-center text-slate-400 space-y-2">
+            <div className="py-12 text-center text-slate-400 dark:text-slate-500 space-y-2">
               <span className="text-3xl">🔍</span>
-              <p className="text-sm font-semibold text-slate-600">No results found for &ldquo;{query}&rdquo;</p>
-              <p className="text-xs text-slate-400">Try searching for &quot;Advisor&quot;, &quot;ARR&quot;, &quot;Burnout&quot;, or &quot;Settings&quot;.</p>
+              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">No results found for &ldquo;{query}&rdquo;</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">Try searching for &quot;Advisor&quot;, &quot;ARR&quot;, &quot;Burnout&quot;, or &quot;Settings&quot;.</p>
             </div>
           ) : (
             filteredItems.map((item, index) => {
@@ -396,24 +396,24 @@ export function CommandPaletteModal() {
                   onMouseEnter={() => setSelectedIndex(index)}
                   className={`flex items-center justify-between p-3 rounded-2xl cursor-pointer transition-all ${
                     isSelected
-                      ? 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/80 shadow-2xs'
-                      : 'hover:bg-slate-50 text-slate-800 border border-transparent'
+                      ? 'bg-indigo-50/90 dark:bg-indigo-600/20 text-indigo-950 dark:text-indigo-200 border border-indigo-200/80 dark:border-indigo-500/40 shadow-2xs'
+                      : 'hover:bg-slate-50 dark:hover:bg-white/5 text-slate-800 dark:text-[#F1F1F5] border border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="shrink-0">{item.icon}</div>
                     <div className="min-w-0">
                       <div className="text-xs sm:text-sm font-bold truncate flex items-center gap-2">
-                        <span>{item.title}</span>
+                        <span className="dark:text-[#F1F1F5]">{item.title}</span>
                         {item.badge && (
                           <span
-                            className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-slate-100 text-slate-700 border-slate-200'}`}
+                            className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-slate-100 text-slate-700 border-slate-200'} dark:bg-white/5 dark:text-slate-200 dark:border-white/10`}
                           >
                             {item.badge}
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate mt-0.5 font-normal">
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5 font-normal">
                         {item.subtitle}
                       </p>
                     </div>
@@ -424,7 +424,7 @@ export function CommandPaletteModal() {
                       className={`text-[11px] font-mono px-2 py-1 rounded transition-colors ${
                         isSelected
                           ? 'bg-indigo-600 text-white shadow-2xs font-bold'
-                          : 'text-slate-400 bg-slate-100'
+                          : 'text-slate-400 dark:text-slate-400 bg-slate-100 dark:bg-white/5 border border-transparent dark:border-white/10'
                       }`}
                     >
                       ↵
@@ -437,20 +437,20 @@ export function CommandPaletteModal() {
         </div>
 
         {/* Footer Hints */}
-        <div className="px-4 py-2.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+        <div className="px-4 py-2.5 bg-slate-50/80 dark:bg-[#14141C] border-t border-slate-100 dark:border-white/10 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-400 font-medium">
           <div className="flex items-center gap-3">
             <span>
-              <kbd className="bg-white border border-slate-200 px-1 py-0.5 rounded font-mono text-[10px]">↑</kbd>
-              <kbd className="bg-white border border-slate-200 px-1 py-0.5 rounded font-mono text-[10px] ml-1">↓</kbd> navigate
+              <kbd className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 px-1 py-0.5 rounded font-mono text-[10px] dark:text-slate-300">↑</kbd>
+              <kbd className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 px-1 py-0.5 rounded font-mono text-[10px] dark:text-slate-300 ml-1">↓</kbd> navigate
             </span>
             <span>
-              <kbd className="bg-white border border-slate-200 px-1 py-0.5 rounded font-mono text-[10px]">↵</kbd> select
+              <kbd className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 px-1 py-0.5 rounded font-mono text-[10px] dark:text-slate-300">↵</kbd> select
             </span>
             <span>
-              <kbd className="bg-white border border-slate-200 px-1 py-0.5 rounded font-mono text-[10px]">esc</kbd> close
+              <kbd className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 px-1 py-0.5 rounded font-mono text-[10px] dark:text-slate-300">esc</kbd> close
             </span>
           </div>
-          <div className="text-[10px] text-slate-400">
+          <div className="text-[10px] text-slate-400 dark:text-slate-500">
             FounderSync Command Center
           </div>
         </div>

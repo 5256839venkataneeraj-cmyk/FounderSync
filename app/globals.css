@@ -13,6 +13,12 @@
   --font-grotesk: 'Bricolage Grotesque', 'Space Grotesk', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
+/* Stitch Nocturne Luminary Dark Mode Variables */
+.dark {
+  --foreground-rgb: 241, 241, 245; /* #F1F1F5 soft off-white */
+  --background-rgb: 15, 15, 20;     /* #0F0F14 obsidian charcoal canvas */
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
@@ -20,6 +26,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Atmospheric Glow Mesh for Stitch Nocturne Luminary Dark Mode */
+.dark body {
+  background-color: #0F0F14;
+  background-image: 
+    radial-gradient(ellipse 65% 50% at 12% 10%, rgba(99, 102, 241, 0.16) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 45% at 88% 85%, rgba(168, 85, 247, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 100%, rgba(245, 158, 11, 0.06) 0%, transparent 60%);
+  background-attachment: fixed;
 }
 
 /* Strict Typographic Hierarchy Utility Tokens */
@@ -181,4 +198,40 @@ body {
   filter: blur(4px);
   pointer-events: none;
 }
+
+/* ====================================================
+   Stitch Nocturne Luminary Dark Mode Elevation & Depth
+   ==================================================== */
+.dark .glass-panel {
+  background: rgba(26, 26, 34, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.65), 0 0 80px -20px rgba(99, 102, 241, 0.12);
+}
+
+.dark .glass-panel-elevated {
+  background: rgba(31, 31, 42, 0.90);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 28px 56px -12px rgba(0, 0, 0, 0.75), 0 0 90px -20px rgba(99, 102, 241, 0.16);
+}
+
+.dark .glass-panel-elevated:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.40);
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.85), 0 0 100px -15px rgba(99, 102, 241, 0.25);
+}
+
+.dark .floating-card {
+  background: linear-gradient(135deg, #1A1A22 0%, #16161E 100%) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.65), 0 0 80px -20px rgba(99, 102, 241, 0.12) !important;
+}
+
+.dark .floating-card:hover {
+  box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.85), 0 0 100px -15px rgba(99, 102, 241, 0.25) !important;
+}
+
 

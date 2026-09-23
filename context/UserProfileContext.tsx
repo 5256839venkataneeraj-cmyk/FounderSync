@@ -33,6 +33,9 @@ interface UserProfileContextValue {
   setActiveTab: (tab: FigmaTab) => void;
   todayEvents: CalendarEvent[];
   addCalendarEvent: (event: Omit<CalendarEvent, 'id'>) => void;
+  theme: 'dark' | 'light';
+  setTheme: (theme: 'dark' | 'light') => void;
+  toggleTheme: () => void;
 }
 
 const UserProfileContext = createContext<UserProfileContextValue | undefined>(undefined);
@@ -92,9 +95,42 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [todayEvents, setTodayEvents] = useState<CalendarEvent[]>(DEFAULT_CALENDAR_EVENTS);
 
-  // Hydrate userName from localStorage or Auth
+  // 4. Stitch Nocturne Luminary Dark Mode Theme
+  const [theme, setThemeState] = useState<'dark' | 'light'>('dark');
+
+  const setTheme = (newTheme: 'dark' | 'light') => {
+    setThemeState(newTheme);
+    try {
+      localStorage.setItem('foundersync_theme', newTheme);
+      if (newTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('dark');
+      }
+    } catch {}
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  // Hydrate userName and theme from localStorage or Auth
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    // Apply Nocturne Luminary dark mode theme
+    const storedTheme = localStorage.getItem('foundersync_theme') as 'dark' | 'light' | null;
+    const initialTheme = storedTheme || 'dark';
+    setThemeState(initialTheme);
+    if (initialTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
+    }
 
     const storedName = localStorage.getItem('foundersync_user_name');
     if (storedName && storedName.trim()) {
@@ -226,6 +262,9 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
         setActiveTab,
         todayEvents,
         addCalendarEvent,
+        theme,
+        setTheme,
+        toggleTheme,
       }}
     >
       {children}

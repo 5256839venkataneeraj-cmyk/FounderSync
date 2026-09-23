@@ -78,31 +78,31 @@ export function ReportsView() {
       case 'high':
         return {
           border: 'border-l-4 border-l-rose-500',
-          badge: 'bg-rose-50 text-rose-700 border-rose-200',
+          badge: 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-500/30',
           dot: 'bg-rose-500',
-          metricBadge: 'bg-rose-50 text-rose-800 border border-rose-200',
+          metricBadge: 'bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30',
         };
       case 'medium':
         return {
           border: 'border-l-4 border-l-amber-500',
-          badge: 'bg-amber-50 text-amber-800 border-amber-200',
+          badge: 'bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30',
           dot: 'bg-amber-500',
-          metricBadge: 'bg-amber-50 text-amber-800 border border-amber-200',
+          metricBadge: 'bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30',
         };
       case 'opportunity':
         return {
           border: 'border-l-4 border-l-indigo-500',
-          badge: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+          badge: 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-500/30',
           dot: 'bg-indigo-500',
-          metricBadge: 'bg-indigo-50 text-indigo-800 border border-indigo-200',
+          metricBadge: 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30',
         };
       case 'low':
       default:
         return {
           border: 'border-l-4 border-l-slate-400',
-          badge: 'bg-slate-100 text-slate-700 border-slate-200',
+          badge: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700',
           dot: 'bg-slate-400',
-          metricBadge: 'bg-slate-100 text-slate-800 border border-slate-200',
+          metricBadge: 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700',
         };
     }
   };
@@ -112,7 +112,7 @@ export function ReportsView() {
       {/* Header & Meta (Figma Screen 5) */}
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-bold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-200">
+          <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-bold uppercase tracking-wider bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30">
             Reality Check Archive · 4 critical discrepancies active
           </span>
 
@@ -121,7 +121,7 @@ export function ReportsView() {
             <select
               value={selectedFilter}
               onChange={(e) => setSelectedFilter(e.target.value)}
-              className="text-xs font-sans bg-white text-slate-800 font-semibold px-3.5 py-1.5 rounded-xl border border-slate-300 shadow-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+              className="text-xs font-sans bg-white dark:bg-[#1A1A22] text-slate-800 dark:text-[#F1F1F5] font-semibold px-3.5 py-1.5 rounded-xl border border-slate-300 dark:border-white/10 shadow-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
             >
               <option value="all">All Categories</option>
               <option value="high">High Severity Only</option>
@@ -132,10 +132,10 @@ export function ReportsView() {
           </div>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 dark:text-[#F1F1F5] tracking-tight">
           Blind Spot Reports
         </h1>
-        <p className="text-sm text-slate-600 max-w-3xl font-sans font-normal">
+        <p className="text-sm text-slate-600 dark:text-slate-400 max-w-3xl font-sans font-normal">
           Synthesized strategic risks, customer friction patterns, and operational bottlenecks surfaced through contradictory cross-analysis.
         </p>
       </div>
@@ -148,11 +148,11 @@ export function ReportsView() {
             <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 block mb-1">
               Assumptions Challenged
             </span>
-            <div className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 tracking-tight">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-[#F1F1F5] tracking-tight">
               14 of 18
             </div>
           </div>
-          <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-2xs">
+          <div className="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-2xs">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -165,11 +165,11 @@ export function ReportsView() {
             <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 block mb-1">
               Critical Divergence
             </span>
-            <div className="text-2xl sm:text-3xl font-display font-extrabold text-amber-600 tracking-tight">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-amber-600 dark:text-amber-400 tracking-tight">
               1 Active
             </div>
           </div>
-          <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shadow-2xs">
+          <div className="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-2xs">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
@@ -182,11 +182,11 @@ export function ReportsView() {
             <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 block mb-1">
               Identified Headroom
             </span>
-            <div className="text-2xl sm:text-3xl font-display font-extrabold text-indigo-600 tracking-tight">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-indigo-600 dark:text-indigo-400 tracking-tight">
               +40% Margin
             </div>
           </div>
-          <div className="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shadow-2xs">
+          <div className="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center shadow-2xs">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
             </svg>
@@ -204,7 +204,7 @@ export function ReportsView() {
             <div
               key={report.id}
               onClick={() => setExpandedId(isExpanded ? null : report.id)}
-              className={`floating-card bg-white rounded-3xl border border-slate-200/90 ${styles.border} p-5 sm:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-md transition-all cursor-pointer space-y-3`}
+              className={`floating-card bg-white dark:bg-[#1A1A22] rounded-3xl border border-slate-200/90 dark:border-white/10 ${styles.border} p-5 sm:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:shadow-md transition-all cursor-pointer space-y-3`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="flex items-center gap-2.5">
@@ -212,7 +212,7 @@ export function ReportsView() {
                     <span className={`w-1.5 h-1.5 rounded-full ${styles.dot}`}></span>
                     <span>{report.severityLabel}</span>
                   </span>
-                  <span className="text-xs text-slate-500 font-normal">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">
                     {report.category} · {report.timeAgo}
                   </span>
                 </div>
@@ -223,7 +223,7 @@ export function ReportsView() {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[#F1F1F5]">
                   {report.title}
                 </h3>
 
@@ -233,7 +233,7 @@ export function ReportsView() {
               </div>
 
               {isExpanded && (
-                <div className="pt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-600 font-normal leading-relaxed bg-slate-50/70 p-4 rounded-xl">
+                <div className="pt-3 border-t border-slate-100 dark:border-white/10 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal leading-relaxed bg-slate-50/70 dark:bg-[#14141C] p-4 rounded-xl">
                   <p>{report.detail}</p>
                 </div>
               )}
@@ -243,7 +243,7 @@ export function ReportsView() {
       </div>
 
       {/* Tip Banner (Figma Screen 5) */}
-      <div className="p-4 bg-amber-50/60 border border-amber-200/80 rounded-2xl flex items-center gap-3 text-xs text-amber-900">
+      <div className="p-4 bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-500/30 rounded-2xl flex items-center gap-3 text-xs text-amber-900 dark:text-amber-300">
         <span className="text-lg">💡</span>
         <p className="font-medium">
           <strong>Tip:</strong> A strategic blind spot ignored for 90 days behaves like compounding debt. Review high-severity discrepancies in your weekly executive sync.
@@ -251,7 +251,7 @@ export function ReportsView() {
       </div>
 
       {/* Persisted Audit Log Drilldown */}
-      <div className="pt-8 border-t border-slate-200/80">
+      <div className="pt-8 border-t border-slate-200/80 dark:border-white/10">
         <DecisionAuditLog decisions={state.decisions} />
       </div>
     </div>

@@ -33,29 +33,29 @@ export function AdvisorView() {
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-bold uppercase tracking-wider bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/40">
               Case #14: Q4 Pricing Shift
             </span>
           </div>
-          <span className="text-xs font-sans text-slate-500">
-            Confidence Gap: <strong className="text-slate-900 font-display font-bold text-sm">68% Dissonance</strong>
+          <span className="text-xs font-sans text-slate-500 dark:text-slate-400">
+            Confidence Gap: <strong className="text-slate-900 dark:text-white font-display font-bold text-sm">68% Dissonance</strong>
           </span>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 dark:text-[#F1F1F5] tracking-tight">
             Contradictory Advisor
           </h1>
 
           {/* Segmented Switch */}
-          <div className="flex items-center p-1 bg-slate-100 rounded-2xl border border-slate-200/80 self-start sm:self-auto">
+          <div className="flex items-center p-1 bg-slate-100 dark:bg-[#14141C] rounded-2xl border border-slate-200/80 dark:border-white/10 self-start sm:self-auto">
             <button
               type="button"
               onClick={() => setActiveSubTab('live-workflow')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 activeSubTab === 'live-workflow'
-                  ? 'bg-white text-indigo-700 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-[#1A1A22] text-indigo-700 dark:text-indigo-300 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               ⚡ Live Reality-Check Workflow
@@ -65,8 +65,8 @@ export function AdvisorView() {
               onClick={() => setActiveSubTab('case-study')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 activeSubTab === 'case-study'
-                  ? 'bg-white text-indigo-700 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-[#1A1A22] text-indigo-700 dark:text-indigo-300 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               📋 Case #14 Stance
@@ -77,7 +77,7 @@ export function AdvisorView() {
 
       {/* Success Notification */}
       {actionSuccessMsg && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-normal flex items-center gap-2">
+        <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/30 rounded-xl text-xs text-emerald-800 dark:text-emerald-300 font-normal flex items-center gap-2">
           <span>✓</span>
           <span>{actionSuccessMsg}</span>
         </div>
@@ -95,74 +95,74 @@ export function AdvisorView() {
         {/* Left Column: Founder Stance */}
         <div className="glass-panel-elevated rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs font-grotesk font-bold uppercase tracking-wider text-slate-500 pb-3 border-b border-slate-100">
+            <div className="flex items-center justify-between text-xs font-grotesk font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pb-3 border-b border-slate-100 dark:border-white/10">
               <span className="flex items-center gap-1.5">
                 <span>👤</span> Founder Stance
               </span>
-              <span className="text-slate-400 font-sans font-normal normal-case">Logged Oct 24</span>
+              <span className="text-slate-400 dark:text-slate-500 font-sans font-normal normal-case">Logged Oct 24</span>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-400 block">
+              <span className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block">
                 Core Belief
               </span>
-              <h3 className="text-base font-display font-bold text-slate-900">
+              <h3 className="text-base font-display font-bold text-slate-900 dark:text-[#F1F1F5]">
                 Your Current Hypothesis
               </h3>
             </div>
 
             {/* Quote Card */}
-            <div className="bg-slate-50/90 rounded-2xl p-5 border border-slate-200/80">
-              <p className="text-base text-slate-700 font-sans font-normal leading-relaxed italic">
+            <div className="bg-slate-50/90 dark:bg-[#14141C] rounded-2xl p-5 border border-slate-200/80 dark:border-white/10">
+              <p className="text-base text-slate-700 dark:text-slate-200 font-sans font-normal leading-relaxed italic">
                 &ldquo;Moving to mandatory annual upfront billing will reduce churn and improve our cash runway by 3.2x.&rdquo;
               </p>
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-indigo-600 font-sans">
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/10 text-xs">
+            <div className="flex items-center gap-1.5 font-bold text-indigo-600 dark:text-indigo-400 font-sans">
               <span>📈</span>
               <span>Optimistic Net ARR Target: $1.4M</span>
             </div>
-            <span className="text-slate-400 font-sans font-normal">v1.2 Initial Draft</span>
+            <span className="text-slate-400 dark:text-slate-500 font-sans font-normal">v1.2 Initial Draft</span>
           </div>
         </div>
 
         {/* Right Column: Adversarial Evaluation (Contradictory Advisor) */}
-        <div className="glass-panel-elevated bg-gradient-to-br from-white via-white to-amber-50/30 rounded-3xl border-2 border-amber-300/80 p-6 sm:p-8 shadow-[0_12px_40px_rgba(245,158,11,0.06)] flex flex-col justify-between space-y-6 relative overflow-hidden">
+        <div className="glass-panel-elevated bg-gradient-to-br from-white via-white to-amber-50/30 dark:from-[#1A1A22] dark:via-[#1A1A22] dark:to-[#221C18] rounded-3xl border-2 border-amber-300/80 dark:border-amber-500/40 p-6 sm:p-8 shadow-[0_12px_40px_rgba(245,158,11,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.4)] flex flex-col justify-between space-y-6 relative overflow-hidden transition-colors duration-300">
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs pb-3 border-b border-slate-100">
-              <span className="font-grotesk font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+            <div className="flex items-center justify-between text-xs pb-3 border-b border-slate-100 dark:border-white/10">
+              <span className="font-grotesk font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
                 <span>⚖️</span> Adversarial Evaluation
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-grotesk font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-grotesk font-bold uppercase tracking-wider bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40">
                 ⚡ AI Reality Check
               </span>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-400 block">
+              <span className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block">
                 Contrarian Vector
               </span>
-              <h3 className="text-base font-display font-bold text-slate-900">
+              <h3 className="text-base font-display font-bold text-slate-900 dark:text-[#F1F1F5]">
                 Contradictory Advisor
               </h3>
             </div>
 
             {/* Highlighted Quote Box */}
-            <div className="bg-amber-50/60 rounded-2xl p-5 border border-amber-200">
-              <p className="text-base text-slate-900 font-sans font-medium leading-relaxed">
+            <div className="bg-amber-50/60 dark:bg-[#1C1714] rounded-2xl p-5 border border-amber-200 dark:border-amber-500/30">
+              <p className="text-base text-slate-900 dark:text-slate-100 font-sans font-medium leading-relaxed">
                 &ldquo;Mid-market buyer cycle will stall by 45 days. You risk killing organic founder word-of-mouth when early champions hit contract friction.&rdquo;
               </p>
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-            <div className="flex items-center gap-2 text-rose-700 font-bold font-sans">
+          <div className="pt-4 border-t border-slate-100 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-2 text-rose-700 dark:text-rose-400 font-bold font-sans">
               <span>⚠️</span>
               <span>Flagged Vulnerability: Sales Velocity Inertia</span>
             </div>
-            <span className="text-slate-400 text-[11px] font-sans">
+            <span className="text-slate-400 dark:text-slate-500 text-[11px] font-sans">
               Synthesized across 42 SaaS cohorts
             </span>
           </div>
@@ -175,7 +175,7 @@ export function AdvisorView() {
           <button
             type="button"
             onClick={() => setActionSuccessMsg('Case dismissed from active counter-deliberation.')}
-            className="text-slate-600 hover:text-slate-900 text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors"
+            className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors"
           >
             ✕ Dismiss Reality Check
           </button>
@@ -183,7 +183,7 @@ export function AdvisorView() {
           <button
             type="button"
             onClick={() => setIsApproving(!isApproving)}
-            className="bg-white hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-bold px-5 py-2.5 rounded-xl border border-slate-300 shadow-xs transition-colors flex items-center gap-2"
+            className="bg-white dark:bg-[#1A1A22] hover:bg-slate-50 dark:hover:bg-[#22222E] text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-bold px-5 py-2.5 rounded-xl border border-slate-300 dark:border-white/10 shadow-xs transition-colors flex items-center gap-2"
           >
             <span>✓</span>
             <span>Approve Assumption</span>
@@ -199,8 +199,8 @@ export function AdvisorView() {
           </button>
         </div>
 
-        <p className="text-[11px] text-slate-400 text-center">
-          Press <kbd className="bg-slate-200 px-1.5 py-0.5 rounded text-[10px] font-mono text-slate-700">space</kbd> to initiate simulation scenarios or select an action above.
+        <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center">
+          Press <kbd className="bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-[10px] font-mono text-slate-700 dark:text-slate-300">space</kbd> to initiate simulation scenarios or select an action above.
         </p>
       </div>
         </>
@@ -210,17 +210,17 @@ export function AdvisorView() {
       {isApproving && (
         <form
           onSubmit={handleApprove}
-          className="max-w-2xl mx-auto p-6 bg-amber-50/70 border-2 border-amber-300 rounded-2xl space-y-4 shadow-sm"
+          className="max-w-2xl mx-auto p-6 bg-amber-50/70 dark:bg-[#1C1714] border-2 border-amber-300 dark:border-amber-500/40 rounded-2xl space-y-4 shadow-sm"
         >
           <div className="flex items-center justify-between">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300">
               Mandatory Human Justification Gate
             </h4>
-            <span className="text-xs text-amber-700 font-mono">
+            <span className="text-xs text-amber-700 dark:text-amber-400 font-mono">
               {justification.trim().length} / 20 min chars
             </span>
           </div>
-          <p className="text-xs text-amber-800">
+          <p className="text-xs text-amber-800 dark:text-amber-300">
             Industry 6.0 Human-Centric requirement: You must provide your rationale before approving an assumption flagged with high dissonance.
           </p>
           <textarea
@@ -228,20 +228,20 @@ export function AdvisorView() {
             value={justification}
             onChange={(e) => setJustification(e.target.value)}
             placeholder="Explain why you are approving this pricing shift despite sales velocity risks..."
-            className="w-full text-xs sm:text-sm border border-amber-300 rounded-xl p-3 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full text-xs sm:text-sm border border-amber-300 dark:border-amber-500/40 rounded-xl p-3 bg-white dark:bg-[#14141C] text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
           <div className="flex justify-end gap-2">
             <button
               type="button"
               onClick={() => setIsApproving(false)}
-              className="text-xs text-slate-600 px-3 py-1.5 rounded-lg hover:bg-white"
+              className="text-xs text-slate-600 dark:text-slate-400 px-3 py-1.5 rounded-lg hover:bg-white dark:hover:bg-[#1A1A22]"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={justification.trim().length < 20}
-              className="bg-amber-600 hover:bg-amber-700 disabled:bg-slate-300 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs"
+              className="bg-amber-600 hover:bg-amber-700 disabled:bg-slate-300 dark:disabled:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs"
             >
               Confirm & Sign Decision
             </button>
@@ -251,20 +251,20 @@ export function AdvisorView() {
 
       {/* Live Grok Reality-Check Drawer */}
       {showLiveEngine && (
-        <div className="pt-6 border-t border-slate-200/80 space-y-6">
+        <div className="pt-6 border-t border-slate-200/80 dark:border-white/10 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 dark:text-[#F1F1F5]">
                 Live Grok Cross-Examination Engine
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Submit any hypothesis to run real-time devil&apos;s advocate stress testing with the live Grok API.
               </p>
             </div>
             <button
               type="button"
               onClick={() => setShowLiveEngine(false)}
-              className="text-xs text-slate-400 hover:text-slate-600"
+              className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
             >
               ✕ Close Drawer
             </button>
@@ -274,7 +274,7 @@ export function AdvisorView() {
       )}
 
       {/* Decision Hub & Audit Log */}
-      <div className="pt-8 border-t border-slate-200/80">
+      <div className="pt-8 border-t border-slate-200/80 dark:border-white/10">
         <DecisionHub />
       </div>
     </div>

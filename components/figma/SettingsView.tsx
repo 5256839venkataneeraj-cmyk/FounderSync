@@ -179,20 +179,20 @@ export function SettingsView() {
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
       {/* Header */}
       <div>
-        <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-indigo-600">
+        <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
           Platform Configuration
         </span>
-        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight mt-1">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 dark:text-[#F1F1F5] tracking-tight mt-1">
           Settings & Model Governance
         </h1>
-        <p className="text-sm text-slate-600 font-sans font-normal mt-1">
+        <p className="text-sm text-slate-600 dark:text-slate-400 font-sans font-normal mt-1">
           Manage Dual-AI engine configurations, Google AI Studio & Groq credentials, workspace scopes, and security settings.
         </p>
       </div>
 
       {/* Success Alert */}
       {savedSuccessMsg && (
-        <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs sm:text-sm text-emerald-800 font-semibold flex items-center gap-3 shadow-sm animate-fadeIn">
+        <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/40 rounded-2xl text-xs sm:text-sm text-emerald-800 dark:text-emerald-300 font-semibold flex items-center gap-3 shadow-sm animate-fadeIn">
           <span className="text-lg">✓</span>
           <span>{savedSuccessMsg}</span>
         </div>
@@ -200,7 +200,7 @@ export function SettingsView() {
 
       {/* Error Alert */}
       {saveErrorMsg && (
-        <div className="p-4 bg-rose-50 border border-rose-300 rounded-2xl text-xs sm:text-sm text-rose-800 font-semibold flex items-center gap-3 shadow-sm">
+        <div className="p-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-500/40 rounded-2xl text-xs sm:text-sm text-rose-800 dark:text-rose-300 font-semibold flex items-center gap-3 shadow-sm">
           <span className="text-lg">⚠️</span>
           <span>{saveErrorMsg}</span>
         </div>
@@ -211,8 +211,8 @@ export function SettingsView() {
         <div
           className={`p-4 rounded-2xl text-xs sm:text-sm font-semibold flex flex-col gap-1 border shadow-sm ${
             testResult.success
-              ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
-              : 'bg-rose-50 border-rose-300 text-rose-900'
+              ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200'
+              : 'bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-500/40 text-rose-900 dark:text-rose-200'
           }`}
         >
           <div className="flex items-center gap-2">
@@ -220,7 +220,7 @@ export function SettingsView() {
             <span>{testResult.message}</span>
           </div>
           {testResult.details && (
-            <span className="text-[11px] text-slate-600 pl-6 font-mono">{testResult.details}</span>
+            <span className="text-[11px] text-slate-600 dark:text-slate-400 pl-6 font-mono">{testResult.details}</span>
           )}
         </div>
       )}
@@ -228,11 +228,11 @@ export function SettingsView() {
       <form onSubmit={handleSave} className="space-y-6">
         {/* Dual AI Engine Architecture */}
         <div className="glass-panel-elevated rounded-3xl p-6 sm:p-7 space-y-5">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <h3 className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+            <h3 className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 flex items-center gap-2">
               <span>🤖</span> Dual-AI Engine Architecture
             </h3>
-            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-500/40">
               Industry 6.0 Engine
             </span>
           </div>
@@ -240,13 +240,13 @@ export function SettingsView() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {/* Gemini Strategic Mirror */}
             <div className="space-y-3">
-              <label className="block text-xs font-bold text-slate-700">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                 Gemini Strategic Mirror Model:
               </label>
               <select
                 value={geminiModel}
                 onChange={(e) => setGeminiModel(e.target.value)}
-                className="w-full text-xs font-medium bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full text-xs font-medium bg-slate-50 dark:bg-[#14141C] border border-slate-300 dark:border-white/10 rounded-xl p-2.5 text-slate-900 dark:text-[#F1F1F5] focus:outline-none focus:ring-1 focus:ring-indigo-500"
               >
                 <option value="gemini-2.5-flash">gemini-2.5-flash (Google AI Studio High-Speed Model)</option>
                 <option value="gemini-1.5-flash">gemini-1.5-flash (Standard High-Speed Model)</option>
@@ -254,27 +254,27 @@ export function SettingsView() {
                 <option value="gemini-3.5-flash">gemini-3.5-flash (High speed fallback)</option>
                 <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite (Ultra lightweight)</option>
               </select>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 Acts as Strategic Mirror synthesizing hard Growth metrics with Human signals.
               </p>
             </div>
 
             {/* Grok Contradictory Advisor */}
             <div className="space-y-3">
-              <label className="block text-xs font-bold text-slate-700">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                 Groq / Grok Contradictory Advisor Model:
               </label>
               <select
                 value={grokModel}
                 onChange={(e) => setGrokModel(e.target.value)}
-                className="w-full text-xs font-medium bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full text-xs font-medium bg-slate-50 dark:bg-[#14141C] border border-slate-300 dark:border-white/10 rounded-xl p-2.5 text-slate-900 dark:text-[#F1F1F5] focus:outline-none focus:ring-1 focus:ring-indigo-500"
               >
                 <option value="openai/gpt-oss-120b">openai/gpt-oss-120b (Active Groq Model)</option>
                 <option value="openai/gpt-oss-20b">openai/gpt-oss-20b (Fast Groq Inference)</option>
                 <option value="grok-beta">grok-beta (xAI Grok Endpoint)</option>
                 <option value="grok-4.5">grok-4.5 (Legacy Grok)</option>
               </select>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 Acts as Contradictory Advisor generating adversarial reality checks and exposing blind spots.
               </p>
             </div>
@@ -282,17 +282,17 @@ export function SettingsView() {
         </div>
 
         {/* API Credentials Management */}
-        <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-5">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="bg-white dark:bg-[#1A1A22] rounded-3xl border border-slate-200/90 dark:border-white/10 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:shadow-none space-y-5 transition-colors duration-300">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-200 flex items-center gap-2">
                 <span>🔑</span> API Credentials Management
               </h3>
-              <p className="text-xs text-slate-500 font-normal mt-0.5">
-                Keys saved here are stored directly into <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px] text-slate-800 font-mono">.env.local</code> and synced immediately in memory.
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5">
+                Keys saved here are stored directly into <code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-[11px] text-slate-800 dark:text-slate-200 font-mono">.env.local</code> and synced immediately in memory.
               </p>
             </div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-500/30">
               Permanent Sync Enabled
             </span>
           </div>
@@ -301,13 +301,13 @@ export function SettingsView() {
             {/* Google AI Studio / Gemini Key */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="block text-xs font-bold text-slate-800">
+                <label className="block text-xs font-bold text-slate-800 dark:text-slate-200">
                   Google AI Studio / Gemini Key:
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowGeminiKey(!showGeminiKey)}
-                  className="text-[11px] text-indigo-600 hover:text-indigo-800 font-medium"
+                  className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
                 >
                   {showGeminiKey ? 'Hide' : 'Reveal'}
                 </button>
@@ -318,33 +318,33 @@ export function SettingsView() {
                   value={geminiKey}
                   onChange={(e) => setGeminiKey(e.target.value)}
                   placeholder="AQ.Ab8... or AIzaSy..."
-                  className="w-full text-xs font-mono bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 pr-20"
+                  className="w-full text-xs font-mono bg-slate-50 dark:bg-[#14141C] border border-slate-300 dark:border-white/10 rounded-xl p-3 text-slate-900 dark:text-[#F1F1F5] focus:outline-none focus:ring-2 focus:ring-indigo-500 pr-20"
                 />
                 {geminiKey && (
                   <button
                     type="button"
                     onClick={() => setGeminiKey('')}
-                    className="absolute right-2 top-2 text-[10px] bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-2 py-1 rounded-lg transition-colors"
+                    className="absolute right-2 top-2 text-[10px] bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold px-2 py-1 rounded-lg transition-colors"
                   >
                     Clear
                   </button>
                 )}
               </div>
-              <p className="text-[11px] text-slate-500">
-                Supports Google AI Studio keys (<code className="font-mono text-slate-700">AQ.Ab8...</code>) or Standard Gemini API Keys (<code className="font-mono text-slate-700">AIzaSy...</code>).
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Supports Google AI Studio keys (<code className="font-mono text-slate-700 dark:text-slate-300">AQ.Ab8...</code>) or Standard Gemini API Keys (<code className="font-mono text-slate-700 dark:text-slate-300">AIzaSy...</code>).
               </p>
             </div>
 
             {/* Groq / Grok API Key */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="block text-xs font-bold text-slate-800">
+                <label className="block text-xs font-bold text-slate-800 dark:text-slate-200">
                   Groq / Grok API Key:
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowGrokKey(!showGrokKey)}
-                  className="text-[11px] text-indigo-600 hover:text-indigo-800 font-medium"
+                  className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
                 >
                   {showGrokKey ? 'Hide' : 'Reveal'}
                 </button>
@@ -355,65 +355,65 @@ export function SettingsView() {
                   value={grokKey}
                   onChange={(e) => setGrokKey(e.target.value)}
                   placeholder="gsk_... or xai-..."
-                  className="w-full text-xs font-mono bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 pr-20"
+                  className="w-full text-xs font-mono bg-slate-50 dark:bg-[#14141C] border border-slate-300 dark:border-white/10 rounded-xl p-3 text-slate-900 dark:text-[#F1F1F5] focus:outline-none focus:ring-2 focus:ring-indigo-500 pr-20"
                 />
                 {grokKey && (
                   <button
                     type="button"
                     onClick={() => setGrokKey('')}
-                    className="absolute right-2 top-2 text-[10px] bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-2 py-1 rounded-lg transition-colors"
+                    className="absolute right-2 top-2 text-[10px] bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold px-2 py-1 rounded-lg transition-colors"
                   >
                     Clear
                   </button>
                 )}
               </div>
-              <p className="text-[11px] text-slate-500">
-                Supports high-speed Groq keys (<code className="font-mono text-slate-700">gsk_...</code>) and xAI Grok keys (<code className="font-mono text-slate-700">xai-...</code>).
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Supports high-speed Groq keys (<code className="font-mono text-slate-700 dark:text-slate-300">gsk_...</code>) and xAI Grok keys (<code className="font-mono text-slate-700 dark:text-slate-300">xai-...</code>).
               </p>
             </div>
           </div>
         </div>
 
         {/* Workspace & Security Governance */}
-        <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-4">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 pb-3 border-b border-slate-100 flex items-center gap-2">
+        <div className="bg-white dark:bg-[#1A1A22] rounded-3xl border border-slate-200/90 dark:border-white/10 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:shadow-none space-y-4 transition-colors duration-300">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-200 pb-3 border-b border-slate-100 dark:border-white/10 flex items-center gap-2">
             <span>🛡️</span> Workspace & RLS Security
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-            <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
-              <span className="font-semibold text-slate-500 block">Single-Tenant Workspace ID:</span>
-              <code className="text-indigo-700 font-mono text-[11px] break-all">{FIXED_WORKSPACE_ID}</code>
+            <div className="p-3.5 bg-slate-50 dark:bg-[#14141C] rounded-2xl border border-slate-200 dark:border-white/10 space-y-1">
+              <span className="font-semibold text-slate-500 dark:text-slate-400 block">Single-Tenant Workspace ID:</span>
+              <code className="text-indigo-700 dark:text-indigo-400 font-mono text-[11px] break-all">{FIXED_WORKSPACE_ID}</code>
             </div>
-            <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
-              <span className="font-semibold text-slate-500 block">Row-Level Security (RLS):</span>
-              <span className="text-emerald-700 font-bold">Enabled & Scoped to Workspace</span>
+            <div className="p-3.5 bg-slate-50 dark:bg-[#14141C] rounded-2xl border border-slate-200 dark:border-white/10 space-y-1">
+              <span className="font-semibold text-slate-500 dark:text-slate-400 block">Row-Level Security (RLS):</span>
+              <span className="text-emerald-700 dark:text-emerald-400 font-bold">Enabled & Scoped to Workspace</span>
             </div>
           </div>
         </div>
 
         {/* Standardized Metrics Intake Template & Schema Delivery */}
-        <div className="p-6 bg-white rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] space-y-4">
+        <div className="p-6 bg-white dark:bg-[#1A1A22] rounded-3xl border border-slate-200/90 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none space-y-4 transition-colors duration-300">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-[#F1F1F5] flex items-center gap-2">
                 <span>📊</span> Monthly Metrics Intake Template &amp; Schema
               </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Standardized intake document for submitting quantitative and qualitative metrics to <code className="text-indigo-600 font-mono text-[11px]">/api/ingest-metrics</code>.
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Standardized intake document for submitting quantitative and qualitative metrics to <code className="text-indigo-600 dark:text-indigo-400 font-mono text-[11px]">/api/ingest-metrics</code>.
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-bold">
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 font-mono font-bold">
                 Template v1.0 — 2026-09
               </span>
             </div>
           </div>
 
-          <div className="p-4 bg-slate-50/80 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="p-4 bg-slate-50/80 dark:bg-[#14141C] rounded-2xl border border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="space-y-0.5">
-              <span className="text-xs font-bold text-slate-800">FounderSync Monthly Metrics Intake Form</span>
-              <p className="text-[11px] text-slate-500">
+              <span className="text-xs font-bold text-slate-800 dark:text-slate-200">FounderSync Monthly Metrics Intake Form</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 Includes Company &amp; Period, Revenue, Churn, Customer Value, Burn &amp; Runway, and 4 Qualitative Surveys (Burnout, Trust, Cognitive Load, Retention).
               </p>
             </div>
@@ -433,7 +433,7 @@ export function SettingsView() {
               <a
                 href="/templates/FounderSync_Input_Template.md"
                 download="FounderSync_Input_Template.md"
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-300 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white dark:bg-[#1A1A22] hover:bg-slate-100 dark:hover:bg-[#22222E] text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-300 dark:border-white/10 transition-all cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -454,7 +454,7 @@ export function SettingsView() {
                 alert('All data reset to initial baseline.');
               }
             }}
-            className="text-xs font-semibold text-rose-700 hover:text-rose-900 bg-rose-50 hover:bg-rose-100/80 border border-rose-200 px-4 py-2.5 rounded-xl transition-colors"
+            className="text-xs font-semibold text-rose-700 dark:text-rose-400 hover:text-rose-900 dark:hover:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100/80 dark:hover:bg-rose-900/40 border border-rose-200 dark:border-rose-500/30 px-4 py-2.5 rounded-xl transition-colors"
           >
             ↺ Reset All Data to Seed Baseline
           </button>
@@ -464,7 +464,7 @@ export function SettingsView() {
               type="button"
               onClick={handleTestConnection}
               disabled={isTesting}
-              className="bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl border border-slate-300 transition-all disabled:opacity-50 flex items-center gap-2"
+              className="bg-slate-100 dark:bg-[#1A1A22] hover:bg-slate-200 dark:hover:bg-[#22222E] text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl border border-slate-300 dark:border-white/10 transition-all disabled:opacity-50 flex items-center gap-2"
             >
               {isTesting ? (
                 <>

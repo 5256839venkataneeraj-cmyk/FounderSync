@@ -232,10 +232,10 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
       }}
     >
       {/* SOLID, NON-TRANSPARENT MODAL CARD */}
-      <div className="relative w-full max-w-[430px] bg-white border border-slate-200/90 rounded-[28px] p-6 sm:p-8 shadow-2xl space-y-4.5 overflow-hidden z-10 max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-[430px] bg-white dark:bg-[#1A1A22] border border-slate-200/90 dark:border-white/10 rounded-[28px] p-6 sm:p-8 shadow-2xl space-y-4.5 overflow-hidden z-10 max-h-[90vh] overflow-y-auto transition-colors duration-300">
         {/* Subtle Ambient Radial Glow */}
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 pointer-events-none opacity-40"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 pointer-events-none opacity-40 dark:opacity-20"
           style={{
             background: 'radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.35) 0%, rgba(255, 255, 255, 0) 75%)',
           }}
@@ -245,7 +245,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center transition-colors cursor-pointer z-20"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-[#22222E] flex items-center justify-center transition-colors cursor-pointer z-20"
           aria-label="Close modal"
         >
           ✕
@@ -255,20 +255,20 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
         <div className="flex flex-col items-center text-center space-y-2.5 pt-1">
           {/* Top Logo Badge Container with Amber Status Dot */}
           <div className="relative flex items-center justify-center">
-            <div className="w-14 h-14 bg-white rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-100 flex items-center justify-center p-2">
+            <div className="w-14 h-14 bg-white dark:bg-[#14141C] rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-100 dark:border-white/10 flex items-center justify-center p-2">
               <FounderSyncLogo variant="icon" className="h-9 w-auto" />
             </div>
 
             {/* Amber Badge Dot */}
-            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#B8860B] border-2 border-white shadow-xs flex items-center justify-center">
+            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#B8860B] border-2 border-white dark:border-[#1A1A22] shadow-xs flex items-center justify-center">
               <div className="w-1 h-1 rounded-full bg-[#FFE58F]" />
             </div>
           </div>
 
           {/* Dialectical Co-Pilot Pill Badge */}
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-[#EEF2FF] text-[#4F46E5] border border-[#E0E7FF]">
-              <svg className="w-2.5 h-2.5 text-[#4F46E5]" fill="currentColor" viewBox="0 0 24 24">
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-[#EEF2FF] dark:bg-indigo-950/60 text-[#4F46E5] dark:text-indigo-300 border border-[#E0E7FF] dark:border-indigo-500/40">
+              <svg className="w-2.5 h-2.5 text-[#4F46E5] dark:text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
               <span>Dialectical Co-Pilot</span>
@@ -277,12 +277,12 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
           {/* Headline */}
           <div>
-            <h2 className="text-[26px] sm:text-[28px] font-bold text-slate-900 tracking-tight leading-[1.2]">
+            <h2 className="text-[26px] sm:text-[28px] font-bold text-slate-900 dark:text-[#F1F1F5] tracking-tight leading-[1.2]">
               Your strategic mirror, <br />
-              <span className="italic text-[#4F46E5] font-bold">not your autopilot.</span>
+              <span className="italic text-[#4F46E5] dark:text-indigo-400 font-bold">not your autopilot.</span>
             </h2>
 
-            <p className="text-xs font-normal text-slate-500 max-w-[320px] mx-auto mt-1.5 leading-relaxed">
+            <p className="text-xs font-normal text-slate-500 dark:text-slate-400 max-w-[320px] mx-auto mt-1.5 leading-relaxed">
               Challenge assumptions, uncover blind spots, and lead with conviction.
             </p>
           </div>
@@ -290,25 +290,25 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
         {/* Feedback Messages */}
         {errorMessage && (
-          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 font-medium flex items-start gap-2 animate-fadeIn">
+          <div className="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/30 rounded-xl text-xs text-rose-800 dark:text-rose-300 font-medium flex items-start gap-2 animate-fadeIn">
             <span className="text-rose-500 font-bold shrink-0">✕</span>
             <p className="flex-1 leading-relaxed">{errorMessage}</p>
           </div>
         )}
 
         {successMessage && (
-          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-medium flex items-start gap-2 animate-fadeIn">
+          <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/30 rounded-xl text-xs text-emerald-800 dark:text-emerald-300 font-medium flex items-start gap-2 animate-fadeIn">
             <span className="text-emerald-600 font-bold shrink-0">✓</span>
             <p className="flex-1 leading-relaxed">{successMessage}</p>
           </div>
         )}
 
         {/* Form Container (Solid Opaque Box) */}
-        <div className="bg-[#FAFBFD] border border-slate-200/80 rounded-2xl p-5 shadow-2xs space-y-3.5">
+        <div className="bg-[#FAFBFD] dark:bg-[#14141C] border border-slate-200/80 dark:border-white/10 rounded-2xl p-5 shadow-2xs space-y-3.5">
           {authMethod === 'password' ? (
             <form onSubmit={handlePasswordSubmit} className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   Work Email
                 </label>
                 <input
@@ -317,14 +317,14 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="founder@venture.co"
-                  className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
+                  className="w-full text-xs bg-white dark:bg-[#1A1A22] border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
                 />
               </div>
 
               {mode !== 'forgot' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       Password
                     </label>
                     {mode === 'signin' && (
@@ -335,7 +335,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                           setErrorMessage(null);
                           setSuccessMessage(null);
                         }}
-                        className="text-[10px] font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                        className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer"
                       >
                         Forgot password?
                       </button>
@@ -347,14 +347,14 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
+                    className="w-full text-xs bg-white dark:bg-[#1A1A22] border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
                   />
                 </div>
               )}
 
               {mode === 'signup' && (
                 <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
+                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                     Confirm Password
                   </label>
                   <input
@@ -363,7 +363,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
+                    className="w-full text-xs bg-white dark:bg-[#1A1A22] border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
                   />
                 </div>
               )}
@@ -387,7 +387,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                 )}
               </button>
 
-              <div className="flex justify-center items-center gap-1 text-[11px] font-medium text-slate-500 pt-0.5">
+              <div className="flex justify-center items-center gap-1 text-[11px] font-medium text-slate-500 dark:text-slate-400 pt-0.5">
                 {mode === 'signin' && (
                   <>
                     <span>Don&apos;t have an account?</span>
@@ -397,7 +397,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                         setMode('signup');
                         setErrorMessage(null);
                       }}
-                      className="font-bold text-indigo-600 hover:text-indigo-800 cursor-pointer ml-1"
+                      className="font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer ml-1"
                     >
                       Create account
                     </button>
@@ -412,7 +412,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                         setMode('signin');
                         setErrorMessage(null);
                       }}
-                      className="font-bold text-indigo-600 hover:text-indigo-800 cursor-pointer ml-1"
+                      className="font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer ml-1"
                     >
                       Sign in
                     </button>
@@ -422,21 +422,21 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   <button
                     type="button"
                     onClick={() => setMode('signin')}
-                    className="font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                    className="font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 cursor-pointer"
                   >
                     ← Back to sign in
                   </button>
                 )}
               </div>
 
-              <div className="pt-2 text-center border-t border-slate-200/60 mt-2">
+              <div className="pt-2 text-center border-t border-slate-200/60 dark:border-white/10 mt-2">
                 <button
                   type="button"
                   onClick={() => {
                     setAuthMethod('magic-link');
                     setErrorMessage(null);
                   }}
-                  className="text-[10.5px] font-medium text-slate-500 hover:text-indigo-600 transition-colors cursor-pointer inline-flex items-center gap-1"
+                  className="text-[10.5px] font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer inline-flex items-center gap-1"
                 >
                   <span>✉️</span>
                   <span>Email me a link instead</span>
@@ -446,7 +446,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
           ) : (
             <form onSubmit={handleMagicLinkSubmit} className="space-y-3">
               <div className="flex justify-between items-center pb-0.5">
-                <span className="text-xs font-bold text-slate-800">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   Passwordless Sign In
                 </span>
                 <button
@@ -455,14 +455,14 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                     setAuthMethod('password');
                     setErrorMessage(null);
                   }}
-                  className="text-[10.5px] font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                  className="text-[10.5px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer"
                 >
                   Sign in with password instead
                 </button>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                   Work Email
                 </label>
                 <input
@@ -471,7 +471,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="founder@venture.co"
-                  className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
+                  className="w-full text-xs bg-white dark:bg-[#1A1A22] border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2.5 text-slate-800 dark:text-[#F1F1F5] placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
                 />
               </div>
 
@@ -492,11 +492,11 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                 )}
               </button>
 
-              <div className="pt-2 text-center border-t border-slate-200/60">
+              <div className="pt-2 text-center border-t border-slate-200/60 dark:border-white/10">
                 <button
                   type="button"
                   onClick={() => setAuthMethod('password')}
-                  className="text-[10.5px] font-medium text-slate-500 hover:text-slate-800 cursor-pointer"
+                  className="text-[10.5px] font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer"
                 >
                   ← Return to password sign in
                 </button>
@@ -505,7 +505,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
           )}
 
           {/* Guarantees Row */}
-          <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between text-[10.5px] font-medium text-slate-500">
+          <div className="pt-2 border-t border-slate-200/70 dark:border-white/10 flex items-center justify-between text-[10.5px] font-medium text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#E58914]" />
               <span>Zero vanity metrics</span>
@@ -522,31 +522,31 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
           <a
             href="/templates/FounderSync_Input_Template.pdf"
             download="FounderSync_Input_Template.pdf"
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50/80 hover:bg-indigo-100/90 border border-indigo-200/80 px-3 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs group"
+            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 dark:text-indigo-300 hover:text-indigo-800 dark:hover:text-indigo-200 bg-indigo-50/80 dark:bg-indigo-950/60 hover:bg-indigo-100/90 dark:hover:bg-indigo-900/60 border border-indigo-200/80 dark:border-indigo-500/30 px-3 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs group"
           >
-            <svg className="w-3.5 h-3.5 text-indigo-600 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             <span>Download Metrics Template (PDF)</span>
-            <span className="text-[9.5px] px-1.5 py-0.2 rounded-full bg-indigo-200/70 text-indigo-800 font-mono">v1.0</span>
+            <span className="text-[9.5px] px-1.5 py-0.2 rounded-full bg-indigo-200/70 dark:bg-indigo-900/80 text-indigo-800 dark:text-indigo-200 font-mono">v1.0</span>
           </a>
         </div>
 
         {/* Legal Disclaimer */}
-        <p className="text-[10.5px] text-slate-400 text-center leading-relaxed">
+        <p className="text-[10.5px] text-slate-400 dark:text-slate-500 text-center leading-relaxed">
           By signing in, you agree to our{' '}
-          <span className="underline cursor-pointer hover:text-slate-600">Terms of Deliberation</span> and{' '}
-          <span className="underline cursor-pointer hover:text-slate-600">Privacy Framework</span>.
+          <span className="underline cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">Terms of Deliberation</span> and{' '}
+          <span className="underline cursor-pointer hover:text-slate-600 dark:hover:text-slate-300">Privacy Framework</span>.
         </p>
 
         {/* Testimonial Quote Callout Box (SOLID OPAQUE) */}
-        <div className="p-3 bg-[#EEF2F9] border border-slate-200/80 rounded-2xl flex items-center gap-3 shadow-2xs">
-          <div className="w-6.5 h-6.5 rounded-full bg-[#FDF0D5] border border-[#F6D896] text-amber-800 flex items-center justify-center shrink-0 shadow-2xs">
-            <svg className="w-3 h-3 text-[#B8860B]" fill="currentColor" viewBox="0 0 24 24">
+        <div className="p-3 bg-[#EEF2F9] dark:bg-[#14141C] border border-slate-200/80 dark:border-white/10 rounded-2xl flex items-center gap-3 shadow-2xs transition-colors duration-300">
+          <div className="w-6.5 h-6.5 rounded-full bg-[#FDF0D5] dark:bg-amber-950/60 border border-[#F6D896] dark:border-amber-500/30 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0 shadow-2xs">
+            <svg className="w-3 h-3 text-[#B8860B] dark:text-amber-400" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
             </svg>
           </div>
-          <p className="text-[11px] text-slate-700 font-serif italic leading-relaxed">
+          <p className="text-[11px] text-slate-700 dark:text-slate-300 font-serif italic leading-relaxed">
             &ldquo;A critical sounding board ready before today&apos;s term sheet negotiations.&rdquo;
           </p>
         </div>
