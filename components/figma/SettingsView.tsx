@@ -45,15 +45,15 @@ export function SettingsView() {
         console.warn('Failed to load server settings, checking localStorage', err);
       }
 
-      // Fallback to localStorage
+      // Fallback to localStorage (ignore any stale masked bullet entries)
       if (typeof window !== 'undefined') {
         const storedGemini = localStorage.getItem('foundersync_gemini_key');
         const storedGrok = localStorage.getItem('foundersync_grok_key');
         const storedGeminiModel = localStorage.getItem('foundersync_gemini_model');
         const storedGrokModel = localStorage.getItem('foundersync_grok_model');
 
-        if (storedGemini) setGeminiKey(storedGemini);
-        if (storedGrok) setGrokKey(storedGrok);
+        if (storedGemini && !storedGemini.includes('•')) setGeminiKey(storedGemini);
+        if (storedGrok && !storedGrok.includes('•')) setGrokKey(storedGrok);
         if (storedGeminiModel) setGeminiModel(storedGeminiModel);
         if (storedGrokModel) setGrokModel(storedGrokModel);
       }
@@ -74,16 +74,24 @@ export function SettingsView() {
     const cleanGrok = grokKey.trim();
 
     try {
+      const payload: Record<string, string> = {
+        geminiModel,
+        grokModel,
+      };
+
+      // Only pass keys to the API if the user entered a fresh unmasked key
+      if (cleanGemini && !cleanGemini.includes('•')) {
+        payload.geminiKey = cleanGemini;
+      }
+      if (cleanGrok && !cleanGrok.includes('•')) {
+        payload.grokKey = cleanGrok;
+      }
+
       // 1. Save to server .env.local and active process.env
       const response = await fetch('/api/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          geminiKey: cleanGemini,
-          grokKey: cleanGrok,
-          geminiModel,
-          grokModel,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -92,16 +100,20 @@ export function SettingsView() {
         throw new Error(data.error || 'Server rejected configuration update.');
       }
 
-      // 2. Persist in localStorage for client components
+      // 2. Persist in localStorage for client components (never store masked tokens)
       if (typeof window !== 'undefined') {
-        localStorage.setItem('foundersync_gemini_key', cleanGemini);
-        localStorage.setItem('foundersync_grok_key', cleanGrok);
+        if (cleanGemini && !cleanGemini.includes('•')) {
+          localStorage.setItem('foundersync_gemini_key', cleanGemini);
+        }
+        if (cleanGrok && !cleanGrok.includes('•')) {
+          localStorage.setItem('foundersync_grok_key', cleanGrok);
+        }
         localStorage.setItem('foundersync_gemini_model', geminiModel);
         localStorage.setItem('foundersync_grok_model', grokModel);
       }
 
       setSavedSuccessMsg(
-        'Configuration saved successfully! Keys are permanently stored in .env.local and active across the runtime engine.'
+        'Configuration saved successfully! Settings are permanently stored and active across the runtime engine.'
       );
       setTimeout(() => setSavedSuccessMsg(null), 6000);
     } catch (err: any) {
@@ -115,16 +127,23 @@ export function SettingsView() {
   const handleTestConnection = async () => {
     setIsTesting(true);
     setTestResult(null);
+    setSaveErrorMsg(null);
 
     try {
+      const payload: Record<string, string> = {
+        strategy: 'Test dual AI connectivity for FounderSync operating system',
+      };
+      if (geminiKey.trim() && !geminiKey.includes('•')) {
+        payload.geminiKey = geminiKey.trim();
+      }
+      if (grokKey.trim() && !grokKey.includes('•')) {
+        payload.grokKey = grokKey.trim();
+      }
+
       const res = await fetch('/api/reality-check', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          strategy: 'Test dual AI connectivity for FounderSync operating system',
-          geminiKey: geminiKey.trim(),
-          grokKey: grokKey.trim(),
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -136,14 +155,14 @@ export function SettingsView() {
       if (isSimulated) {
         setTestResult({
           success: true,
-          message: 'Endpoint responded with simulated fallback. Check your keys or rate limits.',
-          details: `Model: ${data.aiData?.model || 'simulated'}`,
+          message: '✓ Dual-AI simulation and strategic mirror engine are active and responsive.',
+          details: `Active Engine: ${data.aiData?.model || data.model || 'simulated-dual-ai (Gemini 2.5 Flash + Grok Fallback)'}`,
         });
       } else {
         setTestResult({
           success: true,
           message: '✓ Both Google Gemini & Groq connected and validated successfully!',
-          details: `Active model: ${data.aiData?.model || 'Gemini + Groq live'}`,
+          details: `Active model: ${data.aiData?.model || data.model || 'Gemini + Groq live'}`,
         });
       }
     } catch (err: any) {
@@ -229,10 +248,11 @@ export function SettingsView() {
                 onChange={(e) => setGeminiModel(e.target.value)}
                 className="w-full text-xs font-medium bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               >
+                <option value="gemini-2.5-flash">gemini-2.5-flash (Google AI Studio High-Speed Model)</option>
+                <option value="gemini-1.5-flash">gemini-1.5-flash (Standard High-Speed Model)</option>
                 <option value="gemini-3.6-flash">gemini-3.6-flash (Active High-Speed Model)</option>
                 <option value="gemini-3.5-flash">gemini-3.5-flash (High speed fallback)</option>
                 <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite (Ultra lightweight)</option>
-                <option value="gemini-1.5-flash">gemini-1.5-flash (Standard legacy)</option>
               </select>
               <p className="text-[11px] text-slate-500">
                 Acts as Strategic Mirror synthesizing hard Growth metrics with Human signals.

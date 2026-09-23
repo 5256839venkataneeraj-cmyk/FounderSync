@@ -30,11 +30,18 @@ function sanitizeStrategyPrompt(input: string): string {
     .trim();
 }
 
+function cleanCustomApiKey(key?: string): string | undefined {
+  if (!key) return undefined;
+  const trimmed = key.trim();
+  if (!trimmed || trimmed.includes('•')) return undefined;
+  return trimmed;
+}
+
 /**
  * Calls Gemini 1.5 Flash with strict XML boundary delimitation to neutralize prompt injection.
  */
 async function getGeminiSynthesis(rawStrategy: string, customKey?: string): Promise<string> {
-  const apiKey = customKey || process.env.GEMINI_API_KEY;
+  const apiKey = cleanCustomApiKey(customKey) || process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error('GEMINI_API_KEY is not defined in environment.');
   }
@@ -56,7 +63,12 @@ Analyze the founder's strategy above and provide a sharp, structured strategic s
 
 Keep your synthesis executive-level, clear, and actionable (2-3 structured paragraphs).`;
 
-  const candidateModels = ['gemini-1.5-flash', 'gemini-3.6-flash', 'gemini-flash-latest'];
+  const candidateModels = [
+    'gemini-2.5-flash',
+    'gemini-1.5-flash',
+    'gemini-2.0-flash',
+    'gemini-flash-latest',
+  ];
   let lastError: Error | null = null;
 
   for (const modelName of candidateModels) {
@@ -80,7 +92,7 @@ Keep your synthesis executive-level, clear, and actionable (2-3 structured parag
  * Calls Grok / Groq REST API with strict adversarial role framing and input encapsulation.
  */
 async function getGrokPushback(rawStrategy: string, customKey?: string): Promise<string> {
-  const apiKey = customKey || process.env.GROQ_API_KEY || process.env.GROK_API_KEY || process.env.XAI_API_KEY;
+  const apiKey = cleanCustomApiKey(customKey) || process.env.GROQ_API_KEY || process.env.GROK_API_KEY || process.env.XAI_API_KEY;
   if (!apiKey) {
     throw new Error('GROQ_API_KEY / XAI_API_KEY is not defined in environment.');
   }

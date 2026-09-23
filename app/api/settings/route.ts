@@ -10,23 +10,33 @@ export const runtime = 'nodejs';
 
 const envFilePath = path.join(process.cwd(), '.env.local');
 
-// Strict Zod validation prohibiting CRLF characters and malformed keys
+// Zod validation allowing newly typed keys, existing masked values, and model strings
 const SettingsUpdateSchema = z.object({
   geminiKey: z
     .string()
     .trim()
-    .regex(/^[A-Za-z0-9_-]{15,70}$/, 'Invalid Gemini API key format (no whitespace or newlines allowed)')
+    .refine((val) => !val || val.includes('•') || /^[A-Za-z0-9_.-]{15,120}$/.test(val), {
+      message: 'Invalid Gemini API key format (no whitespace or newlines allowed)',
+    })
     .optional(),
   grokKey: z
     .string()
     .trim()
-    .regex(/^[A-Za-z0-9_-]{15,90}$/, 'Invalid Grok/Groq API key format (no whitespace or newlines allowed)')
+    .refine((val) => !val || val.includes('•') || /^[A-Za-z0-9_.-]{15,120}$/.test(val), {
+      message: 'Invalid Grok/Groq API key format (no whitespace or newlines allowed)',
+    })
     .optional(),
   geminiModel: z
-    .enum(['gemini-1.5-flash', 'gemini-3.6-flash', 'gemini-flash-latest'])
+    .string()
+    .trim()
+    .min(2)
+    .max(60)
     .optional(),
   grokModel: z
-    .enum(['grok-beta', 'openai/gpt-oss-120b'])
+    .string()
+    .trim()
+    .min(2)
+    .max(60)
     .optional(),
 });
 
@@ -154,8 +164,10 @@ export async function POST(req: NextRequest) {
     const { geminiKey, grokKey, geminiModel, grokModel } = parsed.data;
     const updates: Record<string, string> = {};
 
-    if (geminiKey) updates['GEMINI_API_KEY'] = geminiKey;
-    if (grokKey) {
+    if (geminiKey && !geminiKey.includes('•')) {
+      updates['GEMINI_API_KEY'] = geminiKey;
+    }
+    if (grokKey && !grokKey.includes('•')) {
       updates['GROQ_API_KEY'] = grokKey;
       updates['GROK_API_KEY'] = grokKey;
       updates['XAI_API_KEY'] = grokKey;
