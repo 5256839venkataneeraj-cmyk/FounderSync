@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { FounderSyncProvider } from '@/context/FounderSyncContext';
@@ -8,11 +8,11 @@ import { UserNameModal } from '@/components/common/UserNameModal';
 import { GoogleCalendarModal } from '@/components/common/GoogleCalendarModal';
 import { CommandPaletteModal } from '@/components/common/CommandPaletteModal';
 
-const inter = Inter({
+const grotesk = Bricolage_Grotesque({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
-  weight: ['400', '500', '600', '700'],
+  variable: '--font-grotesk',
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${inter.className} font-sans`}>
+    <html lang="en" className={`${grotesk.variable} font-sans`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -54,7 +54,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white">
+      <body className="min-h-screen bg-[#F8FAFD] text-slate-900 selection:bg-indigo-500 selection:text-white font-sans antialiased">
         <AuthProvider>
           <UserProfileProvider>
             <FounderSyncProvider>

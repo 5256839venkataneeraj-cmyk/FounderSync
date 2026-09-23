@@ -274,7 +274,7 @@ export default function LoginPage() {
 
         {/* Dialectical Co-Pilot Pill Badge */}
         <div className="mb-2.5">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#EEF2FF] text-[#4F46E5] border border-[#E0E7FF] shadow-2xs">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[10px] font-grotesk font-bold uppercase tracking-wider bg-[#EEF2FF] text-[#4F46E5] border border-[#E0E7FF] shadow-2xs">
             <svg className="w-2.5 h-2.5 text-[#4F46E5]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
             </svg>
@@ -284,18 +284,18 @@ export default function LoginPage() {
 
         {/* Hero Title & Subtitle */}
         <div className="text-center mb-5">
-          <h1 className="text-[30px] sm:text-[34px] font-serif font-bold text-slate-900 tracking-tight leading-[1.18]">
+          <h1 className="text-[32px] sm:text-[36px] font-display font-bold text-slate-900 tracking-tight leading-[1.15]">
             Your strategic mirror, <br />
-            <span className="italic text-[#4F46E5] font-serif font-bold">not your autopilot.</span>
+            <span className="text-[#4F46E5] font-display font-extrabold">not your autopilot.</span>
           </h1>
 
-          <p className="text-xs text-slate-500 max-w-[340px] mx-auto mt-2 leading-relaxed">
+          <p className="text-xs text-slate-500 max-w-[340px] mx-auto mt-2 leading-relaxed font-sans">
             Challenge assumptions, uncover blind spots, and lead with conviction.
           </p>
         </div>
 
         {/* Main Auth Card (Figma Screen 1 Styling) */}
-        <div className="w-full bg-white rounded-[22px] border border-slate-100 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+        <div className="w-full glass-panel rounded-[24px] border border-slate-200/80 p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.05)]">
           {/* Feedback Messages */}
           {errorMessage && (
             <div className="mb-4 p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 font-medium flex items-start gap-2 animate-fadeIn">

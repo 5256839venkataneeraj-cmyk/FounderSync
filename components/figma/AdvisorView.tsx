@@ -33,17 +33,17 @@ export function AdvisorView() {
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
               Case #14: Q4 Pricing Shift
             </span>
           </div>
-          <span className="text-xs font-normal text-slate-500">
-            Confidence Gap: <strong className="text-slate-800 font-bold">68% Dissonance</strong>
+          <span className="text-xs font-sans text-slate-500">
+            Confidence Gap: <strong className="text-slate-900 font-display font-bold text-sm">68% Dissonance</strong>
           </span>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
             Contradictory Advisor
           </h1>
 
@@ -93,76 +93,76 @@ export function AdvisorView() {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column: Founder Stance */}
-        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-6">
+        <div className="glass-panel-elevated rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-slate-100">
+            <div className="flex items-center justify-between text-xs font-grotesk font-bold uppercase tracking-wider text-slate-500 pb-3 border-b border-slate-100">
               <span className="flex items-center gap-1.5">
                 <span>👤</span> Founder Stance
               </span>
-              <span className="text-slate-400 font-normal normal-case">Logged Oct 24</span>
+              <span className="text-slate-400 font-sans font-normal normal-case">Logged Oct 24</span>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
+              <span className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-400 block">
                 Core Belief
               </span>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-display font-bold text-slate-900">
                 Your Current Hypothesis
               </h3>
             </div>
 
             {/* Quote Card */}
-            <div className="bg-slate-50 rounded-xl p-5 border border-slate-200/80">
-              <p className="text-base text-slate-700 font-normal leading-relaxed italic">
+            <div className="bg-slate-50/90 rounded-2xl p-5 border border-slate-200/80">
+              <p className="text-base text-slate-700 font-sans font-normal leading-relaxed italic">
                 &ldquo;Moving to mandatory annual upfront billing will reduce churn and improve our cash runway by 3.2x.&rdquo;
               </p>
             </div>
           </div>
 
           <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-indigo-600">
+            <div className="flex items-center gap-1.5 font-bold text-indigo-600 font-sans">
               <span>📈</span>
               <span>Optimistic Net ARR Target: $1.4M</span>
             </div>
-            <span className="text-slate-400 font-normal">v1.2 Initial Draft</span>
+            <span className="text-slate-400 font-sans font-normal">v1.2 Initial Draft</span>
           </div>
         </div>
 
         {/* Right Column: Adversarial Evaluation (Contradictory Advisor) */}
-        <div className="floating-card animate-float-subtle bg-white rounded-3xl border-2 border-amber-300/80 p-6 sm:p-8 shadow-[0_12px_40px_rgba(245,158,11,0.06)] flex flex-col justify-between space-y-6 relative overflow-hidden">
+        <div className="glass-panel-elevated bg-gradient-to-br from-white via-white to-amber-50/30 rounded-3xl border-2 border-amber-300/80 p-6 sm:p-8 shadow-[0_12px_40px_rgba(245,158,11,0.06)] flex flex-col justify-between space-y-6 relative overflow-hidden">
           <div className="space-y-4">
             <div className="flex items-center justify-between text-xs pb-3 border-b border-slate-100">
-              <span className="font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="font-grotesk font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
                 <span>⚖️</span> Adversarial Evaluation
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-grotesk font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300">
                 ⚡ AI Reality Check
               </span>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
+              <span className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-400 block">
                 Contrarian Vector
               </span>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-display font-bold text-slate-900">
                 Contradictory Advisor
               </h3>
             </div>
 
             {/* Highlighted Quote Box */}
-            <div className="bg-amber-50/50 rounded-xl p-5 border border-amber-200">
-              <p className="text-base text-slate-900 font-medium leading-relaxed">
+            <div className="bg-amber-50/60 rounded-2xl p-5 border border-amber-200">
+              <p className="text-base text-slate-900 font-sans font-medium leading-relaxed">
                 &ldquo;Mid-market buyer cycle will stall by 45 days. You risk killing organic founder word-of-mouth when early champions hit contract friction.&rdquo;
               </p>
             </div>
           </div>
 
           <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-            <div className="flex items-center gap-2 text-rose-700 font-bold">
+            <div className="flex items-center gap-2 text-rose-700 font-bold font-sans">
               <span>⚠️</span>
               <span>Flagged Vulnerability: Sales Velocity Inertia</span>
             </div>
-            <span className="text-slate-400 text-[11px]">
+            <span className="text-slate-400 text-[11px] font-sans">
               Synthesized across 42 SaaS cohorts
             </span>
           </div>

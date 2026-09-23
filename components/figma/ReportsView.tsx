@@ -112,7 +112,7 @@ export function ReportsView() {
       {/* Header & Meta (Figma Screen 5) */}
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-200">
+          <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-bold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-200">
             Reality Check Archive · 4 critical discrepancies active
           </span>
 
@@ -121,7 +121,7 @@ export function ReportsView() {
             <select
               value={selectedFilter}
               onChange={(e) => setSelectedFilter(e.target.value)}
-              className="text-xs bg-white text-slate-800 font-semibold px-3 py-1.5 rounded-xl border border-slate-300 shadow-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+              className="text-xs font-sans bg-white text-slate-800 font-semibold px-3.5 py-1.5 rounded-xl border border-slate-300 shadow-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
             >
               <option value="all">All Categories</option>
               <option value="high">High Severity Only</option>
@@ -132,10 +132,10 @@ export function ReportsView() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
           Blind Spot Reports
         </h1>
-        <p className="text-sm text-slate-500 max-w-3xl font-normal">
+        <p className="text-sm text-slate-600 max-w-3xl font-sans font-normal">
           Synthesized strategic risks, customer friction patterns, and operational bottlenecks surfaced through contradictory cross-analysis.
         </p>
       </div>
@@ -143,12 +143,12 @@ export function ReportsView() {
       {/* 3 Summary Stat Tiles (Figma Screen 5) */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
         {/* Tile 1: Assumptions Challenged */}
-        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
+        <div className="glass-panel-elevated rounded-3xl p-5 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
+            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 block mb-1">
               Assumptions Challenged
             </span>
-            <div className="text-2xl font-bold text-slate-900">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 tracking-tight">
               14 of 18
             </div>
           </div>
@@ -160,12 +160,12 @@ export function ReportsView() {
         </div>
 
         {/* Tile 2: Critical Divergence */}
-        <div className="floating-card animate-float-subtle bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
+        <div className="glass-panel-elevated rounded-3xl p-5 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
+            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 block mb-1">
               Critical Divergence
             </span>
-            <div className="text-2xl font-bold text-amber-600">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-amber-600 tracking-tight">
               1 Active
             </div>
           </div>
@@ -177,12 +177,12 @@ export function ReportsView() {
         </div>
 
         {/* Tile 3: Identified Headroom */}
-        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
+        <div className="glass-panel-elevated rounded-3xl p-5 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
+            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 block mb-1">
               Identified Headroom
             </span>
-            <div className="text-2xl font-bold text-indigo-600">
+            <div className="text-2xl sm:text-3xl font-display font-extrabold text-indigo-600 tracking-tight">
               +40% Margin
             </div>
           </div>

@@ -28,37 +28,37 @@ export function InsightsView() {
       {/* Header & Meta (Figma Screen 2) */}
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600">
+          <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-indigo-600">
             Signal Analysis / Continuous Synthesis
           </span>
 
           <div className="flex items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1.5">
+            <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-semibold bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
               Window: May – Oct 2024
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <span className="px-3.5 py-1 rounded-full text-xs font-grotesk font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
               Bi-Weekly Cadence
             </span>
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
           Team & Customer Insights
         </h1>
-        <p className="text-sm text-slate-500 max-w-3xl font-normal">
+        <p className="text-sm text-slate-600 max-w-3xl font-sans font-normal">
           Synthesized sentiment signals across founder, team, and customer conversations.
         </p>
       </div>
 
       {/* Conviction Alignment vs. Market Reality Chart (Figma Screen 2) */}
-      <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-6">
+      <div className="glass-panel-elevated rounded-3xl p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-100">
           <div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
               Metric in Focus
             </span>
-            <h2 className="text-xl font-bold text-slate-900">
+            <h2 className="text-xl font-display font-bold text-slate-900">
               Conviction Alignment vs. Market Reality
             </h2>
           </div>

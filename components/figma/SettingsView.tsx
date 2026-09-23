@@ -160,13 +160,13 @@ export function SettingsView() {
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
       {/* Header */}
       <div>
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600">
+        <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-indigo-600">
           Platform Configuration
         </span>
-        <h1 className="text-3xl font-bold text-slate-900 tracking-tight mt-1">
+        <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight mt-1">
           Settings & Model Governance
         </h1>
-        <p className="text-sm text-slate-500 font-normal mt-1">
+        <p className="text-sm text-slate-600 font-sans font-normal mt-1">
           Manage Dual-AI engine configurations, Google AI Studio & Groq credentials, workspace scopes, and security settings.
         </p>
       </div>
@@ -208,12 +208,12 @@ export function SettingsView() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Dual AI Engine Architecture */}
-        <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-5">
+        <div className="glass-panel-elevated rounded-3xl p-6 sm:p-7 space-y-5">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+            <h3 className="text-xs font-grotesk font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
               <span>🤖</span> Dual-AI Engine Architecture
             </h3>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
               Industry 6.0 Engine
             </span>
           </div>
