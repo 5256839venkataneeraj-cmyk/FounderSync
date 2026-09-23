@@ -107,8 +107,8 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
           </button>
         </div>
 
-        {/* View Section Filters & Sparring Mode */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-2">
+        {/* View Section Filters */}
+        <div className="flex items-center gap-4 pt-2">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400 mr-1">
               VIEW SECTION:
@@ -174,15 +174,6 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
               </svg>
               <span>Conviction Radar</span>
             </button>
-          </div>
-
-          {/* Sparring Mode Status Pill */}
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs text-slate-500 font-semibold">Sparring Mode:</span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFFBEB] text-[#92400E] border border-[#FDE68A] font-bold text-xs shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse" />
-              <span>Unfiltered Adversarial</span>
-            </span>
           </div>
         </div>
       </div>
