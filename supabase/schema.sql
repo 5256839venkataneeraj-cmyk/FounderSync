@@ -83,7 +83,7 @@ CREATE INDEX IF NOT EXISTS idx_heatmap_scores_workspace ON heatmap_scores(worksp
 
 -- ============================================================================
 -- ROW LEVEL SECURITY (RLS) POLICIES
--- Scoped to fixed workspace_id '00000000-0000-0000-0000-000000000001'
+-- Strict per-user isolation bound to auth.uid() = user_id
 -- ============================================================================
 
 ALTER TABLE metrics ENABLE ROW LEVEL SECURITY;
@@ -93,41 +93,39 @@ ALTER TABLE decisions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE heatmap_scores ENABLE ROW LEVEL SECURITY;
 
 -- 1. Metrics RLS
-CREATE POLICY "Allow workspace read access to metrics" ON metrics
-  FOR SELECT USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can view own metrics" ON metrics
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
 
-CREATE POLICY "Allow workspace write access to metrics" ON metrics
-  FOR ALL USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid)
-  WITH CHECK (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can insert own metrics" ON metrics
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own metrics" ON metrics
+  FOR UPDATE TO authenticated USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 
 -- 2. Strategic Analyses RLS
-CREATE POLICY "Allow workspace read access to strategic_analyses" ON strategic_analyses
-  FOR SELECT USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can view own strategic analyses" ON strategic_analyses
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
 
-CREATE POLICY "Allow workspace write access to strategic_analyses" ON strategic_analyses
-  FOR ALL USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid)
-  WITH CHECK (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can insert own strategic analyses" ON strategic_analyses
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
 
 -- 3. Reality Checks RLS
-CREATE POLICY "Allow workspace read access to reality_checks" ON reality_checks
-  FOR SELECT USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can view own reality checks" ON reality_checks
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
 
-CREATE POLICY "Allow workspace write access to reality_checks" ON reality_checks
-  FOR ALL USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid)
-  WITH CHECK (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can insert own reality checks" ON reality_checks
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
 
 -- 4. Decisions RLS
-CREATE POLICY "Allow workspace read access to decisions" ON decisions
-  FOR SELECT USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can view own decisions" ON decisions
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
 
-CREATE POLICY "Allow workspace write access to decisions" ON decisions
-  FOR ALL USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid)
-  WITH CHECK (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can insert own decisions" ON decisions
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
 
 -- 5. Heatmap Scores RLS
-CREATE POLICY "Allow workspace read access to heatmap_scores" ON heatmap_scores
-  FOR SELECT USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can view own heatmap scores" ON heatmap_scores
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
 
-CREATE POLICY "Allow workspace write access to heatmap_scores" ON heatmap_scores
-  FOR ALL USING (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid)
-  WITH CHECK (workspace_id = '00000000-0000-0000-0000-000000000001'::uuid);
+CREATE POLICY "Users can insert own heatmap scores" ON heatmap_scores
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);

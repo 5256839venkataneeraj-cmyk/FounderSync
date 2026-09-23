@@ -33,7 +33,7 @@ export function UserNameModal() {
             </span>
             <div>
               <h3 className="text-base font-bold text-slate-900">Founder Profile</h3>
-              <p className="text-xs text-slate-500">Personalize your executive sounding board</p>
+              <p className="text-xs text-slate-500 font-normal">Personalize your executive sounding board</p>
             </div>
           </div>
           <button
@@ -47,7 +47,7 @@ export function UserNameModal() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
               What is your name?
             </label>
             <input

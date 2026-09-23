@@ -144,15 +144,22 @@ export default function LoginPage() {
       return;
     }
 
-    if (mode === 'signup' && password.length < 6) {
-      setErrorMessage('Password must be at least 6 characters long.');
-      return;
+    if (mode === 'signup') {
+      if (password.length < 8) {
+        setErrorMessage('Password must be at least 8 characters long.');
+        return;
+      }
+      if (!/[0-9]/.test(password) || !/[a-zA-Z]/.test(password)) {
+        setErrorMessage('Password must contain at least one letter and one number.');
+        return;
+      }
     }
 
     if (mode === 'signup' && password !== confirmPassword) {
       setErrorMessage('Passwords do not match. Please re-enter.');
       return;
     }
+
 
     setIsSubmitting(true);
     try {

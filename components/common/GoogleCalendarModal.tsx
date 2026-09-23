@@ -58,7 +58,7 @@ export function GoogleCalendarModal() {
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900">Google Calendar Integration</h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 font-normal">
                 Daily synchronized strategic cadence · {currentDateFormatted}
               </p>
             </div>
@@ -75,25 +75,25 @@ export function GoogleCalendarModal() {
         {/* Dynamic Date & Real-time Sync Status */}
         <div className="bg-gradient-to-r from-blue-50/70 via-indigo-50/50 to-white rounded-2xl p-4 border border-blue-100/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-blue-700 block mb-0.5">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-700 block mb-0.5">
               Today&apos;s Active Calendar Window
             </span>
-            <div className="text-sm font-extrabold text-slate-900">
+            <div className="text-sm font-bold text-slate-900">
               {currentDateFormatted}
             </div>
-            <div className="text-xs text-slate-500 font-medium">
+            <div className="text-xs text-slate-500 font-normal">
               System time: {currentTimeFormatted} · Updates automatically everyday
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             {isCalendarConnected ? (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold shadow-2xs">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold shadow-2xs">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Synced with Google</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-xs font-medium">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-xs font-normal">
                 <span>Offline</span>
               </span>
             )}
@@ -103,7 +103,7 @@ export function GoogleCalendarModal() {
         {/* Synchronized Events List */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Today&apos;s Sounding Board Schedule
             </span>
             <button

@@ -167,10 +167,10 @@ export function RealityCheckWorkflow() {
               ⚡
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
                 Adversarial Reality-Check Engine
               </h2>
-              <p className="text-xs text-slate-500 font-medium">
+              <p className="text-xs text-slate-500 font-normal">
                 Simultaneous Gemini 1.5 Flash synthesis + Grok contradictory stress-testing
               </p>
             </div>
@@ -186,7 +186,7 @@ export function RealityCheckWorkflow() {
           <div>
             <label
               htmlFor="strategy-input"
-              className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2"
+              className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2"
             >
               Enter Strategy or Hypothesis to Pressure-Test
             </label>
@@ -209,7 +209,7 @@ export function RealityCheckWorkflow() {
           )}
 
           <div className="flex items-center justify-between pt-1">
-            <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">
+            <span className="text-[11px] text-slate-400 font-normal hidden sm:inline">
               Calls Gemini Flash + Grok REST API concurrently via Promise.all
             </span>
             <button
@@ -242,10 +242,10 @@ export function RealityCheckWorkflow() {
           {/* Header & Stress Test Score Banner */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
             <div>
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block mb-1">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
                 Evaluation Output · Supabase ID: {realityCheckResult.recordId}
               </span>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">
+              <h3 className="text-xl font-bold text-slate-900 tracking-tight">
                 AI Deliberation &amp; Stress-Test Insights
               </h3>
             </div>
@@ -253,7 +253,7 @@ export function RealityCheckWorkflow() {
             {/* Stress Test Score Pill */}
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-slate-50 border border-slate-200 self-start sm:self-auto">
               <div className="text-right">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block">
                   Stress Test Score
                 </span>
                 <span className="text-[11px] font-semibold text-slate-500">
@@ -266,7 +266,7 @@ export function RealityCheckWorkflow() {
               </div>
               <div className="flex items-baseline gap-0.5">
                 <span
-                  className={`text-2xl font-black ${
+                  className={`text-2xl font-bold ${
                     realityCheckResult.stressTestScore >= 70
                       ? 'text-emerald-600'
                       : realityCheckResult.stressTestScore >= 50
@@ -286,14 +286,14 @@ export function RealityCheckWorkflow() {
             {/* Gemini 1.5 Flash Synthesis */}
             <div className="bg-gradient-to-br from-indigo-50/60 to-white p-5 rounded-2xl border border-indigo-100/90 space-y-2">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs font-black">
+                <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs font-bold">
                   ✦
                 </span>
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-indigo-900">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-indigo-900">
                   Synthesis (Gemini 1.5 Flash)
                 </h4>
               </div>
-              <p className="text-xs leading-relaxed text-slate-700 whitespace-pre-line font-medium">
+              <p className="text-xs leading-relaxed text-slate-600 whitespace-pre-line font-normal">
                 {realityCheckResult.synthesis}
               </p>
             </div>
@@ -301,22 +301,22 @@ export function RealityCheckWorkflow() {
             {/* Human Impact */}
             <div className="bg-gradient-to-br from-amber-50/60 to-white p-5 rounded-2xl border border-amber-100/90 space-y-2">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-black">
+                <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">
                   ❤️
                 </span>
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-amber-900">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-amber-900">
                   Human Impact &amp; Team Sustainability
                 </h4>
               </div>
-              <p className="text-xs leading-relaxed text-slate-700 font-medium">
+              <p className="text-xs leading-relaxed text-slate-600 font-normal">
                 {realityCheckResult.humanImpact}
               </p>
               {realityCheckResult.opposingStrategy && (
                 <div className="mt-3 pt-2.5 border-t border-amber-200/60">
-                  <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wide block mb-1">
+                  <span className="text-[10px] font-semibold text-amber-800 uppercase tracking-wider block mb-1">
                     Grok Contrarian Counter-Perspective:
                   </span>
-                  <p className="text-xs text-slate-600 italic">
+                  <p className="text-xs text-slate-500 font-normal italic">
                     &ldquo;{realityCheckResult.opposingStrategy.slice(0, 180)}...&rdquo;
                   </p>
                 </div>
@@ -328,13 +328,13 @@ export function RealityCheckWorkflow() {
           <div className="bg-slate-50/90 rounded-2xl p-5 border border-slate-200 space-y-3">
             <div className="flex items-center gap-2">
               <span className="text-base">🔍</span>
-              <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-800">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-800">
                 Critical Blind Spots &amp; Echo-Chamber Risks
               </h4>
             </div>
             <ul className="space-y-2">
               {realityCheckResult.blindSpots.map((spot, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 font-medium">
+                <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-600 font-normal">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0 mt-1.5" />
                   <span>{spot}</span>
                 </li>
@@ -349,11 +349,11 @@ export function RealityCheckWorkflow() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="text-base">⚖️</span>
-                    <h4 className="text-sm font-extrabold text-slate-900 tracking-tight">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-800">
                       Human-in-the-Loop (HITL) Executive Decision
                     </h4>
                   </div>
-                  <span className="text-[11px] text-slate-500 font-medium">
+                  <span className="text-[11px] text-slate-500 font-normal">
                     Required for strategic audit trail
                   </span>
                 </div>

@@ -33,21 +33,17 @@ export function AdvisorView() {
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
               Case #14: Q4 Pricing Shift
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
-              Active Counter-Deliberation
-            </span>
           </div>
-          <span className="text-xs font-semibold text-slate-500">
+          <span className="text-xs font-normal text-slate-500">
             Confidence Gap: <strong className="text-slate-800 font-bold">68% Dissonance</strong>
           </span>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
             Contradictory Advisor
           </h1>
 
@@ -56,7 +52,7 @@ export function AdvisorView() {
             <button
               type="button"
               onClick={() => setActiveSubTab('live-workflow')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 activeSubTab === 'live-workflow'
                   ? 'bg-white text-indigo-700 shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -67,7 +63,7 @@ export function AdvisorView() {
             <button
               type="button"
               onClick={() => setActiveSubTab('case-study')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 activeSubTab === 'case-study'
                   ? 'bg-white text-indigo-700 shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -81,7 +77,7 @@ export function AdvisorView() {
 
       {/* Success Notification */}
       {actionSuccessMsg && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-medium flex items-center gap-2">
+        <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-normal flex items-center gap-2">
           <span>✓</span>
           <span>{actionSuccessMsg}</span>
         </div>
@@ -99,25 +95,25 @@ export function AdvisorView() {
         {/* Left Column: Founder Stance */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-6">
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs font-bold text-slate-500 pb-3 border-b border-slate-100">
-              <span className="flex items-center gap-1.5 uppercase tracking-wider">
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-slate-500 pb-3 border-b border-slate-100">
+              <span className="flex items-center gap-1.5">
                 <span>👤</span> Founder Stance
               </span>
-              <span className="text-slate-400 font-normal">Logged Oct 24</span>
+              <span className="text-slate-400 font-normal normal-case">Logged Oct 24</span>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-semibold text-slate-500 block">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
                 Core Belief
               </span>
-              <h3 className="text-lg font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900">
                 Your Current Hypothesis
               </h3>
             </div>
 
             {/* Quote Card */}
             <div className="bg-slate-50 rounded-xl p-5 border border-slate-200/80">
-              <p className="text-base text-slate-800 font-medium leading-relaxed italic">
+              <p className="text-base text-slate-700 font-normal leading-relaxed italic">
                 &ldquo;Moving to mandatory annual upfront billing will reduce churn and improve our cash runway by 3.2x.&rdquo;
               </p>
             </div>
@@ -128,7 +124,7 @@ export function AdvisorView() {
               <span>📈</span>
               <span>Optimistic Net ARR Target: $1.4M</span>
             </div>
-            <span className="text-slate-400">v1.2 Initial Draft</span>
+            <span className="text-slate-400 font-normal">v1.2 Initial Draft</span>
           </div>
         </div>
 
@@ -136,19 +132,19 @@ export function AdvisorView() {
         <div className="floating-card animate-float-subtle bg-white rounded-3xl border-2 border-amber-300/80 p-6 sm:p-8 shadow-[0_12px_40px_rgba(245,158,11,0.06)] flex flex-col justify-between space-y-6 relative overflow-hidden">
           <div className="space-y-4">
             <div className="flex items-center justify-between text-xs pb-3 border-b border-slate-100">
-              <span className="font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
                 <span>⚖️</span> Adversarial Evaluation
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300">
                 ⚡ AI Reality Check
               </span>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-semibold text-slate-500 block">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
                 Contrarian Vector
               </span>
-              <h3 className="text-lg font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900">
                 Contradictory Advisor
               </h3>
             </div>

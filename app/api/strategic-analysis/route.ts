@@ -4,7 +4,9 @@ import { analyzeStrategyWithGemini } from '@/lib/gemini';
 import { fetchServerWorkspaceMetrics, persistStrategicAnalysis } from '@/lib/supabase-server';
 import { INITIAL_GROWTH_METRICS, INITIAL_HUMAN_METRICS, INITIAL_TIME_SERIES } from '@/lib/mockData';
 import { ApiErrorResponse, ApiResponse, StrategicAnalysisResult } from '@/lib/types';
-import { safeLogger, verifySession } from '@/lib/security';
+import { safeLogger, getSecurityHeaders } from '@/lib/security';
+import { getAuthenticatedSupabaseClient } from '@/lib/supabaseAuthServer';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 export const runtime = 'nodejs';
 
@@ -23,7 +25,7 @@ function methodNotAllowed(method: string): NextResponse<ApiErrorResponse> {
     },
     {
       status: 405,
-      headers: { Allow: 'POST' },
+      headers: { Allow: 'POST', ...getSecurityHeaders() },
     }
   );
 }
@@ -45,18 +47,25 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse<StrategicAnalysisResult>>> {
+  // 1. Rate Limiting Check (20 requests per minute per IP / User)
+  const rateLimitError = checkRateLimit(req, { limit: 20, windowMs: 60 * 1000 });
+  if (rateLimitError) {
+    return rateLimitError as any;
+  }
+
   try {
-    // 1. Enforce Authenticated Session
-    const auth = verifySession(req);
-    if (!auth.authenticated) {
+    // 2. Enforce Cryptographically Verified Authenticated Session
+    const auth = await getAuthenticatedSupabaseClient(req);
+    if (!auth.isAuthenticated || !auth.user) {
       return NextResponse.json(
         {
           success: false,
           error: auth.error || 'Unauthorized: Missing or invalid authenticated session credentials.',
         },
-        { status: 401 }
+        { status: 401, headers: getSecurityHeaders() }
       );
     }
+
 
     // 2. Validate Request Body with Zod
     let rawBody: unknown = {};
@@ -119,7 +128,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse<S
         data: analysisResult,
         persisted,
       },
-      { status: 200 }
+      { status: 200, headers: getSecurityHeaders() }
     );
   } catch (err: any) {
     safeLogger.error('[API Strategic-Analysis] Unhandled internal server error:', err);
@@ -128,7 +137,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse<S
         success: false,
         error: 'Internal server error while processing strategic analysis.',
       },
-      { status: 500 }
+      { status: 500, headers: getSecurityHeaders() }
     );
   }
 }
+

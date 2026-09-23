@@ -28,7 +28,7 @@ export function InsightsView() {
       {/* Header & Meta (Figma Screen 2) */}
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-[11px] uppercase tracking-widest text-indigo-600 font-bold">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600">
             Signal Analysis / Continuous Synthesis
           </span>
 
@@ -43,10 +43,10 @@ export function InsightsView() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
           Team & Customer Insights
         </h1>
-        <p className="text-sm text-slate-600 max-w-3xl">
+        <p className="text-sm text-slate-500 max-w-3xl font-normal">
           Synthesized sentiment signals across founder, team, and customer conversations.
         </p>
       </div>
@@ -55,7 +55,7 @@ export function InsightsView() {
       <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-100">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
               Metric in Focus
             </span>
             <h2 className="text-xl font-bold text-slate-900">
@@ -81,7 +81,7 @@ export function InsightsView() {
           <div className="absolute top-2 left-[51%] -translate-x-1/2 z-10 bg-white/95 backdrop-blur-xs border border-amber-300 shadow-md rounded-xl px-3 py-1.5 text-center flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
             <div className="text-left">
-              <div className="text-[10px] font-extrabold uppercase tracking-wider text-amber-800">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-amber-800">
                 Key Inflection · Jul 28
               </div>
               <div className="text-xs font-bold text-slate-900">
@@ -113,9 +113,9 @@ export function InsightsView() {
               </defs>
 
               {/* Grid Lines */}
-              <line x1="0" y1="40" x2="700" y2="40" stroke="#F1F5F9" strokeDasharray="4 4" />
-              <line x1="0" y1="100" x2="700" y2="100" stroke="#F1F5F9" strokeDasharray="4 4" />
-              <line x1="0" y1="160" x2="700" y2="160" stroke="#F1F5F9" strokeDasharray="4 4" />
+              <line x1="0" y1="50" x2="700" y2="50" stroke="#F1F5F9" strokeDasharray="3 3" />
+              <line x1="0" y1="110" x2="700" y2="110" stroke="#F1F5F9" strokeDasharray="3 3" />
+              <line x1="0" y1="170" x2="700" y2="170" stroke="#F1F5F9" strokeDasharray="3 3" />
 
               {/* Vertical Inflection Guide Line at July (x=350) */}
               <line
@@ -128,33 +128,33 @@ export function InsightsView() {
                 strokeDasharray="3 3"
               />
 
-              {/* Purple Area (Internal Conviction) */}
+              {/* Filled Wave 1: Purple (Internal Conviction) */}
               <path
-                d="M 20 110 C 120 100, 240 105, 350 120 C 440 132, 540 80, 680 65 L 680 200 L 20 200 Z"
+                d="M 0 170 C 150 160, 250 80, 350 120 C 450 160, 550 50, 700 40 L 700 220 L 0 220 Z"
                 fill="url(#purpleGradient)"
               />
 
-              {/* Orange Area (Market Reception) */}
+              {/* Filled Wave 2: Orange (Market Reception) */}
               <path
-                d="M 20 150 C 140 170, 260 165, 350 120 C 420 85, 520 80, 680 72 L 680 200 L 20 200 Z"
+                d="M 0 180 C 120 180, 220 150, 350 120 C 480 90, 580 70, 700 60 L 700 220 L 0 220 Z"
                 fill="url(#orangeGradient)"
               />
 
-              {/* Purple Curve Line (Internal Conviction) */}
+              {/* Stroke Wave 1: Purple (Internal Conviction) */}
               <path
-                d="M 20 110 C 120 100, 240 105, 350 120 C 440 132, 540 80, 680 65"
+                d="M 0 170 C 150 160, 250 80, 350 120 C 450 160, 550 50, 700 40"
                 fill="none"
                 stroke="#4F46E5"
-                strokeWidth="3"
+                strokeWidth="3.5"
                 strokeLinecap="round"
               />
 
-              {/* Orange Curve Line (Market Reception) */}
+              {/* Stroke Wave 2: Orange (Market Reception) */}
               <path
-                d="M 20 150 C 140 170, 260 165, 350 120 C 420 85, 520 80, 680 72"
+                d="M 0 180 C 120 180, 220 150, 350 120 C 480 90, 580 70, 700 60"
                 fill="none"
                 stroke="#F59E0B"
-                strokeWidth="3"
+                strokeWidth="3.5"
                 strokeLinecap="round"
               />
 
@@ -181,7 +181,7 @@ export function InsightsView() {
         {/* Card 1: Buyer Intent */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div className="space-y-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">
               Buyer Intent
             </span>
             <div className="flex items-center gap-2">
@@ -197,7 +197,7 @@ export function InsightsView() {
         {/* Card 2: Leadership Pulse */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div className="space-y-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">
               Leadership Pulse
             </span>
             <div className="flex items-center gap-2">
@@ -213,7 +213,7 @@ export function InsightsView() {
         {/* Card 3: Contradiction Signal */}
         <div className="floating-card animate-float-subtle bg-amber-50/50 rounded-3xl border border-amber-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div className="space-y-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 block">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-800 block">
               Contradiction Signal
             </span>
             <div className="flex items-center gap-2">
@@ -232,10 +232,10 @@ export function InsightsView() {
         <div className="flex items-start gap-3.5">
           <span className="text-2xl mt-0.5">💡</span>
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-900 mb-1">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-indigo-900 mb-1">
               Advisor Observation
             </h4>
-            <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
+            <p className="text-sm text-slate-600 font-normal leading-relaxed max-w-3xl">
               Conviction surged post-pivot while market acceptance is steadily catching up. However, qualitative notes show 32% of tier-1 trial accounts flagged enterprise seat tiers as overly rigid.
             </p>
           </div>

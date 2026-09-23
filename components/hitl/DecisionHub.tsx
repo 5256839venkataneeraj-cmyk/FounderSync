@@ -11,12 +11,15 @@ export function DecisionHub() {
   const [justification, setJustification] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const charCount = justification.trim().length;
   const isJustificationValid = charCount >= 20;
 
-  const handleSaveDecision = (e: React.FormEvent) => {
+  const handleSaveDecision = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return; // Mutex lock
+
     setValidationError(null);
     setSaveSuccessMsg(null);
 
@@ -30,13 +33,18 @@ export function DecisionHub() {
       return;
     }
 
-    const result = recordDecision(selectedAction, justification);
-    if (result.success) {
-      setJustification('');
-      setSaveSuccessMsg('Decision successfully verified, signed by founder, and appended to the Audit Log.');
-      setTimeout(() => setSaveSuccessMsg(null), 5000);
-    } else {
-      setValidationError(result.error || 'Failed to save decision.');
+    setIsSubmitting(true);
+    try {
+      const result = recordDecision(selectedAction, justification);
+      if (result.success) {
+        setJustification('');
+        setSaveSuccessMsg('Decision successfully verified, signed by founder, and appended to the Audit Log.');
+        setTimeout(() => setSaveSuccessMsg(null), 5000);
+      } else {
+        setValidationError(result.error || 'Failed to save decision.');
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -44,13 +52,13 @@ export function DecisionHub() {
     <div className="space-y-8">
       {/* Module 3 Header */}
       <div>
-        <span className="text-xs uppercase tracking-widest text-indigo-600 font-bold">
+        <span className="text-xs uppercase tracking-wider text-indigo-600 font-semibold">
           Module 03 · Human-in-the-Loop Decision Hub
         </span>
         <h2 className="text-xl font-bold text-slate-900 mt-1">
           Executive Review & Justification Gate
         </h2>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs font-normal text-slate-500 mt-0.5">
           FounderSync enforces Industry 6.0 Human-Centric autonomy: AI suggestions are never auto-executed. Every decision requires explicit founder review and logged justification.
         </p>
       </div>
@@ -60,7 +68,7 @@ export function DecisionHub() {
         <div className="bg-white rounded-xl border-2 border-indigo-500/30 p-6 shadow-md space-y-6">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">
+              <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">
                 Action Required
               </span>
               <h3 className="text-base font-bold text-slate-900 mt-1">
@@ -73,7 +81,7 @@ export function DecisionHub() {
           <form onSubmit={handleSaveDecision} className="space-y-5">
             {/* Action Selection Radios */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
                 Choose Executive Action:
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -93,11 +101,11 @@ export function DecisionHub() {
                       onChange={() => setSelectedAction('PIVOT_STRATEGY')}
                       className="text-emerald-600 focus:ring-emerald-500"
                     />
-                    <span className="font-bold text-sm text-slate-900">
+                    <span className="font-semibold text-sm text-slate-900">
                       Pivot Strategy (Heed Grok Advisor)
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1.5 pl-5">
+                  <p className="text-xs font-normal text-slate-500 mt-1.5 pl-5">
                     Accept the contradictory advisor&apos;s blind spots and adopt a safer, sustainable alternative.
                   </p>
                 </label>
@@ -118,11 +126,11 @@ export function DecisionHub() {
                       onChange={() => setSelectedAction('ACCEPT_AND_OVERRIDE_AI')}
                       className="text-amber-600 focus:ring-amber-500"
                     />
-                    <span className="font-bold text-sm text-slate-900">
+                    <span className="font-semibold text-sm text-slate-900">
                       Accept & Override Grok
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1.5 pl-5">
+                  <p className="text-xs font-normal text-slate-500 mt-1.5 pl-5">
                     Acknowledge the identified risks but proceed anyway based on strategic domain context.
                   </p>
                 </label>
@@ -132,8 +140,8 @@ export function DecisionHub() {
             {/* Mandatory Justification Textarea */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label htmlFor="justification-input" className="text-xs font-semibold text-slate-700">
-                  Logged Founder Justification (Mandatory, min 20 characters):
+                <label htmlFor="justification-input" className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Logged Founder Justification (Mandatory, min 20 chars):
                 </label>
                 <span
                   className={`text-xs font-medium ${
@@ -173,10 +181,10 @@ export function DecisionHub() {
             <div className="flex justify-end">
               <button
                 type="submit"
-                disabled={!isJustificationValid}
-                className="bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors shadow-sm"
+                disabled={!isJustificationValid || isSubmitting}
+                className="bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors shadow-sm cursor-pointer disabled:cursor-not-allowed"
               >
-                Sign & Commit to Audit Log
+                {isSubmitting ? 'Signing & Committing...' : 'Sign & Commit to Audit Log'}
               </button>
             </div>
           </form>

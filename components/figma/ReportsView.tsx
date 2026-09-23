@@ -112,7 +112,7 @@ export function ReportsView() {
       {/* Header & Meta (Figma Screen 5) */}
       <div className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-200">
+          <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-200">
             Reality Check Archive · 4 critical discrepancies active
           </span>
 
@@ -132,10 +132,10 @@ export function ReportsView() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
           Blind Spot Reports
         </h1>
-        <p className="text-sm text-slate-600 max-w-3xl">
+        <p className="text-sm text-slate-500 max-w-3xl font-normal">
           Synthesized strategic risks, customer friction patterns, and operational bottlenecks surfaced through contradictory cross-analysis.
         </p>
       </div>
@@ -145,10 +145,10 @@ export function ReportsView() {
         {/* Tile 1: Assumptions Challenged */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
               Assumptions Challenged
             </span>
-            <div className="text-2xl font-black text-slate-900">
+            <div className="text-2xl font-bold text-slate-900">
               14 of 18
             </div>
           </div>
@@ -162,10 +162,10 @@ export function ReportsView() {
         {/* Tile 2: Critical Divergence */}
         <div className="floating-card animate-float-subtle bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
               Critical Divergence
             </span>
-            <div className="text-2xl font-black text-amber-600">
+            <div className="text-2xl font-bold text-amber-600">
               1 Active
             </div>
           </div>
@@ -179,10 +179,10 @@ export function ReportsView() {
         {/* Tile 3: Identified Headroom */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
               Identified Headroom
             </span>
-            <div className="text-2xl font-black text-indigo-600">
+            <div className="text-2xl font-bold text-indigo-600">
               +40% Margin
             </div>
           </div>
@@ -208,11 +208,11 @@ export function ReportsView() {
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="flex items-center gap-2.5">
-                  <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-extrabold flex items-center gap-1.5 border ${styles.badge}`}>
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider flex items-center gap-1.5 border ${styles.badge}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${styles.dot}`}></span>
                     <span>{report.severityLabel}</span>
                   </span>
-                  <span className="text-xs text-slate-500 font-medium">
+                  <span className="text-xs text-slate-500 font-normal">
                     {report.category} · {report.timeAgo}
                   </span>
                 </div>
@@ -233,7 +233,7 @@ export function ReportsView() {
               </div>
 
               {isExpanded && (
-                <div className="pt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50/70 p-4 rounded-xl">
+                <div className="pt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-600 font-normal leading-relaxed bg-slate-50/70 p-4 rounded-xl">
                   <p>{report.detail}</p>
                 </div>
               )}

@@ -30,7 +30,7 @@ export function StrategicMirror() {
               <div className="text-xs text-slate-500">50% Growth + 50% Human</div>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className={`text-4xl font-black ${
+              <span className={`text-4xl font-bold ${
                 healthScore.compositeScore >= 70
                   ? 'text-emerald-400'
                   : healthScore.compositeScore >= 50
@@ -49,7 +49,7 @@ export function StrategicMirror() {
           <div className="bg-slate-800/50 p-3 rounded-lg flex items-center justify-between">
             <div className="text-xs">
               <span className="text-blue-400 font-semibold">Growth Dimension (50%): </span>
-              <span className="text-slate-300">Normalized ARR, Churn, LTV, Burn Rate</span>
+              <span className="text-slate-300 font-normal">Normalized ARR, Churn, LTV, Burn Rate</span>
             </div>
             <span className="text-sm font-bold text-blue-400 ml-2">
               {healthScore.growthScoreNormalized}/100
@@ -59,7 +59,7 @@ export function StrategicMirror() {
           <div className="bg-slate-800/50 p-3 rounded-lg flex items-center justify-between">
             <div className="text-xs">
               <span className="text-emerald-400 font-semibold">Human Dimension (50%): </span>
-              <span className="text-slate-300">Burnout, Trust, Cognitive Load, Retention</span>
+              <span className="text-slate-300 font-normal">Burnout, Trust, Cognitive Load, Retention</span>
             </div>
             <span className="text-sm font-bold text-emerald-400 ml-2">
               {healthScore.humanScoreNormalized}/100
@@ -75,10 +75,10 @@ export function StrategicMirror() {
       <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
           <div>
-            <h3 className="text-lg font-bold text-slate-900">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700">
               12-Month Trend: Revenue Growth vs Team Wellness
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 font-normal mt-1">
               Visualizing the tension between top-line expansion and human sustainability over time.
             </p>
           </div>

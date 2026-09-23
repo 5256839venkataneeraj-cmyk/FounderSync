@@ -97,14 +97,14 @@ export function AdvisorOutput({ result }: AdvisorOutputProps) {
         <span className="text-2xl mt-0.5">{verdictConfig.icon}</span>
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider">
+            <span className="text-xs font-semibold uppercase tracking-wider">
               Adversarial Verdict:
             </span>
-            <span className={`text-[11px] font-extrabold px-2 py-0.5 rounded border ${verdictConfig.badgeClass}`}>
+            <span className={`text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded border ${verdictConfig.badgeClass}`}>
               {verdictConfig.label}
             </span>
           </div>
-          <p className="text-xs leading-relaxed opacity-90">
+          <p className="text-xs font-normal leading-relaxed opacity-90">
             {verdictConfig.description}
           </p>
         </div>
@@ -122,7 +122,7 @@ export function AdvisorOutput({ result }: AdvisorOutputProps) {
               className="text-sm bg-slate-800/70 border border-slate-750 text-slate-200 rounded-lg p-3.5 flex items-start gap-2.5"
             >
               <span className="text-rose-400 font-bold text-xs mt-0.5">0{idx + 1}.</span>
-              <span className="leading-relaxed font-medium">{arg}</span>
+              <span className="leading-relaxed font-normal text-slate-300">{arg}</span>
             </li>
           ))}
         </ul>
@@ -140,7 +140,7 @@ export function AdvisorOutput({ result }: AdvisorOutputProps) {
               className="text-sm bg-slate-800/70 border border-slate-750 text-slate-200 rounded-lg p-3.5 flex items-start gap-2.5"
             >
               <span className="text-amber-400 font-bold text-xs mt-0.5">0{idx + 1}.</span>
-              <span className="leading-relaxed">{spot}</span>
+              <span className="leading-relaxed font-normal text-slate-300">{spot}</span>
             </li>
           ))}
         </ul>

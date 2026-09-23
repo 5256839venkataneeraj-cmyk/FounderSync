@@ -407,7 +407,7 @@ export function CommandPaletteModal() {
                         <span>{item.title}</span>
                         {item.badge && (
                           <span
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-slate-100 text-slate-700 border-slate-200'}`}
+                            className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-slate-100 text-slate-700 border-slate-200'}`}
                           >
                             {item.badge}
                           </span>

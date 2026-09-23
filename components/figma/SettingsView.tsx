@@ -160,13 +160,13 @@ export function SettingsView() {
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
       {/* Header */}
       <div>
-        <span className="text-[11px] uppercase tracking-widest text-indigo-600 font-bold">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600">
           Platform Configuration
         </span>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+        <h1 className="text-3xl font-bold text-slate-900 tracking-tight mt-1">
           Settings & Model Governance
         </h1>
-        <p className="text-sm text-slate-600 mt-1">
+        <p className="text-sm text-slate-500 font-normal mt-1">
           Manage Dual-AI engine configurations, Google AI Studio & Groq credentials, workspace scopes, and security settings.
         </p>
       </div>
@@ -210,10 +210,10 @@ export function SettingsView() {
         {/* Dual AI Engine Architecture */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-5">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-2">
               <span>🤖</span> Dual-AI Engine Architecture
             </h3>
-            <span className="text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
               Industry 6.0 Engine
             </span>
           </div>
@@ -265,14 +265,14 @@ export function SettingsView() {
         <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-5">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
-              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-2">
                 <span>🔑</span> API Credentials Management
               </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 font-normal mt-0.5">
                 Keys saved here are stored directly into <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px] text-slate-800 font-mono">.env.local</code> and synced immediately in memory.
               </p>
             </div>
-            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
               Permanent Sync Enabled
             </span>
           </div>
@@ -356,7 +356,7 @@ export function SettingsView() {
 
         {/* Workspace & Security Governance */}
         <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] space-y-4">
-          <h3 className="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 pb-3 border-b border-slate-100 flex items-center gap-2">
             <span>🛡️</span> Workspace & RLS Security
           </h3>
 

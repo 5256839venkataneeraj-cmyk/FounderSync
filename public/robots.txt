@@ -1,0 +1,7 @@
+# FounderSync Robots Exclusion Policy
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Allow: /
+
+Sitemap: https://foundersync.dev/sitemap.xml

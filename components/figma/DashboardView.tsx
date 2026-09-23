@@ -66,7 +66,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 font-sans">
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 font-sans">
               EXECUTIVE REFLECTION &amp; SOUNDING BOARD
             </span>
           </div>
@@ -91,7 +91,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
 
         {/* Greeting with Dynamic Founder Name & Quick Edit Trigger */}
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
             {greeting}, {userName}
           </h1>
           <button
@@ -110,7 +110,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
         {/* View Section Filters & Sparring Mode */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-bold tracking-wider uppercase text-slate-400 mr-1">
+            <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400 mr-1">
               VIEW SECTION:
             </span>
 
@@ -208,7 +208,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
 
           {/* Hero Content */}
           <div className="flex-1 text-center md:text-left space-y-3.5">
-            <div className="inline-flex items-center gap-1.5 text-amber-800 text-xs font-extrabold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-1.5 text-amber-800 text-xs font-semibold uppercase tracking-wider">
               <span>💡</span>
               <span>TODAY&apos;S REALITY CHECK</span>
             </div>
@@ -217,7 +217,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
               &ldquo;Are you building enterprise features because customers demanded them, or because your largest competitor just announced them?&rdquo;
             </h2>
 
-            <p className="text-sm text-slate-600 leading-relaxed max-w-2xl font-normal">
+            <p className="text-sm text-slate-500 leading-relaxed max-w-2xl font-normal">
               Three upcoming Q4 roadmapped deliverables lean heavily on competitive parity rather than validated problem discovery from your core ICP.
             </p>
 
@@ -251,7 +251,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
         {/* Card 1: Active Assumptions */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-5 transition-transform">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-600 tracking-tight">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Active Assumptions
             </span>
             <div className="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-2xs">
@@ -263,10 +263,10 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
           </div>
 
           <div>
-            <div className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <div className="text-3xl font-bold text-slate-900 tracking-tight">
               4 Under Review
             </div>
-            <p className="text-xs text-slate-500 font-medium mt-1">
+            <p className="text-xs text-slate-500 font-normal mt-1">
               2 prioritized for today&apos;s sounding board
             </p>
           </div>
@@ -275,7 +275,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
         {/* Card 2: Alignment Score */}
         <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-5 transition-transform">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-600 tracking-tight">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Alignment Score
             </span>
             <div className="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shadow-2xs">
@@ -287,14 +287,14 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
 
           <div>
             <div className="flex items-baseline gap-2.5">
-              <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              <span className="text-3xl font-bold text-slate-900 tracking-tight">
                 88%
               </span>
               <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                 ↑ 3% this week
               </span>
             </div>
-            <p className="text-xs text-slate-500 font-medium mt-1">
+            <p className="text-xs text-slate-500 font-normal mt-1">
               Team consensus on critical market wedges
             </p>
           </div>
@@ -316,7 +316,7 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
       {selectedSection === 'assumptions' && (
         <div className="animate-fadeIn pt-2">
           <div className="floating-card bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
-            <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 mb-4 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-indigo-600" />
               Active Strategic Assumptions (4 Under Review)
             </h3>
@@ -327,11 +327,11 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
                   className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 flex items-start justify-between gap-4"
                 >
                   <div>
-                    <span className="text-xs font-mono uppercase tracking-wider text-indigo-600 font-bold block mb-1">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-indigo-600 block mb-1">
                       {assump.category} · Conviction: {assump.convictionScore}/100
                     </span>
                     <h4 className="text-sm font-bold text-slate-800">{assump.title}</h4>
-                    <p className="text-xs text-slate-600 mt-1">{assump.description}</p>
+                    <p className="text-xs text-slate-500 font-normal mt-1">{assump.description}</p>
                   </div>
                   <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 shrink-0">
                     {assump.status}

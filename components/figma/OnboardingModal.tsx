@@ -122,10 +122,17 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
       return;
     }
 
-    if (mode === 'signup' && password.length < 6) {
-      setErrorMessage('Password must be at least 6 characters long.');
-      return;
+    if (mode === 'signup') {
+      if (password.length < 8) {
+        setErrorMessage('Password must be at least 8 characters long.');
+        return;
+      }
+      if (!/[0-9]/.test(password) || !/[a-zA-Z]/.test(password)) {
+        setErrorMessage('Password must contain at least one letter and one number.');
+        return;
+      }
     }
+
 
     if (mode === 'signup' && password !== confirmPassword) {
       setErrorMessage('Passwords do not match.');
@@ -260,7 +267,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
           {/* Dialectical Co-Pilot Pill Badge */}
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#EEF2FF] text-[#4F46E5] border border-[#E0E7FF]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-[#EEF2FF] text-[#4F46E5] border border-[#E0E7FF]">
               <svg className="w-2.5 h-2.5 text-[#4F46E5]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
@@ -270,12 +277,12 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
           {/* Headline */}
           <div>
-            <h2 className="text-[26px] sm:text-[28px] font-serif font-bold text-slate-900 tracking-tight leading-[1.2]">
+            <h2 className="text-[26px] sm:text-[28px] font-bold text-slate-900 tracking-tight leading-[1.2]">
               Your strategic mirror, <br />
-              <span className="italic text-[#4F46E5] font-serif font-bold">not your autopilot.</span>
+              <span className="italic text-[#4F46E5] font-bold">not your autopilot.</span>
             </h2>
 
-            <p className="text-xs text-slate-500 max-w-[320px] mx-auto mt-1.5 leading-relaxed">
+            <p className="text-xs font-normal text-slate-500 max-w-[320px] mx-auto mt-1.5 leading-relaxed">
               Challenge assumptions, uncover blind spots, and lead with conviction.
             </p>
           </div>
@@ -301,7 +308,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
           {authMethod === 'password' ? (
             <form onSubmit={handlePasswordSubmit} className="space-y-3">
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
                   Work Email
                 </label>
                 <input
@@ -310,14 +317,14 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="founder@venture.co"
-                  className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
+                  className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
                 />
               </div>
 
               {mode !== 'forgot' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="block text-[11px] font-bold text-slate-700">
+                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                       Password
                     </label>
                     {mode === 'signin' && (
@@ -340,14 +347,14 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
+                    className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
                   />
                 </div>
               )}
 
               {mode === 'signup' && (
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-1">
                     Confirm Password
                   </label>
                   <input
@@ -356,7 +363,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
+                    className="w-full text-xs bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-normal"
                   />
                 </div>
               )}

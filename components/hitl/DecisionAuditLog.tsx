@@ -22,10 +22,10 @@ export function DecisionAuditLog({ decisions }: DecisionAuditLogProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-700">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700">
           Decision Audit Log ({decisions.length} Logged)
         </h3>
-        <span className="text-xs text-slate-500">Persisted in Supabase & Local DAL</span>
+        <span className="text-xs text-slate-500 font-normal">Persisted in Supabase & Local DAL</span>
       </div>
 
       <div className="space-y-3">

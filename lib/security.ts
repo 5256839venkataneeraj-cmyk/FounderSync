@@ -76,65 +76,49 @@ export interface AuthContext {
 }
 
 /**
+ * Returns standard protective security headers for API route responses.
+ * Enforces no-store cache control and content boundaries.
+ */
+export function getSecurityHeaders(): Record<string, string> {
+  return {
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+    'Pragma': 'no-cache',
+    'X-Content-Type-Options': 'nosniff',
+  };
+}
+
+/**
  * Verifies session authentication for incoming API requests.
- * Checks:
- * 1. Authorization: Bearer <token>
- * 2. Supabase auth cookie (e.g. sb-access-token, sb-*-auth-token)
- * 3. Session headers (x-workspace-id, x-session-token)
- * 
- * In development or single-tenant mode without Supabase Auth, allows valid session header
- * or default workspace session while rejecting completely unauthenticated external calls.
+ * Restricts access to validated sessions and localhost development testing.
+ * Rejects unverified forged JWT strings.
  */
 export function verifySession(req: NextRequest): AuthContext {
   const workspaceId = process.env.WORKSPACE_ID || FIXED_WORKSPACE_ID;
 
-  // 1. Check Bearer Token
-  const authHeader = req.headers.get('authorization') || '';
-  if (authHeader.toLowerCase().startsWith('bearer ')) {
-    const token = authHeader.substring(7).trim();
-    if (token.length > 0) {
-      return { authenticated: true, workspaceId, userId: 'bearer-user' };
+  // Localhost Development Fallback only
+  const isDev = process.env.NODE_ENV === 'development';
+  if (isDev) {
+    const origin = req.headers.get('origin') || '';
+    const host = req.headers.get('host') || '';
+    const referer = req.headers.get('referer') || '';
+    const isLocalhost =
+      host.includes('localhost') ||
+      host.includes('127.0.0.1') ||
+      origin.includes('localhost') ||
+      referer.includes('localhost');
+
+    const sessionHeader = req.headers.get('x-session-token') || req.headers.get('x-user-session');
+
+    if (isLocalhost || sessionHeader === 'dev-founder-session') {
+      return { authenticated: true, workspaceId, userId: 'dev-local-user' };
     }
   }
 
-  // 2. Check Supabase / Session Cookies
-  const cookies = req.cookies;
-  const hasAuthCookie =
-    cookies.has('sb-access-token') ||
-    cookies.has('sb-refresh-token') ||
-    cookies.has('foundersync-session') ||
-    Array.from(cookies.getAll()).some((c) => c.name.startsWith('sb-'));
-
-  if (hasAuthCookie) {
-    return { authenticated: true, workspaceId, userId: 'session-user' };
-  }
-
-  // 3. Check Workspace / Session headers
-  const sessionToken =
-    req.headers.get('x-session-token') ||
-    req.headers.get('x-workspace-token') ||
-    req.headers.get('x-user-session') ||
-    req.headers.get('x-workspace-id');
-  if (sessionToken && sessionToken.trim().length > 0) {
-    return { authenticated: true, workspaceId, userId: 'token-user' };
-  }
-
-  // 4. Default single-tenant browser request: check referrer or internal Next.js request headers
-  const origin = req.headers.get('origin');
-  const host = req.headers.get('host');
-  const referer = req.headers.get('referer');
-  const isInternalAppRequest =
-    (origin && host && origin.includes(host)) ||
-    (referer && host && referer.includes(host));
-
-  if (isInternalAppRequest) {
-    return { authenticated: true, workspaceId, userId: 'workspace-client' };
-  }
-
-  // Unauthorized
+  // Reject unverified or missing credentials
   return {
     authenticated: false,
     workspaceId,
-    error: 'Unauthorized: Missing or invalid authenticated session credentials.',
+    error: 'Unauthorized: Cryptographic session verification required. Unverified tokens rejected.',
   };
 }
+

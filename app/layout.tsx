@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { FounderSyncProvider } from '@/context/FounderSyncContext';
@@ -6,6 +7,13 @@ import { UserProfileProvider } from '@/context/UserProfileContext';
 import { UserNameModal } from '@/components/common/UserNameModal';
 import { GoogleCalendarModal } from '@/components/common/GoogleCalendarModal';
 import { CommandPaletteModal } from '@/components/common/CommandPaletteModal';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+});
 
 export const metadata: Metadata = {
   title: 'FounderSync — Contradictory Advisor & Reality-Check Engine',
@@ -24,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${inter.className} font-sans`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
