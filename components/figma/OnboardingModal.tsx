@@ -517,6 +517,21 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
           </div>
         </div>
 
+        {/* Download Metrics Template Quick Action */}
+        <div className="pt-1 text-center">
+          <a
+            href="/templates/FounderSync_Input_Template.pdf"
+            download="FounderSync_Input_Template.pdf"
+            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50/80 hover:bg-indigo-100/90 border border-indigo-200/80 px-3 py-1.5 rounded-full transition-all cursor-pointer shadow-2xs group"
+          >
+            <svg className="w-3.5 h-3.5 text-indigo-600 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Download Metrics Template (PDF)</span>
+            <span className="text-[9.5px] px-1.5 py-0.2 rounded-full bg-indigo-200/70 text-indigo-800 font-mono">v1.0</span>
+          </a>
+        </div>
+
         {/* Legal Disclaimer */}
         <p className="text-[10.5px] text-slate-400 text-center leading-relaxed">
           By signing in, you agree to our{' '}

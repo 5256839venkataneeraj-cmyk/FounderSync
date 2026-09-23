@@ -323,4 +323,223 @@ assert.strictEqual(res6.calculated.arr, 1200000);
 
 console.log('✓ Test 6 passed: Prompt injection payload safely ignored; data parsed deterministically.\n');
 
-console.log('=== ALL INGESTION CONTRACT TESTS PASSED WITH 100% SUCCESS ===');
+// ----------------------------------------------------
+// TEST 7: Template Version Mismatch (Outdated Downloaded Version)
+// ----------------------------------------------------
+console.log('[Test 7] Outdated Template Version Safeguard...');
+const outdatedVersionDoc = `
+Company & Period
+Company Name: Legacy Startup
+Reporting Month: August 2026
+
+Revenue Inputs
+MRR: 80000
+Total Active Customers: 200
+Monthly Revenue: 85000
+
+Churn Inputs
+Customers Lost: 4
+Starting Customers: 200
+
+Customer Value Inputs
+Avg Revenue Per Customer: 400
+
+Burn & Runway Inputs
+Monthly Expenses: 90000
+Cash In Bank: 400000
+
+Burnout Survey
+Q1: 3
+Q2: 3
+Q3: 3
+Q4: 3
+Q5: 3
+Q6: 3
+Q7: 3
+Q8: 3
+Q9: 3
+Q10: 3
+
+Trust Survey
+Q1: 8
+Q2: 8
+Q3: 8
+Q4: 8
+Q5: 8
+Q6: 8
+Q7: 8
+Q8: 8
+Q9: 8
+Q10: 8
+
+Cognitive Load Survey
+Q1: 5
+Q2: 5
+Q3: 5
+Q4: 5
+Q5: 5
+Q6: 5
+Q7: 5
+Q8: 5
+Q9: 5
+Q10: 5
+
+Retention Sentiment Survey
+Q1: 8
+Q2: 8
+Q3: 8
+Q4: 8
+Q5: 8
+Q6: 8
+Q7: 8
+Q8: 8
+Q9: 8
+Q10: 8
+
+---
+Template v0.8 — 2025-06
+`;
+
+const res7 = ingestMetricsDocument(outdatedVersionDoc);
+assert.strictEqual(res7.status, 'incomplete', 'Outdated template version must return incomplete status');
+assert.strictEqual(res7.template_version_mismatch, true, 'template_version_mismatch flag must be true');
+assert.ok(res7.missing_fields.includes('template_version_mismatch'), 'missing_fields must contain template_version_mismatch');
+assert.deepStrictEqual(res7.calculated, {}, 'calculated must be empty object on version mismatch');
+
+console.log('✓ Test 7 passed: Outdated template version blocked with template_version_mismatch flag.\n');
+
+// ----------------------------------------------------
+// TEST 8: Intake Form with Mismatched / Renamed Section Headers
+// ----------------------------------------------------
+console.log('[Test 8] Intake Form with altered section headers...');
+const alteredSectionsDoc = `
+FounderSync Monthly Metrics Intake Form
+
+Company & Period
+Company Name: Altered Schema Inc
+Reporting Month: October 2026
+
+Revenue Metrics
+MRR: 90000
+Total Active Customers: 250
+Monthly Revenue: 95000
+
+Customer Churn
+Customers Lost: 5
+Starting Customers: 250
+
+Customer Value Inputs
+Avg Revenue Per Customer: 380
+
+Burn & Runway Inputs
+Monthly Expenses: 100000
+Cash In Bank: 500000
+
+Burnout Survey
+burnout_answers: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+Trust Survey
+trust_answers: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+Cognitive Load Survey
+cognitive_load_answers: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+Retention Sentiment Survey
+retention_answers: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+`;
+
+const res8 = ingestMetricsDocument(alteredSectionsDoc);
+assert.strictEqual(res8.status, 'incomplete', 'Altered intake form must return incomplete status');
+assert.strictEqual(res8.template_version_mismatch, true, 'template_version_mismatch must be true for altered section headers');
+assert.deepStrictEqual(res8.calculated, {});
+
+console.log('✓ Test 8 passed: Altered schema section headers caught and flagged safely.\n');
+
+// ----------------------------------------------------
+// TEST 9: Intake Form with Current Template Version Footer
+// ----------------------------------------------------
+console.log('[Test 9] Current Template Version (Template v1.0 — 2026-09) Valid Submission...');
+const validTemplateDoc = `
+FounderSync Monthly Metrics Intake Form
+
+Company & Period
+Company Name: SyncPlatform AI
+Reporting Month: September 2026
+
+Revenue Inputs
+MRR: $150,000
+Total Active Customers: 500
+Monthly Revenue: $155,000
+
+Churn Inputs
+Customers Lost: 10
+Starting Customers: 500
+
+Customer Value Inputs
+Avg Revenue Per Customer: $310
+
+Burn & Runway Inputs
+Monthly Expenses: $135,000
+Cash In Bank: $1,800,000
+
+Burnout Survey
+Q1: 3
+Q2: 4
+Q3: 3
+Q4: 4
+Q5: 3
+Q6: 4
+Q7: 3
+Q8: 3
+Q9: 4
+Q10: 4
+
+Trust Survey
+Q1: 9
+Q2: 9
+Q3: 8
+Q4: 9
+Q5: 8
+Q6: 9
+Q7: 8
+Q8: 9
+Q9: 9
+Q10: 9
+
+Cognitive Load Survey
+Q1: 5
+Q2: 5
+Q3: 4
+Q4: 5
+Q5: 5
+Q6: 4
+Q7: 5
+Q8: 4
+Q9: 5
+Q10: 5
+
+Retention Sentiment Survey
+Q1: 8
+Q2: 9
+Q3: 8
+Q4: 9
+Q5: 9
+Q6: 8
+Q7: 9
+Q8: 8
+Q9: 9
+Q10: 9
+
+---
+Template v1.0 — 2026-09
+`;
+
+const res9 = ingestMetricsDocument(validTemplateDoc);
+assert.strictEqual(res9.status, 'ok', 'Valid template form must return ok status');
+assert.strictEqual(res9.template_version_mismatch, undefined, 'template_version_mismatch must not be present on success');
+assert.strictEqual(res9.missing_fields.length, 0);
+assert.strictEqual(res9.calculated.arr, 1800000);
+assert.strictEqual(res9.calculated.burnout_score, 35);
+assert.strictEqual(res9.calculated.burnout_score_band, 'moderate');
+
+console.log('✓ Test 9 passed: Valid template form accepted with full calculations.\n');
+
+console.log('=== ALL INGESTION CONTRACT & VERSIONING SAFEGUARD TESTS PASSED WITH 100% SUCCESS ===');
+

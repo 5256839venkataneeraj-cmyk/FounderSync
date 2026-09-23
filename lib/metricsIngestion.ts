@@ -35,11 +35,26 @@ export interface CalculatedMetrics {
   burnout_score_band?: 'low' | 'moderate' | 'high';
 }
 
+export const TEMPLATE_VERSION = 'Template v1.0 — 2026-09';
+
+export const EXPECTED_TEMPLATE_SECTIONS = [
+  'Company & Period',
+  'Revenue Inputs',
+  'Churn Inputs',
+  'Customer Value Inputs',
+  'Burn & Runway Inputs',
+  'Burnout Survey',
+  'Trust Survey',
+  'Cognitive Load Survey',
+  'Retention Sentiment Survey',
+] as const;
+
 export interface IngestionResponse {
   status: 'ok' | 'incomplete';
   missing_fields: string[];
   extracted: ExtractedMetrics;
   calculated: CalculatedMetrics | Record<string, never>;
+  template_version_mismatch?: boolean;
 }
 
 /**
@@ -178,9 +193,95 @@ function extractSurveyAnswers(text: string, categoryKeys: string[]): number[] | 
 }
 
 /**
+ * Compares detected section headers and version strings against TEMPLATE_VERSION's expected schema.
+ * If they do not match, flags a template_version_mismatch.
+ */
+export function checkTemplateVersionSafeguard(documentText: string): {
+  isMismatch: boolean;
+  detectedVersion?: string;
+  missingSections?: string[];
+} {
+  // 1. Check explicit template version string if present
+  const versionRegex = /(?:Template\s+v\s*([0-9.]+)(?:\s*[-—]\s*([0-9]{4}-[0-9]{2}))?|template_version[*_~]*\s*[:=]\s*([^\r\n;]+))/i;
+  const versionMatch = documentText.match(versionRegex);
+
+  if (versionMatch) {
+    const rawVersion = versionMatch[0].trim();
+    // Compare canonical versions (allowing minor formatting differences like dash vs em-dash)
+    const normalizedDetected = rawVersion.replace(/[\s—-]+/g, ' ').toLowerCase();
+    const normalizedExpected = TEMPLATE_VERSION.replace(/[\s—-]+/g, ' ').toLowerCase();
+
+    if (!normalizedDetected.includes('v1.0') || (normalizedDetected.includes('20') && !normalizedDetected.includes('2026 09'))) {
+      return { isMismatch: true, detectedVersion: rawVersion };
+    }
+  }
+
+  // 2. Check if this document claims or appears to be a standardized intake form
+  const isTemplateSubmission =
+    /FounderSync.*Intake\s*Form/i.test(documentText) ||
+    versionMatch !== null ||
+    (/(?:Company\s*&\s*Period|Revenue\s*Inputs|Burn\s*&\s*Runway\s*Inputs)/i.test(documentText) &&
+      /(?:Burnout\s*Survey|Trust\s*Survey)/i.test(documentText));
+
+  if (isTemplateSubmission) {
+    // Verify each expected section header exists
+    const missingSections: string[] = [];
+    for (const section of EXPECTED_TEMPLATE_SECTIONS) {
+      const sectionRegex = new RegExp(`(?:^|\\n)[\\s#*_-]*${section.replace(/&/g, '(?:&|and)')}`, 'i');
+      if (!sectionRegex.test(documentText)) {
+        missingSections.push(section);
+      }
+    }
+
+    if (missingSections.length > 0) {
+      return { isMismatch: true, missingSections };
+    }
+  }
+
+  return { isMismatch: false };
+}
+
+/**
  * Main Ingestion Contract Function
  */
 export function ingestMetricsDocument(documentText: string): IngestionResponse {
+  // Versioning Safeguard: check against TEMPLATE_VERSION expected schema
+  if (typeof documentText === 'string' && documentText.trim().length > 0) {
+    const templateSafeguard = checkTemplateVersionSafeguard(documentText);
+    if (templateSafeguard.isMismatch) {
+      const mismatchFields = ['template_version_mismatch'];
+      if (templateSafeguard.missingSections) {
+        mismatchFields.push(
+          ...templateSafeguard.missingSections.map(
+            (s) => `missing_section_${s.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`
+          )
+        );
+      }
+      return {
+        status: 'incomplete',
+        template_version_mismatch: true,
+        missing_fields: mismatchFields,
+        extracted: {
+          company_name: null,
+          reporting_month: null,
+          mrr: null,
+          total_active_customers: null,
+          monthly_revenue: null,
+          customers_lost: null,
+          starting_customers: null,
+          avg_revenue_per_customer: null,
+          monthly_expenses: null,
+          cash_in_bank: null,
+          burnout_answers: null,
+          trust_answers: null,
+          cognitive_load_answers: null,
+          retention_answers: null,
+        },
+        calculated: {},
+      };
+    }
+  }
+
   const missing_fields: string[] = [];
 
   if (!documentText || typeof documentText !== 'string' || documentText.trim().length === 0) {

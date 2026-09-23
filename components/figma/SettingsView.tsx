@@ -392,6 +392,58 @@ export function SettingsView() {
           </div>
         </div>
 
+        {/* Standardized Metrics Intake Template & Schema Delivery */}
+        <div className="p-6 bg-white rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.04)] space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <span>📊</span> Monthly Metrics Intake Template &amp; Schema
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Standardized intake document for submitting quantitative and qualitative metrics to <code className="text-indigo-600 font-mono text-[11px]">/api/ingest-metrics</code>.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-bold">
+                Template v1.0 — 2026-09
+              </span>
+            </div>
+          </div>
+
+          <div className="p-4 bg-slate-50/80 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="space-y-0.5">
+              <span className="text-xs font-bold text-slate-800">FounderSync Monthly Metrics Intake Form</span>
+              <p className="text-[11px] text-slate-500">
+                Includes Company &amp; Period, Revenue, Churn, Customer Value, Burn &amp; Runway, and 4 Qualitative Surveys (Burnout, Trust, Cognitive Load, Retention).
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <a
+                href="/templates/FounderSync_Input_Template.pdf"
+                download="FounderSync_Input_Template.pdf"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Download PDF Template</span>
+              </a>
+
+              <a
+                href="/templates/FounderSync_Input_Template.md"
+                download="FounderSync_Input_Template.md"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-300 transition-all cursor-pointer"
+              >
+                <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>Markdown (.md)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Action Controls */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
           <button

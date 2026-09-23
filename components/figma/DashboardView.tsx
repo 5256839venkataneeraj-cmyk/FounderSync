@@ -71,22 +71,38 @@ export function DashboardView({ onNavigateToAdvisor }: DashboardViewProps) {
             </span>
           </div>
 
-          {/* Dynamic Everyday Date with Google Calendar Sync integration */}
-          <button
-            type="button"
-            onClick={() => setIsCalendarModalOpen(true)}
-            title="Google Calendar Integration: Click to view schedule and calendar sync"
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200/90 bg-white/95 hover:bg-slate-50 hover:border-indigo-300 text-xs font-semibold text-slate-700 shadow-2xs self-start sm:self-auto transition-all cursor-pointer group"
-          >
-            <svg className="w-3.5 h-3.5 text-[#4285F4] group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM7 11h5v5H7z" />
-            </svg>
-            <span className="font-grotesk font-bold text-slate-800">{currentDateFormatted}</span>
-            <span className="flex items-center gap-1.5 pl-1.5 border-l border-slate-200 text-[10px] text-slate-500 font-sans font-medium">
-              <span className={`w-1.5 h-1.5 rounded-full ${isCalendarConnected ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
-              <span className="hidden sm:inline font-semibold">{isCalendarConnected ? 'Google Calendar' : 'Connect GCal'}</span>
-            </span>
-          </button>
+          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+            {/* Download Metrics Intake Template (Standardized v1.0) */}
+            <a
+              href="/templates/FounderSync_Input_Template.pdf"
+              download="FounderSync_Input_Template.pdf"
+              title="Download standardized Monthly Metrics Intake Form (v1.0)"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200/90 bg-white/95 hover:bg-indigo-50 hover:border-indigo-300 text-xs font-semibold text-slate-700 hover:text-indigo-600 shadow-2xs transition-all cursor-pointer group"
+            >
+              <svg className="w-3.5 h-3.5 text-indigo-600 group-hover:scale-110 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              <span className="font-grotesk font-bold">Download Metrics Template</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 font-mono">v1.0</span>
+            </a>
+
+            {/* Dynamic Everyday Date with Google Calendar Sync integration */}
+            <button
+              type="button"
+              onClick={() => setIsCalendarModalOpen(true)}
+              title="Google Calendar Integration: Click to view schedule and calendar sync"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200/90 bg-white/95 hover:bg-slate-50 hover:border-indigo-300 text-xs font-semibold text-slate-700 shadow-2xs transition-all cursor-pointer group"
+            >
+              <svg className="w-3.5 h-3.5 text-[#4285F4] group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM7 11h5v5H7z" />
+              </svg>
+              <span className="font-grotesk font-bold text-slate-800">{currentDateFormatted}</span>
+              <span className="flex items-center gap-1.5 pl-1.5 border-l border-slate-200 text-[10px] text-slate-500 font-sans font-medium">
+                <span className={`w-1.5 h-1.5 rounded-full ${isCalendarConnected ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+                <span className="hidden sm:inline font-semibold">{isCalendarConnected ? 'Google Calendar' : 'Connect GCal'}</span>
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Greeting with Dynamic Founder Name & Quick Edit Trigger */}
