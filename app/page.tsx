@@ -9,6 +9,7 @@ import { AdvisorView } from '@/components/figma/AdvisorView';
 import { ReportsView } from '@/components/figma/ReportsView';
 import { InsightsView } from '@/components/figma/InsightsView';
 import { SettingsView } from '@/components/figma/SettingsView';
+import { ConciergeView } from '@/components/figma/ConciergeView';
 import { OnboardingModal } from '@/components/figma/OnboardingModal';
 
 import { useUserProfile } from '@/context/UserProfileContext';
@@ -65,19 +66,44 @@ export default function HomePage() {
         {activeTab === 'settings' && (
           <SettingsView />
         )}
+
+        {activeTab === 'concierge' && (
+          <ConciergeView onNavigateToAdvisor={() => setActiveTab('advisor')} />
+        )}
       </main>
 
       {/* Footer */}
       <footer className="bg-white dark:bg-[#14141C] border-t border-slate-200/80 dark:border-white/10 py-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-extrabold text-slate-800 dark:text-slate-100">FounderSync</span>
             <span className="text-slate-300 dark:text-slate-600">·</span>
             <span>Industry 6.0 Human-Centric Strategic Mirror</span>
           </div>
-          <p className="text-slate-400 dark:text-slate-500">
-            Contradictory Advisor & Reality-Check Engine · AI never acts as autopilot
-          </p>
+          <div className="flex items-center gap-4 text-xs font-medium">
+            <button
+              type="button"
+              onClick={() => setActiveTab('concierge')}
+              className="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
+            >
+              Executive Concierge &amp; Contact
+            </button>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={() => setActiveTab('advisor')}
+              className="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
+            >
+              Contradictory Advisor
+            </button>
+            <span>•</span>
+            <a
+              href="mailto:concierge@foundersync.io"
+              className="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
+            >
+              concierge@foundersync.io
+            </a>
+          </div>
         </div>
       </footer>
 
