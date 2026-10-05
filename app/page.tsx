@@ -85,8 +85,6 @@ export default function HomePage() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-extrabold text-slate-800 dark:text-slate-100">FounderSync</span>
-            <span className="text-slate-300 dark:text-slate-600">·</span>
-            <span>Industry 6.0 Human-Centric Strategic Mirror</span>
           </div>
           <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
             <button
