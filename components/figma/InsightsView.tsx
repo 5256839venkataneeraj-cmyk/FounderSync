@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { ConvictionChart } from '@/components/ConvictionChart';
 
 const VERBATIMS = [
   {
@@ -51,130 +52,8 @@ export function InsightsView() {
         </p>
       </div>
 
-      {/* Conviction Alignment vs. Market Reality Chart (Figma Screen 2) */}
-      <div className="glass-panel-elevated rounded-3xl p-6 sm:p-8 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-100 dark:border-white/10">
-          <div>
-            <span className="text-[11px] font-grotesk font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-0.5">
-              Metric in Focus
-            </span>
-            <h2 className="text-xl font-display font-bold text-slate-900 dark:text-[#F1F1F5]">
-              Conviction Alignment vs. Market Reality
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-4 text-xs font-semibold">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-1 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
-              <span className="text-slate-700 dark:text-slate-300">Internal Conviction</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-1 rounded-full bg-amber-500"></span>
-              <span className="text-slate-700 dark:text-slate-300">Market Reception</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Dual-Wave SVG Chart with Key Inflection Node */}
-        <div className="relative pt-6 pb-2">
-          {/* Inflection Tooltip Badge */}
-          <div className="absolute top-2 left-[51%] -translate-x-1/2 z-10 bg-white/95 dark:bg-[#1A1A22]/95 backdrop-blur-xs border border-amber-300 dark:border-amber-500/40 shadow-md rounded-xl px-3 py-1.5 text-center flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-            <div className="text-left">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-300">
-                Key Inflection · Jul 28
-              </div>
-              <div className="text-xs font-bold text-slate-900 dark:text-[#F1F1F5]">
-                Product Pivot Announcement
-              </div>
-            </div>
-            <span className="text-indigo-600 dark:text-indigo-400 text-xs">🎯</span>
-          </div>
-
-          {/* SVG Wave Visualization */}
-          <div className="w-full h-56 sm:h-64">
-            <svg
-              className="w-full h-full overflow-visible"
-              viewBox="0 0 700 220"
-              preserveAspectRatio="none"
-            >
-              <defs>
-                {/* Purple Wave Gradient */}
-                <linearGradient id="purpleGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#4F46E5" stopOpacity="0.22" />
-                  <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.0" />
-                </linearGradient>
-
-                {/* Orange Wave Gradient */}
-                <linearGradient id="orangeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.22" />
-                  <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.0" />
-                </linearGradient>
-              </defs>
-
-              {/* Grid Lines */}
-              <line x1="0" y1="50" x2="700" y2="50" stroke="currentColor" className="text-slate-100 dark:text-white/5" strokeDasharray="3 3" />
-              <line x1="0" y1="110" x2="700" y2="110" stroke="currentColor" className="text-slate-100 dark:text-white/5" strokeDasharray="3 3" />
-              <line x1="0" y1="170" x2="700" y2="170" stroke="currentColor" className="text-slate-100 dark:text-white/5" strokeDasharray="3 3" />
-
-              {/* Vertical Inflection Guide Line at July (x=350) */}
-              <line
-                x1="350"
-                y1="50"
-                x2="350"
-                y2="200"
-                stroke="#FCD34D"
-                strokeWidth="1.5"
-                strokeDasharray="3 3"
-              />
-
-              {/* Filled Wave 1: Purple (Internal Conviction) */}
-              <path
-                d="M 0 170 C 150 160, 250 80, 350 120 C 450 160, 550 50, 700 40 L 700 220 L 0 220 Z"
-                fill="url(#purpleGradient)"
-              />
-
-              {/* Filled Wave 2: Orange (Market Reception) */}
-              <path
-                d="M 0 180 C 120 180, 220 150, 350 120 C 480 90, 580 70, 700 60 L 700 220 L 0 220 Z"
-                fill="url(#orangeGradient)"
-              />
-
-              {/* Stroke Wave 1: Purple (Internal Conviction) */}
-              <path
-                d="M 0 170 C 150 160, 250 80, 350 120 C 450 160, 550 50, 700 40"
-                fill="none"
-                stroke="#6366F1"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-
-              {/* Stroke Wave 2: Orange (Market Reception) */}
-              <path
-                d="M 0 180 C 120 180, 220 150, 350 120 C 480 90, 580 70, 700 60"
-                fill="none"
-                stroke="#F59E0B"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-
-              {/* Intersection / Key Inflection Point Circle (x=350, y=120) */}
-              <circle cx="350" cy="120" r="7" fill="#6366F1" stroke="#FFFFFF" strokeWidth="2.5" />
-              <circle cx="350" cy="120" r="11" fill="none" stroke="#F59E0B" strokeWidth="2" />
-            </svg>
-          </div>
-
-          {/* X-Axis Months (Figma Screen 2) */}
-          <div className="flex justify-between text-xs font-semibold text-slate-400 dark:text-slate-500 px-4 pt-3 border-t border-slate-100 dark:border-white/10">
-            <span>May</span>
-            <span>Jun</span>
-            <span className="font-bold text-slate-700 dark:text-slate-200">Jul</span>
-            <span>Aug</span>
-            <span>Sep</span>
-            <span>Oct</span>
-          </div>
-        </div>
-      </div>
+      {/* Conviction Alignment vs. Market Reality Chart (Interactive Component) */}
+      <ConvictionChart />
 
       {/* 3 Real-time Pulse Cards (Figma Screen 2) */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">

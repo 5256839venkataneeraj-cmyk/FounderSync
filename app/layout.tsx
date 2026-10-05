@@ -50,6 +50,37 @@ export default function RootLayout({
                   }
                 }
               });
+
+              // Automatically purge legacy Service Workers and cached assets from other apps previously running on localhost:3000 (e.g. Nudge PWA)
+              if (typeof window !== 'undefined') {
+                if ('serviceWorker' in navigator) {
+                  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    var unregisteredAny = false;
+                    for (var i = 0; i < registrations.length; i++) {
+                      registrations[i].unregister();
+                      unregisteredAny = true;
+                    }
+                    if (unregisteredAny && !sessionStorage.getItem('_sw_purged')) {
+                      sessionStorage.setItem('_sw_purged', 'true');
+                      window.location.reload();
+                    }
+                  });
+                }
+                if ('caches' in window) {
+                  caches.keys().then(function(names) {
+                    for (var i = 0; i < names.length; i++) {
+                      caches.delete(names[i]);
+                    }
+                  });
+                }
+                try {
+                  for (var k in localStorage) {
+                    if (k && k.toLowerCase().indexOf('nudge') !== -1) {
+                      localStorage.removeItem(k);
+                    }
+                  }
+                } catch(e) {}
+              }
             `,
           }}
         />

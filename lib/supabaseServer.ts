@@ -31,3 +31,9 @@ export const supabaseServer: SupabaseClient | null = isSupabaseServerConfigured(
   : null;
 
 export default supabaseServer;
+
+export {
+  persistCompanyMonthlyMetrics,
+  fetchLatestCompanyBaselineMetrics,
+  type CompanyBaselineMetrics,
+} from './supabase-server';

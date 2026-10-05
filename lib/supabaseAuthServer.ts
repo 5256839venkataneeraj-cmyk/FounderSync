@@ -82,8 +82,9 @@ export async function getAuthenticatedSupabaseClient(
     (referer && host && referer.includes(host));
 
   const sessionHeader = req.headers.get('x-session-token') || req.headers.get('x-user-session');
+  const isAcceptedDevSession = sessionHeader === 'dev-founder-session' || sessionHeader === 'founder-workspace-session';
 
-  if (isDev && (hasInternalOrigin || sessionHeader === 'dev-founder-session')) {
+  if (isDev && (hasInternalOrigin || isAcceptedDevSession)) {
     // Return dev workspace client
     const fallbackClient =
       supabaseUrl && supabaseServiceRoleKey

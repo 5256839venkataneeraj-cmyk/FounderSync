@@ -33,19 +33,84 @@ export function redactKeyMaterial(input: any): string {
 }
 
 /**
- * Safe logger that automatically scrubs any credential or key material.
+ * Safe logger that scrubs sensitive keys and suppresses debug logs in production.
+ * In production environments, verbose logging and internal stack traces are suppressed.
  */
 export const safeLogger = {
   warn: (message: string, error?: any) => {
-    console.warn(redactKeyMaterial(message), error ? redactKeyMaterial(error) : '');
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(redactKeyMaterial(message), error ? redactKeyMaterial(error) : '');
+    }
   },
   error: (message: string, error?: any) => {
-    console.error(redactKeyMaterial(message), error ? redactKeyMaterial(error) : '');
+    // In production, log only high-level message without leaking internal stack traces
+    if (process.env.NODE_ENV === 'production') {
+      const safeErrorMsg = error instanceof Error ? error.message : typeof error === 'string' ? error : '';
+      console.error(redactKeyMaterial(message), safeErrorMsg ? redactKeyMaterial(safeErrorMsg) : '');
+    } else {
+      console.error(redactKeyMaterial(message), error ? redactKeyMaterial(error) : '');
+    }
   },
   info: (message: string) => {
-    console.log(redactKeyMaterial(message));
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(redactKeyMaterial(message));
+    }
   },
 };
+
+/**
+ * Allowed origin domains for strict CORS enforcement.
+ */
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^http:\/\/localhost:(3000|3001|3002)$/,
+  /^http:\/\/127\.0\.0\.1:(3000|3001|3002)$/,
+  /^https:\/\/[a-zA-Z0-9-]+\.vercel\.app$/,
+  /^https:\/\/foundersync\.(dev|com|app)$/,
+];
+
+/**
+ * Validates request origin against authorized domain whitelist.
+ */
+export function getCorsHeaders(req?: NextRequest): Record<string, string> {
+  const origin = req?.headers?.get('origin') || '';
+  const isAllowed = ALLOWED_ORIGIN_PATTERNS.some((pattern) => pattern.test(origin));
+  const effectiveOrigin = isAllowed ? origin : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
+
+  return {
+    'Access-Control-Allow-Origin': effectiveOrigin,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-user-session, x-session-token',
+    'Access-Control-Allow-Credentials': 'true',
+    'Vary': 'Origin',
+  };
+}
+
+/**
+ * Returns standard protective security headers for API route responses.
+ * Enforces no-store cache control, content boundaries, and strict CORS.
+ */
+export function getSecurityHeaders(req?: NextRequest): Record<string, string> {
+  return {
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+    'Pragma': 'no-cache',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    ...getCorsHeaders(req),
+  };
+}
+
+/**
+ * Handles CORS OPTIONS pre-flight checks.
+ */
+export function handleCorsPreflight(req: NextRequest): NextResponse | null {
+  if (req.method === 'OPTIONS') {
+    return new NextResponse(null, {
+      status: 204,
+      headers: getSecurityHeaders(req),
+    });
+  }
+  return null;
+}
 
 /**
  * Rejects non-POST HTTP methods with a 405 Method Not Allowed response.
@@ -61,6 +126,7 @@ export function enforcePostMethod(req: NextRequest): NextResponse<ApiErrorRespon
         status: 405,
         headers: {
           Allow: 'POST',
+          ...getSecurityHeaders(req),
         },
       }
     );
@@ -76,21 +142,7 @@ export interface AuthContext {
 }
 
 /**
- * Returns standard protective security headers for API route responses.
- * Enforces no-store cache control and content boundaries.
- */
-export function getSecurityHeaders(): Record<string, string> {
-  return {
-    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
-    'Pragma': 'no-cache',
-    'X-Content-Type-Options': 'nosniff',
-  };
-}
-
-/**
  * Verifies session authentication for incoming API requests.
- * Restricts access to validated sessions and localhost development testing.
- * Rejects unverified forged JWT strings.
  */
 export function verifySession(req: NextRequest): AuthContext {
   const workspaceId = process.env.WORKSPACE_ID || FIXED_WORKSPACE_ID;
@@ -121,4 +173,3 @@ export function verifySession(req: NextRequest): AuthContext {
     error: 'Unauthorized: Cryptographic session verification required. Unverified tokens rejected.',
   };
 }
-

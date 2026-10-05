@@ -135,6 +135,8 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
     const storedName = localStorage.getItem('foundersync_user_name');
     if (storedName && storedName.trim()) {
       setUserNameState(storedName.trim());
+    } else if (user?.user_metadata?.full_name || user?.user_metadata?.name) {
+      setUserNameState(user.user_metadata.full_name || user.user_metadata.name);
     } else if (user?.email) {
       const emailPrefix = user.email.split('@')[0];
       const capitalized = emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);

@@ -67,9 +67,9 @@ function getEnvConfig() {
 
   return {
     geminiKey: getVal('GEMINI_API_KEY', ''),
-    grokKey: getVal('GROQ_API_KEY', getVal('GROK_API_KEY', getVal('XAI_API_KEY', ''))),
+    grokKey: getVal('OPENROUTER_API_KEY', getVal('GROQ_API_KEY', getVal('GROK_API_KEY', getVal('XAI_API_KEY', '')))),
     geminiModel: getVal('GEMINI_MODEL', 'gemini-3.6-flash'),
-    grokModel: getVal('GROQ_MODEL', 'openai/gpt-oss-120b'),
+    grokModel: getVal('OPENROUTER_MODEL', getVal('GROQ_MODEL', 'openai/gpt-oss-120b')),
   };
 }
 
@@ -168,12 +168,19 @@ export async function POST(req: NextRequest) {
       updates['GEMINI_API_KEY'] = geminiKey;
     }
     if (grokKey && !grokKey.includes('•')) {
+      if (grokKey.startsWith('sk-or-')) {
+        updates['OPENROUTER_API_KEY'] = grokKey;
+        updates['OPENROUTER_MODEL'] = grokModel || 'openrouter/auto';
+      }
       updates['GROQ_API_KEY'] = grokKey;
       updates['GROK_API_KEY'] = grokKey;
       updates['XAI_API_KEY'] = grokKey;
     }
     if (geminiModel) updates['GEMINI_MODEL'] = geminiModel;
-    if (grokModel) updates['GROQ_MODEL'] = grokModel;
+    if (grokModel) {
+      updates['GROQ_MODEL'] = grokModel;
+      updates['OPENROUTER_MODEL'] = grokModel;
+    }
 
     if (Object.keys(updates).length > 0) {
       updateEnvFile(updates);

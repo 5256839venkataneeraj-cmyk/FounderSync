@@ -79,16 +79,16 @@ export function FounderSyncProvider({ children }: { children: ReactNode }) {
             setState((prev) => ({
               ...prev,
               growthMetrics: {
-                arr: Number(latest.arr),
-                churnRate: Number(latest.churn_rate),
-                ltv: Number(latest.ltv),
-                burnRate: Number(latest.burn_rate),
+                arr: Number(latest.arr || 0),
+                churnRate: Number(latest.churn_rate ?? latest.monthly_churn_rate ?? 0),
+                ltv: Number(latest.clv ?? latest.ltv ?? 0),
+                burnRate: Number(latest.monthly_burn ?? latest.monthlyBurn ?? latest.burn_rate ?? 0),
               },
               humanMetrics: {
-                burnoutIndex: Number(latest.team_burnout_index),
-                customerTrustScore: Number(latest.customer_trust_score),
-                founderCognitiveLoad: Number(latest.founder_cognitive_load),
-                retentionSentiment: Number(latest.retention_sentiment),
+                burnoutIndex: Number(latest.burnout_score ?? latest.burnout_index ?? latest.team_burnout_index ?? 50),
+                customerTrustScore: Number(latest.trust_score ?? latest.customer_trust_score ?? 50),
+                founderCognitiveLoad: Number(latest.cognitive_load_score ?? latest.founder_cognitive_load ?? 50),
+                retentionSentiment: Number(latest.retention_sentiment_score ?? latest.retention_score ?? latest.retention_sentiment ?? 50),
               },
               decisions: decisionsData && decisionsData.length > 0 ? (decisionsData as any) : prev.decisions,
               heatmapScores: heatmapData

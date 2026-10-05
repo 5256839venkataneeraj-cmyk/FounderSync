@@ -33,8 +33,22 @@ export const supabase = isSupabaseConfigured()
 /**
  * Data Access Helpers for Client Components (scoped to FIXED_WORKSPACE_ID)
  */
-export async function fetchWorkspaceMetrics(): Promise<Metric[] | null> {
+export async function fetchWorkspaceMetrics(): Promise<any[] | null> {
   if (!supabase) return null;
+
+  try {
+    // 1. Try company_monthly_metrics first
+    const { data: cmmData, error: cmmError } = await (supabase as any)
+      .from('company_monthly_metrics')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (!cmmError && cmmData && cmmData.length > 0) {
+      return cmmData;
+    }
+  } catch {}
+
+  // 2. Fallback to metrics table
   const { data, error } = await (supabase as any)
     .from('metrics')
     .select('*')
@@ -45,7 +59,7 @@ export async function fetchWorkspaceMetrics(): Promise<Metric[] | null> {
     console.warn('[Supabase] Failed to fetch metrics:', error.message);
     return null;
   }
-  return data as Metric[];
+  return data;
 }
 
 export async function fetchWorkspaceDecisions(): Promise<Decision[] | null> {

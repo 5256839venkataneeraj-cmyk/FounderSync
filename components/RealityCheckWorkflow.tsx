@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { sanitizeText } from '@/lib/sanitize';
 
 interface RealityCheckData {
   recordId: string;
@@ -11,6 +12,7 @@ interface RealityCheckData {
   opposingStrategy?: string;
   verdict?: string;
   simulated?: boolean;
+  baselineContext?: any;
 }
 
 type ActionType = 'Accept' | 'Pivot' | 'Override';
@@ -38,8 +40,8 @@ export function RealityCheckWorkflow() {
   // Handle Strategy Submission to /api/reality-check
   const handleRunRealityCheck = async (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = strategy.trim();
-    if (!trimmed) {
+    const sanitizedStrategy = sanitizeText(strategy);
+    if (!sanitizedStrategy) {
       setErrorMessage('Please enter a strategy to run a reality check.');
       return;
     }
@@ -58,7 +60,7 @@ export function RealityCheckWorkflow() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          strategy: trimmed,
+          strategy: sanitizedStrategy,
           ...(storedGemini ? { geminiKey: storedGemini } : {}),
           ...(storedGrok ? { grokKey: storedGrok } : {}),
         }),
@@ -85,6 +87,8 @@ export function RealityCheckWorkflow() {
             'Unit economics sensitivity to increased post-sale customer onboarding requirements.',
           ];
 
+      const baselineContext = json.baselineContext || json.companyBaseline || data.baselineContext || null;
+
       setRealityCheckResult({
         recordId,
         stressTestScore: score,
@@ -94,6 +98,7 @@ export function RealityCheckWorkflow() {
         opposingStrategy: opposing,
         verdict: data.verdict,
         simulated: json.simulated ?? data.simulated,
+        baselineContext,
       });
     } catch (err: any) {
       setErrorMessage(err?.message || 'Failed to complete reality check. Please try again.');
@@ -105,7 +110,8 @@ export function RealityCheckWorkflow() {
   // Handle HITL Decision Submission to /api/decisions
   const handleSubmitDecision = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!justification.trim()) {
+    const sanitizedJustification = sanitizeText(justification);
+    if (!sanitizedJustification) {
       setDecisionError('Please provide a justification for this decision.');
       return;
     }
@@ -120,8 +126,8 @@ export function RealityCheckWorkflow() {
         body: JSON.stringify({
           realityCheckId: realityCheckResult?.recordId,
           action,
-          justification: justification.trim(),
-          strategy: strategy.trim(),
+          justification: sanitizedJustification,
+          strategy: sanitizeText(strategy),
         }),
       });
 
@@ -280,6 +286,28 @@ export function RealityCheckWorkflow() {
               </div>
             </div>
           </div>
+
+          {/* Company Baseline Context Banner */}
+          {realityCheckResult.baselineContext && (
+            <div className="p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse shrink-0" />
+                <span className="font-semibold text-indigo-950 font-grotesk">
+                  Company Baseline Context ({realityCheckResult.baselineContext.company_name || 'Verified Telemetry'} · {realityCheckResult.baselineContext.reporting_month})
+                </span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-200/60 text-indigo-800 font-mono">
+                  {realityCheckResult.baselineContext.sourceTable}
+                </span>
+              </div>
+              <div className="flex flex-wrap items-center gap-3 text-indigo-800 text-[11px] font-mono">
+                <span>ARR: <strong>${Number(realityCheckResult.baselineContext.arr || 0).toLocaleString()}</strong></span>
+                <span>Burn: <strong>${Number(realityCheckResult.baselineContext.burn_rate || 0).toLocaleString()}/mo</strong></span>
+                <span>Runway: <strong>{realityCheckResult.baselineContext.runway_months != null ? `${realityCheckResult.baselineContext.runway_months}mo` : 'N/A'}</strong></span>
+                <span>Burnout: <strong>{realityCheckResult.baselineContext.burnout_score}/100</strong></span>
+                <span>Cognitive: <strong>{realityCheckResult.baselineContext.cognitive_load_score}/100</strong></span>
+              </div>
+            </div>
+          )}
 
           {/* Grid: Gemini Synthesis & Grok Pushback */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

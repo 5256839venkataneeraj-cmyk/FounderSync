@@ -60,12 +60,16 @@ export function calculateStartupHealthScore(
   const normCognitiveLoad = normalizeValue(human.founderCognitiveLoad, 0, 100, true);
   const normRetention = normalizeValue(human.retentionSentiment, 0, 100, false);
 
-  const humanScoreNormalized = Math.round(
-    normBurnout * 0.3 + normTrust * 0.3 + normCognitiveLoad * 0.2 + normRetention * 0.2
+  // Exact average of the four human-centric signal scores onto a 0-100 scale
+  const humanAvg = Math.round(
+    (normBurnout + normTrust + normCognitiveLoad + normRetention) / 4
   );
+  const humanScoreNormalized = (human as any).humanCentricScore != null && !isNaN(Number((human as any).humanCentricScore))
+    ? Math.round(Number((human as any).humanCentricScore))
+    : humanAvg;
 
-  // Startup Health Score = 50% Growth + 50% Human
-  const compositeScore = Math.round(growthScoreNormalized * 0.5 + humanScoreNormalized * 0.5);
+  // Startup Health Score = exact average of Growth Dimension and Human Dimension (50/50 split)
+  const compositeScore = Math.round((growthScoreNormalized + humanScoreNormalized) / 2);
 
   return {
     compositeScore,
@@ -78,10 +82,10 @@ export function calculateStartupHealthScore(
       burnRate: { raw: growth.burnRate, normalized: normBurn, weight: 0.2, label: 'Burn Rate' },
     },
     humanDetails: {
-      burnoutIndex: { raw: human.burnoutIndex, normalized: normBurnout, weight: 0.3, label: 'Team Burnout' },
-      customerTrustScore: { raw: human.customerTrustScore, normalized: normTrust, weight: 0.3, label: 'Customer Trust' },
-      founderCognitiveLoad: { raw: human.founderCognitiveLoad, normalized: normCognitiveLoad, weight: 0.2, label: 'Founder Load' },
-      retentionSentiment: { raw: human.retentionSentiment, normalized: normRetention, weight: 0.2, label: 'Retention Sentiment' },
+      burnoutIndex: { raw: human.burnoutIndex, normalized: normBurnout, weight: 0.25, label: 'Team Burnout' },
+      customerTrustScore: { raw: human.customerTrustScore, normalized: normTrust, weight: 0.25, label: 'Customer Trust' },
+      founderCognitiveLoad: { raw: human.founderCognitiveLoad, normalized: normCognitiveLoad, weight: 0.25, label: 'Founder Load' },
+      retentionSentiment: { raw: human.retentionSentiment, normalized: normRetention, weight: 0.25, label: 'Retention Sentiment' },
     },
   };
 }

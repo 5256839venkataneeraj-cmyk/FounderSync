@@ -207,11 +207,11 @@ export function TopNavbar({ activeTab, onTabChange, onOpenOnboarding }: TopNavba
                 title={`Founder: ${userName} (Click to edit name)`}
               >
                 <img
-                  src="/avatar-alex.png"
+                  src={user?.user_metadata?.avatar_url || '/avatar-alex.png'}
                   alt={userName}
                   className="w-5 h-5 rounded-full object-cover ring-1 ring-slate-300"
                 />
-                <span className="text-xs font-bold text-slate-800 hover:text-indigo-600 transition-colors">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-600 transition-colors">
                   {userName}
                 </span>
                 <svg className="w-3 h-3 text-slate-400 hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

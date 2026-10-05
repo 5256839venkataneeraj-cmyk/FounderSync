@@ -12,25 +12,27 @@ export function StrategicMirror() {
   return (
     <div className="space-y-8">
       {/* Top Banner: Startup Health Score & Core Formula */}
-      <div className="bg-slate-900 dark:bg-[#14141C] text-white rounded-xl p-6 shadow-md border border-slate-800 dark:border-white/10">
+      <div className="bg-[#14141C] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800/90 dark:border-white/10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-1">
-            <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold">
-              Strategic Mirror · Industry 6.0 Core
+          <div className="space-y-1.5">
+            <span className="text-xs uppercase tracking-widest text-indigo-400 font-bold font-grotesk">
+              STRATEGIC MIRROR · INDUSTRY 6.0 CORE
             </span>
-            <h2 className="text-2xl font-bold tracking-tight">Startup Health Score</h2>
-            <p className="text-sm text-slate-300 dark:text-slate-400 max-w-xl">
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-display tracking-tight text-white">
+              Startup Health Score
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 max-w-2xl font-sans font-normal leading-relaxed">
               Composite score balancing 50% normalized Growth metrics (ARR, Churn, LTV, Burn) against 50% normalized Human-Centric signals (Team Burnout, Trust, Cognitive Load, Retention).
             </p>
           </div>
 
-          <div className="flex items-center gap-4 bg-slate-800/80 dark:bg-[#1A1A22] px-6 py-4 rounded-xl border border-slate-700 dark:border-white/10">
+          <div className="flex items-center gap-4 bg-[#1A1A24] px-6 py-4 rounded-2xl border border-slate-700/60 dark:border-white/10 self-start md:self-auto shrink-0 shadow-inner">
             <div className="text-right">
-              <div className="text-xs text-slate-400 font-medium">Composite Score</div>
-              <div className="text-xs text-slate-500">50% Growth + 50% Human</div>
+              <div className="text-xs text-slate-400 font-semibold">Composite Score</div>
+              <div className="text-[11px] text-slate-500 font-normal">50% Growth + 50% Human</div>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className={`text-4xl font-bold ${
+              <span className={`text-4xl sm:text-5xl font-black font-display tracking-tight ${
                 healthScore.compositeScore >= 70
                   ? 'text-emerald-400'
                   : healthScore.compositeScore >= 50
@@ -45,23 +47,23 @@ export function StrategicMirror() {
         </div>
 
         {/* Formula Breakdown Bar */}
-        <div className="mt-6 pt-6 border-t border-slate-800 dark:border-white/10 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-slate-800/50 dark:bg-[#1A1A22] p-3 rounded-lg flex items-center justify-between">
+        <div className="mt-6 pt-6 border-t border-slate-800/80 dark:border-white/10 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-[#1A1A24] p-3.5 sm:p-4 rounded-2xl flex items-center justify-between border border-slate-800/90 dark:border-white/5">
             <div className="text-xs">
-              <span className="text-blue-400 font-semibold">Growth Dimension (50%): </span>
-              <span className="text-slate-300 dark:text-slate-400 font-normal">Normalized ARR, Churn, LTV, Burn Rate</span>
+              <span className="text-blue-400 font-bold font-grotesk">Growth Dimension (50%): </span>
+              <span className="text-slate-400 font-normal">Normalized ARR, Churn, LTV, Burn Rate</span>
             </div>
-            <span className="text-sm font-bold text-blue-400 ml-2">
+            <span className="text-sm sm:text-base font-bold text-blue-400 ml-2 font-mono">
               {healthScore.growthScoreNormalized}/100
             </span>
           </div>
 
-          <div className="bg-slate-800/50 dark:bg-[#1A1A22] p-3 rounded-lg flex items-center justify-between">
+          <div className="bg-[#1A1A24] p-3.5 sm:p-4 rounded-2xl flex items-center justify-between border border-slate-800/90 dark:border-white/5">
             <div className="text-xs">
-              <span className="text-emerald-400 font-semibold">Human Dimension (50%): </span>
-              <span className="text-slate-300 dark:text-slate-400 font-normal">Burnout, Trust, Cognitive Load, Retention</span>
+              <span className="text-emerald-400 font-bold font-grotesk">Human Dimension (50%): </span>
+              <span className="text-slate-400 font-normal">Burnout, Trust, Cognitive Load, Retention</span>
             </div>
-            <span className="text-sm font-bold text-emerald-400 ml-2">
+            <span className="text-sm sm:text-base font-bold text-emerald-400 ml-2 font-mono">
               {healthScore.humanScoreNormalized}/100
             </span>
           </div>

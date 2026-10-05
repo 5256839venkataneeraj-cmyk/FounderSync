@@ -5,6 +5,7 @@ import { useFounderSync } from '@/context/FounderSyncContext';
 import { RealityCheckWorkflow } from '@/components/RealityCheckWorkflow';
 import { RealityCheckEngine } from '@/components/reality-check/RealityCheckEngine';
 import { DecisionHub } from '@/components/hitl/DecisionHub';
+import { sanitizeText } from '@/lib/sanitize';
 
 export function AdvisorView() {
   const { recordDecision } = useFounderSync();
@@ -16,9 +17,10 @@ export function AdvisorView() {
 
   const handleApprove = (e: React.FormEvent) => {
     e.preventDefault();
-    if (justification.trim().length < 20) return;
+    const sanitized = sanitizeText(justification);
+    if (sanitized.length < 20) return;
 
-    const res = recordDecision('ACCEPT_AND_OVERRIDE_AI', justification);
+    const res = recordDecision('ACCEPT_AND_OVERRIDE_AI', sanitized);
     if (res.success) {
       setActionSuccessMsg('Assumption verified and signed with founder justification.');
       setIsApproving(false);

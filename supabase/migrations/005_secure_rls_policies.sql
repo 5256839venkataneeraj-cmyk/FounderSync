@@ -98,3 +98,25 @@ CREATE POLICY "Users can view own heatmap scores" ON heatmap_scores
 
 CREATE POLICY "Users can insert own heatmap scores" ON heatmap_scores
   FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+-- 10. company_monthly_metrics: Per-user isolation for financial metrics
+ALTER TABLE IF EXISTS company_monthly_metrics ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS company_monthly_metrics ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+CREATE INDEX IF NOT EXISTS idx_company_monthly_metrics_user_id ON company_monthly_metrics(user_id);
+
+DROP POLICY IF EXISTS "Users can view own company monthly metrics" ON company_monthly_metrics;
+CREATE POLICY "Users can view own company monthly metrics" ON company_monthly_metrics
+  FOR SELECT TO authenticated USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can insert own company monthly metrics" ON company_monthly_metrics;
+CREATE POLICY "Users can insert own company monthly metrics" ON company_monthly_metrics
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can update own company monthly metrics" ON company_monthly_metrics;
+CREATE POLICY "Users can update own company monthly metrics" ON company_monthly_metrics
+  FOR UPDATE TO authenticated USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can delete own company monthly metrics" ON company_monthly_metrics;
+CREATE POLICY "Users can delete own company monthly metrics" ON company_monthly_metrics
+  FOR DELETE TO authenticated USING (auth.uid() = user_id);
+

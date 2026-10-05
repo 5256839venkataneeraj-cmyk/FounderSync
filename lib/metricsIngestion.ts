@@ -33,6 +33,16 @@ export interface CalculatedMetrics {
   retention_score?: number;
   human_centric_subscore?: number;
   burnout_score_band?: 'low' | 'moderate' | 'high';
+  growth_score_normalized?: number;
+  human_score_normalized?: number;
+  composite_health_score?: number;
+  reality_check_question?: string;
+  reality_check_description?: string;
+  reality_check_category?: 'CONTRADICTION' | 'WARNING' | 'STRATEGIC_TENSION' | string;
+  realityCheckQuestion?: string;
+  realityCheckDescription?: string;
+  realityCheckCategory?: 'CONTRADICTION' | 'WARNING' | 'STRATEGIC_TENSION' | string;
+  [key: string]: any;
 }
 
 export const TEMPLATE_VERSION = 'Template v1.0 — 2026-09';
@@ -167,6 +177,16 @@ function extractSurveyAnswers(text: string, categoryKeys: string[]): number[] | 
         const questionMatch = line.match(/(?:^|q(?:uestion)?\s*\d+|\d+)[\s.:)-]+\s*(\d{1,2})(?:\s*\/\s*10)?/i);
         if (questionMatch) {
           const num = parseInt(questionMatch[1], 10);
+          if (num >= 1 && num <= 10) {
+            answers.push(num);
+            continue;
+          }
+        }
+
+        // Match line ending with score e.g. "01. How often...?: 7" or "... / 10: 7" or "... = 7"
+        const endScoreMatch = line.match(/(?:[:=]|\/\s*10\s*[:=]?)\s*(\d{1,2})(?:\s*\/\s*10)?\s*$/i);
+        if (endScoreMatch) {
+          const num = parseInt(endScoreMatch[1], 10);
           if (num >= 1 && num <= 10) {
             answers.push(num);
             continue;
@@ -346,23 +366,23 @@ export function ingestMetricsDocument(documentText: string): IngestionResponse {
 
   // 3. MRR
   const rawMrr = extractFieldValue(documentText, [
-    /(?:^|\n)[^\n:]*?\bmrr\b[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
-    /(?:monthly[_\s-]*recurring[_\s-]*revenue)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:^|\n)[^\n:]*?\bmrr\b(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:monthly[_\s-]*recurring[_\s-]*revenue)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const mrr = parseNumericField(rawMrr);
   if (mrr === null) missing_fields.push('mrr');
 
   // 4. Total Active Customers
   const rawTotalActiveCustomers = extractFieldValue(documentText, [
-    /(?:total[_\s-]*active[_\s-]*customers|active[_\s-]*customers|current[_\s-]*active[_\s-]*customers)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
-    /(?:total[_\s-]*customers)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:total[_\s-]*active[_\s-]*customers|active[_\s-]*customers|current[_\s-]*active[_\s-]*customers)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:total[_\s-]*customers)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const total_active_customers = parseNumericField(rawTotalActiveCustomers);
   if (total_active_customers === null) missing_fields.push('total_active_customers');
 
   // 5. Monthly Revenue
   const rawMonthlyRevenue = extractFieldValue(documentText, [
-    /(?:monthly[_\s-]*revenue|total[_\s-]*monthly[_\s-]*revenue|recognized[_\s-]*monthly[_\s-]*revenue)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:monthly[_\s-]*revenue|total[_\s-]*monthly[_\s-]*revenue|recognized[_\s-]*monthly[_\s-]*revenue)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
     /(?:^|\n)\s*[*_~]*revenue[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const monthly_revenue = parseNumericField(rawMonthlyRevenue);
@@ -370,21 +390,21 @@ export function ingestMetricsDocument(documentText: string): IngestionResponse {
 
   // 6. Customers Lost
   const rawCustomersLost = extractFieldValue(documentText, [
-    /(?:customers[_\s-]*lost|lost[_\s-]*customers|churned[_\s-]*customers|customer[_\s-]*churn[_\s-]*count)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:customers[_\s-]*lost|lost[_\s-]*customers|churned[_\s-]*customers|customer[_\s-]*churn[_\s-]*count)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const customers_lost = parseNumericField(rawCustomersLost);
   if (customers_lost === null) missing_fields.push('customers_lost');
 
   // 7. Starting Customers
   const rawStartingCustomers = extractFieldValue(documentText, [
-    /(?:starting[_\s-]*customers|beginning[_\s-]*customers|initial[_\s-]*customers|start[_\s-]*customers)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:starting[_\s-]*customers|beginning[_\s-]*customers|initial[_\s-]*customers|start[_\s-]*customers)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const starting_customers = parseNumericField(rawStartingCustomers);
   if (starting_customers === null) missing_fields.push('starting_customers');
 
   // 8. Average Revenue Per Customer (Nullable — see Phase 2)
   const rawAvgRevenuePerCustomer = extractFieldValue(documentText, [
-    /(?:avg(?:erage)?[_\s-]*revenue[_\s-]*per[_\s-]*customer|average[_\s-]*revenue[_\s-]*per[_\s-]*user|arpu|arpa)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:avg(?:erage)?[_\s-]*revenue[_\s-]*per[_\s-]*customer|average[_\s-]*revenue[_\s-]*per[_\s-]*user|arpu|arpa)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const avg_revenue_per_customer = parseNumericField(rawAvgRevenuePerCustomer);
   if (avg_revenue_per_customer === null) {
@@ -393,7 +413,7 @@ export function ingestMetricsDocument(documentText: string): IngestionResponse {
 
   // 9. Monthly Expenses
   const rawMonthlyExpenses = extractFieldValue(documentText, [
-    /(?:monthly[_\s-]*expenses|total[_\s-]*monthly[_\s-]*expenses|operating[_\s-]*expenses)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:monthly[_\s-]*expenses|total[_\s-]*monthly[_\s-]*expenses|operating[_\s-]*expenses)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
     /(?:^|\n)\s*[*_~]*expenses[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const monthly_expenses = parseNumericField(rawMonthlyExpenses);
@@ -401,7 +421,7 @@ export function ingestMetricsDocument(documentText: string): IngestionResponse {
 
   // 10. Cash In Bank
   const rawCashInBank = extractFieldValue(documentText, [
-    /(?:cash[_\s-]*in[_\s-]*bank|cash[_\s-]*balance|bank[_\s-]*balance|total[_\s-]*cash)[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
+    /(?:cash[_\s-]*in[_\s-]*bank|cash[_\s-]*balance|bank[_\s-]*balance|total[_\s-]*cash)(?:\s*\([^)]*\))?[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
     /(?:^|\n)\s*[*_~]*cash[*_~]*\s*[:=]\s*([^\r\n;]+)/i,
   ]);
   const cash_in_bank = parseNumericField(rawCashInBank);
@@ -528,8 +548,37 @@ export function ingestMetricsDocument(documentText: string): IngestionResponse {
     (burnout_score + trust_score + cognitive_load_score + retention_score) / 4
   );
 
-  // Score bands (attach as labels, do not alter the numeric score):
-  // burnout_score: 0–33 low, 34–66 moderate, 67–100 high
+  // Normalization helper (0-100 scale)
+  const normHelper = (val: number, min: number, max: number, invert: boolean = false) => {
+    if (min === max) return 50;
+    const clamped = Math.max(min, Math.min(max, val));
+    const ratio = (clamped - min) / (max - min);
+    const score = invert ? (1 - ratio) * 100 : ratio * 100;
+    return roundToTwo(score);
+  };
+
+  const norm_arr = normHelper(arr, 0, 3000000, false);
+  const norm_churn = normHelper(monthly_churn_rate, 1, 15, true);
+  const norm_ltv = normHelper(clv, 1000, 50000, false);
+  const norm_burn = normHelper(burn_rate, 10000, 200000, true);
+
+  const growth_score_normalized = Math.round(
+    norm_arr * 0.3 + norm_churn * 0.3 + norm_ltv * 0.2 + norm_burn * 0.2
+  );
+
+  const norm_burnout = normHelper(burnout_score, 0, 100, true);
+  const norm_trust = normHelper(trust_score, 0, 100, false);
+  const norm_cognitive = normHelper(cognitive_load_score, 0, 100, true);
+  const norm_retention = normHelper(retention_score, 0, 100, false);
+
+  const human_score_normalized = Math.round(
+    (norm_burnout + norm_trust + norm_cognitive + norm_retention) / 4
+  );
+
+  const composite_health_score = Math.round(
+    (growth_score_normalized + human_score_normalized) / 2
+  );
+
   let burnout_score_band: 'low' | 'moderate' | 'high' = 'low';
   if (burnout_score >= 67) {
     burnout_score_band = 'high';
@@ -538,6 +587,20 @@ export function ingestMetricsDocument(documentText: string): IngestionResponse {
   } else {
     burnout_score_band = 'low';
   }
+
+  // Synthesize dynamic reality check based on hard metrics vs human signals
+  const realityCheck = generateRealityCheckFromMetrics({
+    arr,
+    burn_rate,
+    monthly_churn_rate,
+    clv,
+    runway_months,
+    burnout_score,
+    trust_score,
+    cognitive_load_score,
+    retention_score,
+    company_name: company_name || undefined,
+  });
 
   return {
     status: 'ok',
@@ -555,6 +618,97 @@ export function ingestMetricsDocument(documentText: string): IngestionResponse {
       retention_score,
       human_centric_subscore,
       burnout_score_band,
+      growth_score_normalized,
+      human_score_normalized,
+      composite_health_score,
+      startup_health_score: composite_health_score,
+      reality_check_question: realityCheck.reality_check_question,
+      reality_check_description: realityCheck.reality_check_description,
+      reality_check_category: realityCheck.reality_check_category,
+      realityCheckQuestion: realityCheck.reality_check_question,
+      realityCheckDescription: realityCheck.reality_check_description,
+      realityCheckCategory: realityCheck.reality_check_category,
+      norm_arr,
+      norm_churn,
+      norm_ltv,
+      norm_burn,
+      norm_burnout,
+      norm_trust,
+      norm_cognitive,
+      norm_retention,
     },
   };
 }
+
+/**
+ * AI-aligned Reality Check synthesis evaluating hard growth metrics (ARR, Churn, Burn)
+ * alongside human signals (Burnout, Trust, Cognitive Load, Retention) to expose
+ * underlying contradictions and strategic risks.
+ */
+export function generateRealityCheckFromMetrics({
+  arr,
+  burn_rate,
+  monthly_churn_rate,
+  clv,
+  runway_months,
+  burnout_score,
+  trust_score,
+  cognitive_load_score,
+  retention_score,
+  company_name,
+}: {
+  arr: number;
+  burn_rate: number;
+  monthly_churn_rate: number;
+  clv: number;
+  runway_months: number | null;
+  burnout_score: number;
+  trust_score: number;
+  cognitive_load_score: number;
+  retention_score: number;
+  company_name?: string;
+}): {
+  reality_check_question: string;
+  reality_check_description: string;
+  reality_check_category: 'CONTRADICTION' | 'WARNING' | 'STRATEGIC_TENSION';
+} {
+  const formatARR = (val: number) => {
+    if (val >= 1000000) return `$${(val / 1000000).toFixed(2)}M`;
+    return `$${Math.round(val).toLocaleString()}`;
+  };
+
+  // Contradiction 1: High Burn ($>60k or runway <= 14mo) vs Low Retention Sentiment / Churn
+  if (burn_rate >= 60000 || (runway_months !== null && runway_months <= 14) || retention_score < 70) {
+    return {
+      reality_check_category: 'CONTRADICTION',
+      reality_check_question: `“Are you accelerating monthly burn of $${Math.round(burn_rate).toLocaleString()} to buy growth when retention sentiment has dropped to ${retention_score}/100?”`,
+      reality_check_description: `With ${runway_months ? `${runway_months} months` : 'compressed'} runway remaining and monthly customer churn at ${monthly_churn_rate}%, aggressive top-line spending risks compounding cash depletion before product-market retention stabilizes.`,
+    };
+  }
+
+  // Contradiction 2: High Burnout / Overload vs Aggressive Growth Targets
+  if (burnout_score >= 60 || cognitive_load_score >= 65) {
+    return {
+      reality_check_category: 'WARNING',
+      reality_check_question: `“Are you pursuing an aggressive ${formatARR(arr)} ARR target at the unsustainable cost of a ${burnout_score}/100 team burnout index and ${cognitive_load_score}/100 founder cognitive load?”`,
+      reality_check_description: `Gross revenue velocity remains active, but human sustainability signals indicate sprint throughput is consuming team bandwidth faster than organizational capacity can replenish.`,
+    };
+  }
+
+  // Contradiction 3: Churn Leaks vs Customer Trust / Unit Economics
+  if (monthly_churn_rate >= 3.5 || trust_score < 75) {
+    return {
+      reality_check_category: 'CONTRADICTION',
+      reality_check_question: `“Is new customer acquisition masking a ${monthly_churn_rate}% monthly churn leak and a fragile ${trust_score}/100 customer trust score?”`,
+      reality_check_description: `Customer lifetime value ($${Math.round(clv).toLocaleString()}) cannot compound predictably when customer churn outpaces expansion, pointing to unaddressed post-onboarding friction.`,
+    };
+  }
+
+  // Default: Strategic Tension
+  return {
+    reality_check_category: 'STRATEGIC_TENSION',
+    reality_check_question: `“Are you scaling outbound spend because gross retention supports it, or to mask a ${burnout_score}/100 team burnout index?”`,
+    reality_check_description: `Monthly burn of $${Math.round(burn_rate).toLocaleString()} alongside a ${burnout_score}/100 burnout index indicates sprint throughput is consuming human capacity before reaching positive unit economics.`,
+  };
+}
+
