@@ -9,11 +9,11 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
   const { userName } = useUserProfile();
 
   // Form State
-  const [firstName, setFirstName] = useState(userName ? userName.split(' ')[0] : 'Neeraj');
-  const [lastName, setLastName] = useState(userName && userName.split(' ').length > 1 ? userName.split(' ').slice(1).join(' ') : 'Babu');
-  const [email, setEmail] = useState(user?.email || 'neeraj@foundersync.io');
-  const [countryCode, setCountryCode] = useState('+1');
-  const [phone, setPhone] = useState('+1 (555) 019-2834');
+  const [firstName, setFirstName] = useState(userName ? userName.split(' ')[0] : 'Venkata');
+  const [lastName, setLastName] = useState(userName && userName.split(' ').length > 1 ? userName.split(' ').slice(1).join(' ') : 'Potluri');
+  const [email, setEmail] = useState(user?.email || 'potluri.venkata2026@vitstudent.ac.in');
+  const [countryCode, setCountryCode] = useState('+91');
+  const [phone, setPhone] = useState('8618331467');
   const [priority, setPriority] = useState<'routine' | 'strategic-urgent' | 'board-prep' | 'critical'>('strategic-urgent');
   const [message, setMessage] = useState(
     'We are preparing our Q4 Board Deck divergence model and need principal verification on our telemetry pipeline assumptions.'
@@ -68,7 +68,7 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
         alert(json.error || 'Failed to submit inquiry. Please try again.');
       }
     } catch (err) {
-      alert('Network issue. Please try again or reach us directly at concierge@foundersync.io');
+      alert('Network issue. Please try again or reach us directly at potluri.venkata2026@vitstudent.ac.in');
     } finally {
       setIsSubmitting(false);
     }
@@ -130,7 +130,7 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
               {/* Email Card */}
               <div className="p-4 rounded-2xl bg-white dark:bg-[#1B1B20]/90 border border-slate-200/80 dark:border-white/10 hover:border-indigo-400 dark:hover:border-[#C0C1FF]/50 shadow-2xs hover:shadow-xs transition-all flex items-center justify-between gap-3 group">
                 <a
-                  href="mailto:concierge@foundersync.io"
+                  href="mailto:potluri.venkata2026@vitstudent.ac.in"
                   className="flex items-center gap-3.5 min-w-0 flex-1 cursor-pointer"
                 >
                   <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-[#2A292F] flex items-center justify-center text-indigo-600 dark:text-[#C0C1FF] group-hover:bg-indigo-600 group-hover:text-white transition-all shrink-0">
@@ -141,13 +141,13 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
                   <div className="flex flex-col min-w-0">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-[#908FA0]">Email</span>
                     <span className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-[#E4E1E9] truncate group-hover:text-indigo-600 dark:group-hover:text-[#C0C1FF] transition-colors">
-                      concierge@foundersync.io
+                      potluri.venkata2026@vitstudent.ac.in
                     </span>
                   </div>
                 </a>
                 <button
                   type="button"
-                  onClick={() => handleCopy('concierge@foundersync.io', 'email')}
+                  onClick={() => handleCopy('potluri.venkata2026@vitstudent.ac.in', 'email')}
                   className="px-2.5 py-1 text-[11px] font-mono rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors shrink-0"
                   title="Copy email address"
                 >
@@ -158,7 +158,7 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
               {/* Phone Card */}
               <div className="p-4 rounded-2xl bg-white dark:bg-[#1B1B20]/90 border border-slate-200/80 dark:border-white/10 hover:border-purple-400 dark:hover:border-[#DDB7FF]/50 shadow-2xs hover:shadow-xs transition-all flex items-center justify-between gap-3 group">
                 <a
-                  href="tel:+18005237962"
+                  href="tel:+918618331467"
                   className="flex items-center gap-3.5 min-w-0 flex-1 cursor-pointer"
                 >
                   <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-[#2A292F] flex items-center justify-center text-purple-600 dark:text-[#DDB7FF] group-hover:bg-purple-600 group-hover:text-white transition-all shrink-0">
@@ -167,17 +167,17 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
                     </svg>
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-[#908FA0]">Direct Telephone</span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-[#908FA0]">Mobile Number</span>
                     <span className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-[#E4E1E9] truncate group-hover:text-purple-600 dark:group-hover:text-[#DDB7FF] transition-colors">
-                      +1 (800) 523-SYNC / (800) 523-4967
+                      +91 8618331467
                     </span>
                   </div>
                 </a>
                 <button
                   type="button"
-                  onClick={() => handleCopy('+18005237962', 'phone')}
+                  onClick={() => handleCopy('+918618331467', 'phone')}
                   className="px-2.5 py-1 text-[11px] font-mono rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors shrink-0"
-                  title="Copy phone number"
+                  title="Copy mobile number"
                 >
                   {copiedField === 'phone' ? '✓ Copied' : 'Copy'}
                 </button>
@@ -192,9 +192,9 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
                   </svg>
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-[#908FA0]">Sovereign Node Location</span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-[#908FA0]">Location / Sovereign Node</span>
                   <span className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-[#E4E1E9]">
-                    Silicon Valley, CA 94043 United States
+                    Bangalore, Karnataka, India
                   </span>
                 </div>
               </div>
@@ -400,32 +400,7 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
           </div>
         </section>
 
-        {/* 2. TRUSTED BY / INTEGRATIONS LOGO CLOUD (From Stitch Screen) */}
-        <section className="flex flex-col items-center gap-5 py-6 border-y border-slate-200/80 dark:border-white/10">
-          <p className="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-[#908FA0] text-center">
-            Trusted by visionary founders &amp; backed by institutional grade infrastructure
-          </p>
-          <div className="w-full flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-80 hover:opacity-100 transition-opacity">
-            {[
-              { name: 'Intercom', icon: '💬' },
-              { name: 'Dropbox', icon: '📦' },
-              { name: 'Slack', icon: '⚡' },
-              { name: 'Zendesk', icon: '🎧' },
-              { name: 'Revolut', icon: '💳' },
-              { name: 'HubSpot', icon: '🎯' },
-            ].map((partner) => (
-              <div
-                key={partner.name}
-                className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-[#C0C1FF] transition-colors cursor-pointer"
-              >
-                <span className="text-lg">{partner.icon}</span>
-                <span className="font-display text-base font-bold tracking-tight">{partner.name}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* 3. FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION) */}
+        {/* 2. FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION) */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* FAQ Left Side */}
           <div className="lg:col-span-4 flex flex-col gap-3">

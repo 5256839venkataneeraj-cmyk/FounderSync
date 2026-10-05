@@ -51,9 +51,9 @@ export async function POST(req: NextRequest) {
           sla: 'Priority turnaround: < 2 hours',
           founder: `${firstName} ${lastName}`,
           directContact: {
-            conciergeEmail: 'concierge@foundersync.io',
-            directPhone: '+1 (800) 523-SYNC',
-            jurisdiction: 'Sovereign Node / Silicon Valley, CA',
+            conciergeEmail: 'potluri.venkata2026@vitstudent.ac.in',
+            directPhone: '+91 8618331467',
+            jurisdiction: 'Bangalore, India',
           },
         },
       },

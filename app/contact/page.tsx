@@ -36,15 +36,20 @@ export default function ContactPage() {
             <span className="text-slate-300 dark:text-slate-600">·</span>
             <span>Industry 6.0 Human-Centric Strategic Mirror</span>
           </div>
-          <div className="flex items-center gap-4 text-xs font-medium">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
             <a
-              href="mailto:concierge@foundersync.io"
+              href="mailto:potluri.venkata2026@vitstudent.ac.in"
               className="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
             >
-              concierge@foundersync.io
+              potluri.venkata2026@vitstudent.ac.in
             </a>
             <span>•</span>
-            <span className="text-slate-400">Direct Founder Hotline: +1 (800) 523-SYNC</span>
+            <a
+              href="tel:+918618331467"
+              className="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
+            >
+              Direct Mobile: +91 8618331467 (Bangalore)
+            </a>
           </div>
         </div>
       </footer>

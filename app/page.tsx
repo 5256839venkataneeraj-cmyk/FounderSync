@@ -114,10 +114,10 @@ export default function HomePage() {
             </button>
             <span>•</span>
             <a
-              href="mailto:concierge@foundersync.io"
+              href="mailto:potluri.venkata2026@vitstudent.ac.in"
               className="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
             >
-              concierge@foundersync.io
+              potluri.venkata2026@vitstudent.ac.in
             </a>
           </div>
         </div>
