@@ -111,12 +111,6 @@ export function ConciergeView({ onNavigateToAdvisor }: { onNavigateToAdvisor?: (
           {/* Left Side: Header & Direct Contact Info Blocks */}
           <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8">
             <div className="flex flex-col gap-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-[#1F1F24] border border-indigo-200/60 dark:border-white/10 w-fit shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-[#FFB95F] animate-pulse" />
-                <span className="text-[11px] font-mono uppercase tracking-wider text-indigo-600 dark:text-[#C0C1FF] font-semibold">
-                  Executive Concierge &amp; Sounding Board
-                </span>
-              </div>
               <h1 className="text-3xl sm:text-4xl lg:text-[42px] lg:leading-[48px] font-display font-bold tracking-tight text-slate-900 dark:text-[#F1F1F5]">
                 How can we help you today?
               </h1>
