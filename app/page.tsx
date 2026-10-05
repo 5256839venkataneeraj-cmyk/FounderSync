@@ -10,6 +10,7 @@ import { ReportsView } from '@/components/figma/ReportsView';
 import { InsightsView } from '@/components/figma/InsightsView';
 import { SettingsView } from '@/components/figma/SettingsView';
 import { ConciergeView } from '@/components/figma/ConciergeView';
+import { FaqView } from '@/components/figma/FaqView';
 import { OnboardingModal } from '@/components/figma/OnboardingModal';
 
 import { useUserProfile } from '@/context/UserProfileContext';
@@ -67,6 +68,13 @@ export default function HomePage() {
           <SettingsView />
         )}
 
+        {activeTab === 'faq' && (
+          <FaqView
+            onNavigateToConcierge={() => setActiveTab('concierge')}
+            onNavigateToAdvisor={() => setActiveTab('advisor')}
+          />
+        )}
+
         {activeTab === 'concierge' && (
           <ConciergeView onNavigateToAdvisor={() => setActiveTab('advisor')} />
         )}
@@ -80,7 +88,15 @@ export default function HomePage() {
             <span className="text-slate-300 dark:text-slate-600">·</span>
             <span>Industry 6.0 Human-Centric Strategic Mirror</span>
           </div>
-          <div className="flex items-center gap-4 text-xs font-medium">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
+            <button
+              type="button"
+              onClick={() => setActiveTab('faq')}
+              className="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
+            >
+              Strategic FAQ
+            </button>
+            <span>•</span>
             <button
               type="button"
               onClick={() => setActiveTab('concierge')}

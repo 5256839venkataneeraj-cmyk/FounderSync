@@ -136,6 +136,40 @@ export function CommandPaletteModal() {
           setIsSearchModalOpen(false);
         },
       },
+      {
+        id: 'view-faq',
+        category: 'views',
+        title: 'Strategic FAQ & Knowledge Base',
+        subtitle: 'Answers on contrarian heuristics, zero-RAM enclaves, and telemetry integrations',
+        badge: 'Help',
+        badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+        icon: (
+          <span className="text-base p-1.5 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+            ❓
+          </span>
+        ),
+        action: () => {
+          setActiveTab('faq');
+          setIsSearchModalOpen(false);
+        },
+      },
+      {
+        id: 'view-concierge',
+        category: 'views',
+        title: 'Executive Concierge & Contact',
+        subtitle: 'Direct confidential sounding board intake with < 2 hour SLA guarantee',
+        badge: 'Support',
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+        icon: (
+          <span className="text-base p-1.5 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            🛎️
+          </span>
+        ),
+        action: () => {
+          setActiveTab('concierge');
+          setIsSearchModalOpen(false);
+        },
+      },
 
       // 2. Core Metrics
       {
